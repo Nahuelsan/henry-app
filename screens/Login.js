@@ -3,7 +3,6 @@ import { Image, Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity 
 import firebase from '../database/database.js';
 import db from '../database/database.js';
 import { Button, Divider } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Login = (props) => {
 	const initalState = {
@@ -32,18 +31,13 @@ const Login = (props) => {
 			}
 		}
 		else {
-			//  try {
-
-			console.log(
-				'Buscar usuario en Base de Datos de Usuarios con el email y si no está enviar a formulario de registo'
-			);
-			alert('Login Correcto');
-			/*     await firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-        alert("Usuario creado")
-      } catch (error) {
-        console.log(error)
-        alert("Error")
-     */
+			try {
+				await firebase.firebase.auth().signInWithEmailAndPassword(state.email, state.password)
+				alert("Usuario creado")
+			  } catch (error) {
+				console.log(error)
+				alert("Error")
+			  }
 		}
 	};
 
