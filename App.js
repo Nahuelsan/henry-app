@@ -35,7 +35,7 @@ export default function App () {
 	}
 	return (
 		<NavigationContainer>
-			<StudentList />
+			<MyStack />
 		</NavigationContainer>
 	);
 }
