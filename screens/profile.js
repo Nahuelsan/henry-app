@@ -1,19 +1,31 @@
-import React from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Avatar } from 'react-native-elements'
+import firebase from '../database/database'
 
 const Profile = () => {
-    const user = {
-        img: '',
-        name: 'Ignacio Ezequiel Gimenez',
-        email: 'ignaciogimenez70@gmail.com',
-        edad: 21,
-        sexo: 'Masculino',
-        nacionalidad: 'Argentino',
-        rol: 'Estudiante'
+    const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    const getUser = async () => {
+        const dbRef = firebase.db.collection("usuarios").doc('8lRY3WQB8HFZzPRFo1Fu')
+        const doc = await dbRef.get()
+        const user = doc.data()
+        setUser(user)
+        setLoading(false)
     }
 
-    return(
+    return loading ? (
+        <View>
+            <ActivityIndicator
+            size="large"
+            color="gray"
+            />
+        </View>
+    ) : (
         <ScrollView style={styles.container_main}>
             <View style={styles.container_img_name}>
                 <Avatar
@@ -25,13 +37,13 @@ const Profile = () => {
                 size="large"
                 rounded/>
                 <View style={styles.name}>
-                    <Text style={styles.title}>{user.name}</Text>
+                    <Text style={styles.title}>{user.nombre}</Text>
                     <Text style={styles.subtitle}>{user.email}</Text>
                 </View>
             </View>
             <View style={styles.datos}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Datos</Text>
-                {Object.keys(user).splice(2).map(att => (
+                {Object.keys(user).filter(att => att !== 'img' && att !== 'nombre' && att !== 'email').sort().map(att => (
                     <View style={styles.container_data} key={att}>
                         <Text style={styles.attribute}>{att.replace(/\b\w/g, a => a.toUpperCase())}</Text>
                         <Text style={styles.value}>{user[att]}</Text>
