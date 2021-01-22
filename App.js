@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //Components
 import Login from './screens/Login';
 import CreateUser from './screens/CreateUser';
+import StudentList from './screens/StudentList';
 
 const Stack = createStackNavigator();
 
@@ -28,12 +29,13 @@ export default function App () {
 			>
 				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
+        <Stack.Screen name="StudentList" component={StudentList} options={{ title: 'Student´s List' }} />
 			</Stack.Navigator>
 		);
 	}
 	return (
 		<NavigationContainer>
-			<MyStack />
+			<StudentList />
 		</NavigationContainer>
 	);
 }
