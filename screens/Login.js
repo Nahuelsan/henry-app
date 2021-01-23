@@ -4,71 +4,107 @@ import firebase from '../database/database.js';
 import db from '../database/database.js';
 import { Button, Divider } from 'react-native-elements';
 
-const Login = (props) => {
+const Login = ({ navigation }) => {
 	const initalState = {
 		password : '',
 		email    : ''
 	};
 
 	const [
+		users,
+		setUsers
+	] = useState([]);
+
+	const [
 		state,
 		setState
 	] = useState(initalState);
+
+	useEffect(() => {
+		firebase.db.collection('usuarios').onSnapshot((snap) => {
+			const estudiantes = [];
+			snap.docs.forEach((doc) => {
+				const { email, rol } = doc.data();
+				estudiantes.push({ email, rol, id: doc.id });
+			});
+			setUsers(estudiantes);
+			console.log(users);
+		});
+	}, []);
 
 	const handleChangeText = (value, name) => {
 		setState({ ...state, [name]: value });
 	};
 
 	const loginManual = async () => {
-		console.log(db); // Function
-		console.log(firebase.firebase.auth); // Function
 		if (state.email === '' || state.password === '') {
-			if (state.email === '') {
-				alert('Ingrese un email');
+			if (state.email === '' || !state.password.includes('@')) {
+				alert('Ingrese un email válido');
 			}
 			if (state.password === '') {
 				alert('Ingrese un password');
 			}
 		}
 		else {
-			try {
-				await firebase.firebase.auth().signInWithEmailAndPassword(state.email, state.password)
-				alert("Usuario creado")
-			  } catch (error) {
-				console.log(error)
-				alert("Error")
-			  }
+			if (users.find((user) => user.email === state.email)) {
+				firebase.firebase
+					.auth()
+					.signInWithEmailAndPassword(state.email, state.password)
+					.then((result) => {
+						navigation.navigate('Home');
+					})
+					.catch((error) => {
+						alert(error);
+					});
+			}
+			else {
+				alert('el usuario no se encuentra en la base de datos de estudiantes de Henry');
+			}
 		}
 	};
 
 	const loginGoogle = async () => {
-		console.log(firebase.auth);
+		console.log('se ejecuta la funcionLoginGoogle');
 		firebase.firebase
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
 			.then((result) => {
 				console.log(result.user);
+				if (users.find((user) => user.email === result.user.email)) {
+					navigation.navigate('Home');
+				}
+				else {
+					throw 'el email no se encuentra en la base de datos de estudiantes';
+				}
 				/* @type {firebase.auth.OAuthCredential} */
-
-				alert('Login Correcto');
-				var credential = result.credential;
-
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				var token = credential.accessToken;
-				// The signed-in user info.
-				var user = result.user;
-				// ...
 			})
 			.catch((error) => {
-				// Handle Errors here.
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				// The email of the user's account used.
-				var email = error.email;
-				// The firebase.auth.AuthCredential type that was used.
-				var credential = error.credential;
-				// ...
+				alert(error);
 			});
+	};
+
+	const loginGithub = async () => {
+		console.log('se ejecuta la funcionLoginGithub');
+		firebase.firebase
+			.auth()
+			.signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
+			.then((result) => {
+				console.log(result);
+				if (users.find((user) => user.email === result.user.email)) {
+					navigation.navigate('Home');
+				}
+				else {
+					window.close();
+					throw 'el email no se encuentra en la base de datos de estudiantes';
+				}
+				/* @type {firebase.auth.OAuthCredential} */
+			})
+			.catch((error) => {
+				alert(error);
+			});
+	};
+	const goToRegister = async () => {
+		navigation.navigate('RegisterUser');
 	};
 
 	return (
@@ -86,24 +122,24 @@ const Login = (props) => {
 			{/* Input Password*/}
 			<View style={styles.inputGroup}>
 				<TextInput
+					secureTextEntry={true}
 					placeholder="Ingrese una password"
 					onChangeText={(value) => handleChangeText(value, 'password')}
 					value={state.password}
 				/>
 			</View>
-			<Divider style={{ width: '80%', margin: 20 }} />
+
+			<TouchableOpacity style={styles.button}>
+				<Text style={styles.btntext} onPress={() => loginManual()}>
+					{' '}
+					LOG IN {' '}
+				</Text>
+			</TouchableOpacity>
+
 			<View style={styles.btnLogin}>
-				<TouchableOpacity style={styles.button}>
-					<Text style={styles.btntext} onPress={() => loginManual()}>
-						{' '}
-						LOG IN {' '}
-					</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button}>
-					<Text style={styles.btntext} onPress={() => loginGoogle()}>
-						{' '}
-						Log In with your Google Account {' '}
-					</Text>
+				<Text style={{ fontSize: 'large', fontWeight: 'bold' }}> Iniciar sesión con: </Text>
+
+				<TouchableOpacity onPress={() => loginGoogle()}>
 					<Image
 						style={styles.tinyLogo}
 						source={{
@@ -111,7 +147,23 @@ const Login = (props) => {
 						}}
 					/>
 				</TouchableOpacity>
+
+				<TouchableOpacity onPress={() => loginGithub()}>
+					<Image
+						style={styles.tinyLogo}
+						source={{
+							uri : 'https://github.githubassets.com/images/modules/logos_page/Octocat.png'
+						}}
+					/>
+				</TouchableOpacity>
 			</View>
+
+			<TouchableOpacity>
+				<Text style={styles.btntext} onPress={() => goToRegister()}>
+					{' '}
+					Crear Cuenta {' '}
+				</Text>
+			</TouchableOpacity>
 		</ScrollView>
 	);
 };
@@ -124,6 +176,7 @@ const styles = StyleSheet.create({
 	inputGroup : {
 		flex              : 1,
 		padding           : 0,
+		marginTop         : 50,
 		marginBottom      : 15,
 		borderBottomWidth : 1,
 		borderBottomColor : '#cccccc'
@@ -138,25 +191,32 @@ const styles = StyleSheet.create({
 		justifyContent : 'center'
 	},
 	btnLogin   : {
-		position       : 'fixed',
-		bottom         : 0,
-		justifyContent : 'center'
+		justifyContent : 'spaceBetween'
+		/* bottom         : 0,
+		justifyContent : 'center',
+ */
+		/* display : 'flex',
+		margin  : 'auto'
+		 */
 	},
 	button     : {
 		alignSelf       : 'stretch',
 		alignItems      : 'center',
-		padding         : 20,
+		padding         : 15,
 		backgroundColor : '#e5e500',
 		border          : 'groove',
 		borderRadius    : '8px',
-		justifyContent  : 'center'
+		justifyContent  : 'center',
+		marginBottom    : 20
 	},
 	btntext    : {
-		fontWeight : 'bold'
+		textAlign  : 'right',
+		fontWeight : 'bold',
+		fontSize   : '120%'
 	},
 	tinyLogo   : {
-		width          : 50,
-		height         : 50,
+		width          : 100,
+		height         : 100,
 		justifyContent : 'center'
 	}
 });
