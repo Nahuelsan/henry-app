@@ -14,6 +14,8 @@ import FormularioDatos from './screens/FormularioDatos';
 import HenryStudent from './screens/HenryStudent';
 import CohorteMenu from './screens/CohorteMenu';
 import InstructoresList from './screens/InstructoresList';
+import NuevoHenry from './screens/NuevoHenry';
+import CohorteList from './screens/CohorteList';
 
 const Stack = createStackNavigator();
 
@@ -32,14 +34,16 @@ export default function App() {
           }
         }}
       >
+        <Stack.Screen name="Henry Student" component={HenryStudent} />
         <Stack.Screen name="Iniciar Sesion" component={Login} />
-        {/* <Stack.Screen name="Home" component={Home} /> */}
+        <Stack.Screen name="Home" component={Home} /> 
         <Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
         <Stack.Screen name="RegisterUser" component={RegisterUser} />
         <Stack.Screen name="Formulario Datos" component={FormularioDatos} />
-        <Stack.Screen name="Henry Student" component={HenryStudent} />
         <Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
         <Stack.Screen name="Listado de Instructores" component={InstructoresList} />
+        <Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
+        <Stack.Screen name="Lista de Cohortes" component={CohorteList} />
       </Stack.Navigator>
 
     );

@@ -25,6 +25,7 @@ const CohorteMenu = ({navigation}) => {
           <Icon
             name="right"
             type='antdesign'
+            onPress={() => navigation.navigate('Lista de Cohortes')}
           />
         </View>
       </View>

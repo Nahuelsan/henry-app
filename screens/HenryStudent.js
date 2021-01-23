@@ -21,6 +21,7 @@ const HenryStudent = ({ navigation }) => {
           <Icon
             name="right"
             type='antdesign'
+            onPress={() => navigation.navigate('Nuevo Henry')}
           />
         </View>
       </View>
