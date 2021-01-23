@@ -3,33 +3,67 @@ import {
   Text,
   View
 } from "react-native";
-import { Avatar, ListItem } from "react-native-elements";
+import { Avatar, ListItem, Button, Icon } from "react-native-elements";
+import AdminNavBar from '../screens/AdminNavBar'
+
 const list = [
   {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President'
+    title: 'COHORTE #01',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Toni Tralice'
   },
   {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
+    title: 'COHORTE #02',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Franco Etcheverry'
+  }, {
+    title: 'COHORTE #03',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Agustin Amani'
+  }, {
+    title: 'COHORTE #04',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Leo Maglia'
+  }, {
+    title: 'COHORTE #05',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Lucas Verdielli'
+  }, {
+    title: 'COHORTE #06',
+    avatar_url: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
+    instructor: 'Ignacio Contreras'
   },
-  // more items
 ]
 
 
 const CohorteList = ({ navigation }) => {
   return (
     <View>
+      <AdminNavBar navigation={navigation} title='Lista de Cohortes' />
       {
         list.map((l, i) => (
           <ListItem key={i} bottomDivider>
             <Avatar source={{ uri: l.avatar_url }} />
             <ListItem.Content>
-              <ListItem.Title>{l.name}</ListItem.Title>
-              <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+              <ListItem.Title>{l.title}</ListItem.Title>
+              <ListItem.Subtitle>{l.instructor}</ListItem.Subtitle>
             </ListItem.Content>
+            <Button 
+            title="VER" 
+            buttonStyle={{ backgroundColor: 'black' }}
+            onPress={() => navigation.navigate('Cohorte Seleccionado')} />
+            <Button
+              buttonStyle={{ backgroundColor: 'black' }}
+              icon={
+                <Icon
+                  name="edit"
+                  type='feather'
+                  size={15}
+                  color="white"
+                />
+              }
+              color={'black'}
+            />
           </ListItem>
         ))
       }
