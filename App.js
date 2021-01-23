@@ -7,11 +7,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //Components
+
 import Login from './screens/Login';
 import CreateUser from './screens/CreateUser';
 import Home from './screens/Home';
 import RegisterUser from './screens/RegisterUser';
 import FormularioDatos from './screens/FormularioDatos';
+
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,7 @@ export default function App () {
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 			</Stack.Navigator>
+
 		);
 	}
 	return (
