@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { CheckBox, Icon, Image, Input, Text } from 'react-native-elements'
-
+import axios from 'axios'
 
 const NuevoHenry = ({ navigation }) => {
   return (
