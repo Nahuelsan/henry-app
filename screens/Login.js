@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
 		justifyContent : 'center'
 	},
 	btnLogin   : {
-		justifyContent : 'spaceBetween'
+		/* justifyContent : 'spaceBetween' */
 		/* bottom         : 0,
 		justifyContent : 'center',
  */
@@ -204,15 +204,15 @@ const styles = StyleSheet.create({
 		alignItems      : 'center',
 		padding         : 15,
 		backgroundColor : '#e5e500',
-		border          : 'groove',
-		borderRadius    : '8px',
+		/* border          : 'groove', */
+		/* borderRadius    : 8, */
 		justifyContent  : 'center',
 		marginBottom    : 20
 	},
 	btntext    : {
 		textAlign  : 'right',
 		fontWeight : 'bold',
-		fontSize   : '120%'
+		/* fontSize   : '120%' */
 	},
 	tinyLogo   : {
 		width          : 100,
