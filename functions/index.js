@@ -16,16 +16,17 @@ app.post("/", (req, res) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: 'wsastudilloa@gmail.com',
-            pass: "tdcgtrgvwbjtkppr"
+            user: 'henryapp2021@gmail.com',
+            pass: "vgiwbomfyvxugdpo"
         }
     });
 
     const mailOptions = {
-        from: 'wsastudilloa@gmail.com',
+        from: 'henryapp2021@gmail.com',
         to: body.to,
         subject: body.subject,
-        text: body.message
+        text: body.message, 
+        html: "<a href='http://localhost:19006'>Donwload Henry-app here</a>"
     };
 
     transporter.sendMail(mailOptions, (err, data) => {
