@@ -38,7 +38,8 @@ const RegisterUser = ({navigation}) => {
 			try {
 				await firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
 				alert('Usuario creado');
-				props.navigation.navigate('Formulario Datos');
+				navigation.navigate('Formulario Datos', { email: state.email });
+
 			} catch (error) {
 				console.log(error);
 				alert('Error');
