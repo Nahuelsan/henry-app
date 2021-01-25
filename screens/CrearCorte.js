@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e5e500',
   },
   container: {
-    border: 'solid 2px grey',
+    //border: 'solid 2px grey',
     padding: '7px',
     display: 'flex',
     flexDirection: 'row',

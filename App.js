@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Font from 'expo-font';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -6,13 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //Components
 
-import Login from './screens/Login';
+import Login from './screens/Login/Login';
 import CreateUser from './screens/CreateUser';
-import Home from './screens/Home';
+import Home from './screens/Home/Home';
 import RegisterUser from './screens/RegisterUser';
 import FormularioDatos from './screens/FormularioDatos';
-import HenryStudent from './screens/HenryStudent';
-import CohorteMenu from './screens/CohorteMenu';
+import HenryStudent from './screens/OptionAdmin/HenryStudent';
+import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import InstructoresList from './screens/InstructoresList';
 import NuevoHenry from './screens/NuevoHenry';
 import CohorteList from './screens/CohorteList';
@@ -21,6 +22,27 @@ import CrearCohorte from './screens/CrearCorte';
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  const [fontsLoad, setFontsLoad] = React.useState(false);
+
+  React.useEffect(() => {
+    if(!fontsLoad){
+      getFonts();
+    }
+  }, [])
+
+  const getFonts = async()=>{
+    await Font.loadAsync({
+      'redRose-bold': require('./src/assets/fonts/RedRose-Bold.ttf'),
+      'redRose-light': require('./src/assets/fonts/RedRose-Light.ttf'),
+      'redRose-regular': require('./src/assets/fonts/RedRose-Regular.ttf'),
+      'redRose-regular': require('./src/assets/fonts/RedRose-Regular.ttf'),
+      'gadugi': require('./src/assets/fonts/GADUGI.ttf'),
+      'gadugib': require('./src/assets/fonts/GADUGIB.ttf'),
+    })
+    setFontsLoad(true);
+  }
+
   function MyStack() {
     return (
       <Stack.Navigator
@@ -35,9 +57,9 @@ export default function App() {
           }
         }}
       >
-        <Stack.Screen name="Henry Student" component={HenryStudent} />
-        <Stack.Screen name="Iniciar Sesion" component={Login} />
         <Stack.Screen name="Home" component={Home} /> 
+        <Stack.Screen name="Iniciar Sesion" component={Login} />
+        <Stack.Screen name="Henry Student" component={HenryStudent} />
         <Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
         <Stack.Screen name="RegisterUser" component={RegisterUser} />
         <Stack.Screen name="Formulario Datos" component={FormularioDatos} />
@@ -51,6 +73,7 @@ export default function App() {
 
     );
   }
+
   return (
     <NavigationContainer>
       <MyStack />

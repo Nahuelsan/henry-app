@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import firebase from '../database/database.js';
-import db from '../database/database.js';
-import { Button, Divider } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { 
+  Contenedor, 
+  Encabezado, 
+  ContGen, 
+  Back, 
+  TituloPrin, 
+  ContInputs,
+  InpText,
+  BorderBotInput,
+  BotonLog,
+  TextButton,
+  ContSocialRed,
+  IconSocialRed
+} from './styledLogin';
+import { Text, View, TouchableOpacity } from 'react-native';
+import firebase from '../../database/database.js';
 
 const Login = ({ navigation }) => {
 	const initalState = {
@@ -36,7 +51,7 @@ const Login = ({ navigation }) => {
 		setState({ ...state, [name]: value });
 	};
 
-	const loginManual = async () => {
+  const loginManual = async () => {
 		if (state.email === '' || state.password === '') {
 			if (state.email === '' || !state.password.includes('@')) {
 				alert('Ingrese un email válido');
@@ -127,122 +142,81 @@ const Login = ({ navigation }) => {
 				alert(error);
 			});
 	};
-	const goToRegister = async () => {
+	const goToRegister = () => {
 		navigation.navigate('RegisterUser');
 	};
 
 	return (
-		<ScrollView style={styles.container}>
-			{/* Email Input */}
-			<View style={styles.inputGroup}>
-				<TextInput
-					textContentType="emailAddress"
-					keyboardType="email-address"
-					placeholder="Email"
-					onChangeText={(value) => handleChangeText(value, 'email')}
-					value={state.email}
-				/>
-			</View>
-			{/* Input Password*/}
-			<View style={styles.inputGroup}>
-				<TextInput
-					secureTextEntry={true}
-					placeholder="Ingrese una password"
-					onChangeText={(value) => handleChangeText(value, 'password')}
-					value={state.password}
-				/>
-			</View>
+		<Contenedor >
+      {/* Encabezado Back */}
+      <Encabezado>
+          <FontAwesomeIcon 
+            icon={ faArrowLeft } size={ 18 } 
+          />
+          <Back 
+            onPress={() => navigation.navigate('Home')}
+          >Regresar</Back>
+      </Encabezado>
+      <ContGen>
+        <TituloPrin>Bienvenido a Henry World</TituloPrin>
+        <ContInputs >
+          {/* Email Input */}
+          <BorderBotInput>
+            <InpText
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              placeholder="Ingresa el email"
+              onChangeText={(value) => handleChangeText(value, 'email')}
+              value={state.email}
+            />
+          </BorderBotInput>
+          {/* Input Password*/}
+          <BorderBotInput>
+            <InpText
+              secureTextEntry={true}
+              placeholder="Ingrese una password"
+              onChangeText={(value) => handleChangeText(value, 'password')}
+              value={state.password}
+          />
+          </BorderBotInput>
+        </ContInputs>
 
-			<TouchableOpacity style={styles.button}>
-				<Text style={styles.btntext} onPress={() => loginManual()}>
-					{' '}
-					LOG IN {' '}
-				</Text>
-			</TouchableOpacity>
+        <BotonLog onPress={() => loginManual()}>
+          <TextButton  >
+            Iniciar Sesion 
+          </TextButton>
+        </BotonLog>
 
-			<View style={styles.btnLogin}>
-				<Text style={{ fontSize: 'large', fontWeight: 'bold' }}> Iniciar sesión con: </Text>
-
-				<TouchableOpacity onPress={() => loginGoogle()}>
-					<Image
-						style={styles.tinyLogo}
-						source={{
-							uri : 'https://pngimg.com/uploads/google/google_PNG19635.png'
-						}}
-					/>
-				</TouchableOpacity>
-
-				<TouchableOpacity onPress={() => loginGithub()}>
-					<Image
-						style={styles.tinyLogo}
-						source={{
-							uri : 'https://github.githubassets.com/images/modules/logos_page/Octocat.png'
-						}}
-					/>
-				</TouchableOpacity>
-			</View>
-
-			<TouchableOpacity>
-				<Text style={styles.btntext} onPress={() => goToRegister()}>
-					{' '}
-					Crear Cuenta {' '}
-				</Text>
-			</TouchableOpacity>
-		</ScrollView>
+        <ContSocialRed>
+          <Text> O inicia sesión con </Text>
+          <IconSocialRed>
+            <TouchableOpacity onPress={() => loginGoogle()}>
+              <FontAwesomeIcon 
+                icon={ faGoogle } size={ 20 } 
+              />
+            </TouchableOpacity>
+            <TouchableOpacity >
+              <FontAwesomeIcon 
+                icon={ faLinkedin } size={ 20 } 
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => loginGithub()}>
+              <FontAwesomeIcon 
+                icon={ faGithub } size={ 20 } 
+              />
+            </TouchableOpacity>
+          </IconSocialRed>
+        </ContSocialRed>
+        {/* 
+        <TouchableOpacity>
+          <Text style={styles.btntext} onPress={() => goToRegister()}>
+            {' '}
+            Crear Cuenta {' '}
+          </Text>
+        </TouchableOpacity> */}
+      </ContGen>
+    </Contenedor>
 	);
 };
-
-const styles = StyleSheet.create({
-	container  : {
-		flex    : 1,
-		padding : 35
-	},
-	inputGroup : {
-		flex              : 1,
-		padding           : 0,
-		marginTop         : 50,
-		marginBottom      : 15,
-		borderBottomWidth : 1,
-		borderBottomColor : '#cccccc'
-	},
-	loader     : {
-		left           : 0,
-		right          : 0,
-		top            : 0,
-		bottom         : 0,
-		position       : 'absolute',
-		alignItems     : 'center',
-		justifyContent : 'center'
-	},
-	btnLogin   : {
-		justifyContent : 'spaceBetween'
-		/* bottom         : 0,
-		justifyContent : 'center',
- */
-		/* display : 'flex',
-		margin  : 'auto'
-		 */
-	},
-	button     : {
-		alignSelf       : 'stretch',
-		alignItems      : 'center',
-		padding         : 15,
-		backgroundColor : '#e5e500',
-		border          : 'groove',
-		borderRadius    : '8px',
-		justifyContent  : 'center',
-		marginBottom    : 20
-	},
-	btntext    : {
-		textAlign  : 'right',
-		fontWeight : 'bold',
-		fontSize   : '120%'
-	},
-	tinyLogo   : {
-		width          : 100,
-		height         : 100,
-		justifyContent : 'center'
-	}
-});
 
 export default Login;

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   card: {
     margin:'20px',
-    border: 'solid 2px grey',
+    //border: 'solid 2px grey',
     display: 'flex',
     flexDirection: 'row',
   },
