@@ -5,15 +5,17 @@ import UserHeader from './UserHeader';
 import UserNavBar from './UserNavBar';
 import Footer from './Footer';
 
-const UserView = () => {
-  return (
-    <View>
-      <UserHeader/>
-      <UserNavBar/>
-      <UserBody/>
-      <Footer />
-    </View>
-  )
+const UserView = (props) => {
+	const { info } = props.route.params;
+	return (
+		<View>
+			{console.log(info)}
+			<UserHeader info={info} />
+			<UserNavBar info={info} />
+			<UserBody info={info} />
+			<Footer />
+		</View>
+	);
 };
 
 export default UserView;

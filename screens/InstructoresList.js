@@ -27,7 +27,7 @@ const InstructoresList = ({ navigation }) => {
 	] = useState([]);
 
 	useEffect(() => {
-		firebase.db.collection('usuarios').onSnapshot((snap) => {
+		firebase.db.collection('users').onSnapshot((snap) => {
 			const profesores = [];
 			snap.docs.forEach((doc) => {
 				const { nombre, email, rol, dni, nacionalidad, img, telefono } = doc.data();
