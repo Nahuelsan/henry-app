@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { block } from 'react-native-reanimated';
 
 
 const UserHeader = ({ name = 'Sherlock', photo = '' }) => {
