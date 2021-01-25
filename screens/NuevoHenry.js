@@ -13,6 +13,7 @@ const NuevoHenry = ({ navigation }) => {
     if (!input.includes('@') || !input.includes('.com')){
       return alert('email invalido')
     }
+    await firebase.db.collection('invited_users').add(input);
     await axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
     {to:input, 
       message:`<h1>Buenas tardes</h1>`,
@@ -22,7 +23,6 @@ const NuevoHenry = ({ navigation }) => {
       alert(res.data.message)
     })
     setInput('')
-
   }
   return (
     <View style={styles.container}>

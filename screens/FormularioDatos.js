@@ -59,7 +59,7 @@ const FormularioDatos = (props) => {
 					photo        : state.photo
 				});
 
-				props.navigation.navigate('UsersList');
+				props.navigation.navigate('Menu Usuario"');
 			} catch (error) {
 				console.log(error);
 			}
