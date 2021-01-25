@@ -1,9 +1,29 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { CheckBox, Icon, Image, Input, Text } from 'react-native-elements'
-
+import axios from 'axios'
 
 const NuevoHenry = ({ navigation }) => {
+  const [input,setInput]=useState('')
+  const sendEmail=(value) =>{
+    setInput(value)
+    
+  }
+  const onPress= async ()=>{
+    if (!input.includes('@') || !input.includes('.com')){
+      return alert('email invalido')
+    }
+    await axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
+    {to:input, 
+      message:`<h1>Buenas tardes</h1>`,
+      subject:"hola prueba app henry"
+    })
+    .then(res=>{
+      alert(res.data.message)
+    })
+    setInput('')
+
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header} >
@@ -27,15 +47,12 @@ const NuevoHenry = ({ navigation }) => {
           <Text h4>Inscribe a un futuro Henry</Text>
           <Input
             placeholder='Ingrese el email de destino'
-          />
-          <CheckBox
-            center
-            title='Seguro que desea enviar este email?'
-            checkedIcon='dot-circle-o'
-            uncheckedIcon='circle-o'          
+            onChangeText={value => sendEmail(value) }
+            value={input}
           />
           <Button
             title="Enviar email"
+           onPress={onPress}
           />
         </View>
     </View>

@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
 		setState({ ...state, [name]: value });
 	};
 
-	const loginManual = async () => {
+  const loginManual = async () => {
 		if (state.email === '' || state.password === '') {
 			if (state.email === '' || !state.password.includes('@')) {
 				alert('Ingrese un email válido');
@@ -61,12 +61,20 @@ const Login = ({ navigation }) => {
 			}
 		}
 		else {
-			if (users.find((user) => user.email === state.email)) {
+			var found = users.find((user) => user.email === state.email);
+			if (found) {
 				firebase.firebase
 					.auth()
 					.signInWithEmailAndPassword(state.email, state.password)
 					.then((result) => {
-						navigation.navigate('Home');
+						if (found.rol === 'admin') {
+							console.log('es admin, va a dashboard admin');
+							navigation.navigate('Henry Student');
+						}
+						else {
+							navigation.navigate('Henry Student');
+							console.log('es estudiante, va a dashboard estudiante');
+						}
 					})
 					.catch((error) => {
 						alert(error);
@@ -85,8 +93,16 @@ const Login = ({ navigation }) => {
 			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
 			.then((result) => {
 				console.log(result.user);
-				if (users.find((user) => user.email === result.user.email)) {
-					navigation.navigate('Home');
+				var found = users.find((user) => user.email === result.user.email);
+				if (found) {
+					if (found.rol === 'admin') {
+						console.log('es admin, va a dashboard admin');
+						navigation.navigate('Henry Student');
+					}
+					else {
+						navigation.navigate('Henry Student');
+						console.log('es estudiante, va a dashboard estudiante');
+					}
 				}
 				else {
 					throw 'el email no se encuentra en la base de datos de estudiantes';
@@ -105,8 +121,16 @@ const Login = ({ navigation }) => {
 			.signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
 			.then((result) => {
 				console.log(result);
-				if (users.find((user) => user.email === result.user.email)) {
-					navigation.navigate('Home');
+				var found = users.find((user) => user.email === result.user.email);
+				if (found) {
+					if (found.rol === 'admin') {
+						console.log('es admin, va a dashboard admin');
+						navigation.navigate('Henry Student');
+					}
+					else {
+						console.log('es estudiante, va a dashboard estudiante');
+						navigation.navigate('Henry Student');
+					}
 				}
 				else {
 					window.close();
