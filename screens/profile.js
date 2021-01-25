@@ -1,21 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
-import { Avatar } from 'react-native-elements'
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, Button, Alert } from 'react-native'
+import { Avatar, Icon } from 'react-native-elements'
 import firebase from '../database/database'
 
 const Profile = () => {
     const [user, setUser] = useState({})
+    const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(true)
+    const dbRef = firebase.db.collection("users").doc('NxIN47R31XzyXF1LvFyg')
     useEffect(() => {
         getUser()
     }, [])
 
+    const profile = [
+        {
+            att: 'Dni / Cedula',
+            val: 'dni'
+        },
+        {
+            att: 'Github',
+            val: 'github'
+        },
+        {
+            att: 'Nacionalidad',
+            val: 'nacionalidad'
+        },
+        {
+            att: 'Telefono',
+            val: 'phone'
+        }
+    ]
+
     const getUser = async () => {
-        const dbRef = firebase.db.collection("usuarios").doc('8lRY3WQB8HFZzPRFo1Fu')
         const doc = await dbRef.get()
         const user = doc.data()
         setUser(user)
         setLoading(false)
+    }
+
+    const updateUser = async () => {
+        profile.map(field => !!user[field.val]).includes(false) ? Alert.alert(
+            "Todos los campos deben estar completos",
+            '',
+            [{text: 'Aceptar'}]
+        ) : (await  dbRef.set(user))
     }
 
     return loading ? (
@@ -30,25 +58,31 @@ const Profile = () => {
             <View style={styles.container_img_name}>
                 <Avatar
                 source={{
-                    uri: user.img !== '' ? user.img : 
+                    uri: user.img ? user.img : 
                     "https://www.mendozapost.com/files/image/7/7142/54b6f4c45797b.jpg"
                 }}
-                /* title="IG" */
                 size="large"
                 rounded/>
                 <View style={styles.name}>
-                    <Text style={styles.title}>{user.nombre}</Text>
+                    <Text style={styles.title}>{`${user.first_name} ${user.last_name}`}</Text>
                     <Text style={styles.subtitle}>{user.email}</Text>
                 </View>
             </View>
             <View style={styles.datos}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Datos</Text>
-                {Object.keys(user).filter(att => att !== 'img' && att !== 'nombre' && att !== 'email').sort().map(att => (
-                    <View style={styles.container_data} key={att}>
-                        <Text style={styles.attribute}>{att.replace(/\b\w/g, a => a.toUpperCase())}</Text>
-                        <Text style={styles.value}>{user[att]}</Text>
+                {profile.map(field => (
+                    <View style={styles.container}>
+                        <View style={styles.container_data}>
+                            <Text style={styles.attribute}>{field.att}</Text>
+                            {edit ? <TextInput
+                            placeholder={field.att}
+                            value={user[field.val]}
+                            onChangeText={val => setUser({...user, [field.val]: val})}
+                            /> : <Text style={styles.value}>{user[field.val]}</Text>}
+                        </View>
                     </View>
                 ))}
+                <Button title={edit ? 'Guardar cambios' : 'Editar'} onPress={() => {setEdit(!edit), edit && updateUser()}}/>
             </View>
         </ScrollView>
     )
@@ -102,6 +136,10 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 6,
     },
+    /* container: {
+        flex: 1,
+        justifyContent: 'space-between'
+    }, */
     container_data: {
         marginTop: 10,
         paddingBottom: 10,
