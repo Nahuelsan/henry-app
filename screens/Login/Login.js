@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { 
-  Contenedor, 
-  Encabezado, 
-  ContGen, 
-  Back, 
-  TituloPrin, 
-  ContInputs,
-  InpText,
-  BorderBotInput,
-  BotonLog,
-  TextButton,
-  ContSocialRed,
-  IconSocialRed
+import {
+	Contenedor,
+	Encabezado,
+	ContGen,
+	Back,
+	TituloPrin,
+	ContInputs,
+	InpText,
+	BorderBotInput,
+	BotonLog,
+	TextButton,
+	ContSocialRed,
+	IconSocialRed
 } from './styledLogin';
 import { Text, View, TouchableOpacity } from 'react-native';
 import firebase from '../../database/database.js';
@@ -36,11 +36,22 @@ const Login = ({ navigation }) => {
 	] = useState(initalState);
 
 	useEffect(() => {
-		firebase.db.collection('usuarios').onSnapshot((snap) => {
+		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
-				const { email, rol } = doc.data();
-				estudiantes.push({ email, rol, id: doc.id });
+				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone } = doc.data();
+				estudiantes.push({
+					email,
+					rol,
+					first_name,
+					last_name,
+					nacionalidad,
+					photo,
+					dni,
+					github,
+					phone,
+					id           : doc.id
+				});
 			});
 			setUsers(estudiantes);
 			console.log(users);
@@ -51,7 +62,7 @@ const Login = ({ navigation }) => {
 		setState({ ...state, [name]: value });
 	};
 
-  const loginManual = async () => {
+	const loginManual = async () => {
 		if (state.email === '' || state.password === '') {
 			if (state.email === '' || !state.email.includes('@')) {
 				alert('Ingrese un email válido');
@@ -62,6 +73,7 @@ const Login = ({ navigation }) => {
 		}
 		else {
 			var found = users.find((user) => user.email === state.email);
+			console.log('found', found);
 			if (found) {
 				firebase.firebase
 					.auth()
@@ -69,11 +81,10 @@ const Login = ({ navigation }) => {
 					.then((result) => {
 						if (found.rol === 'admin') {
 							console.log('es admin, va a dashboard admin');
-							navigation.navigate('Henry Student');
+							navigation.navigate('Henry Admin', { info: found });
 						}
 						else {
-							navigation.navigate('Henry Student');
-							console.log('es estudiante, va a dashboard estudiante');
+							navigation.navigate('Menu Usuario', { info: found });
 						}
 					})
 					.catch((error) => {
@@ -94,14 +105,13 @@ const Login = ({ navigation }) => {
 			.then((result) => {
 				console.log(result.user);
 				var found = users.find((user) => user.email === result.user.email);
+				console.log('found', found);
 				if (found) {
 					if (found.rol === 'admin') {
-						console.log('es admin, va a dashboard admin');
-						navigation.navigate('Henry Student');
+						navigation.navigate('Henry Admin', { info: found });
 					}
 					else {
-						navigation.navigate('Henry Student');
-						console.log('es estudiante, va a dashboard estudiante');
+						navigation.navigate('Menu Usuario', { info: found });
 					}
 				}
 				else {
@@ -125,11 +135,11 @@ const Login = ({ navigation }) => {
 				if (found) {
 					if (found.rol === 'admin') {
 						console.log('es admin, va a dashboard admin');
-						navigation.navigate('Henry Student');
+						navigation.navigate('Henry Admin', { info: found });
 					}
 					else {
 						console.log('es estudiante, va a dashboard estudiante');
-						navigation.navigate('Henry Student');
+						navigation.navigate('Menu Usuario', { info: found });
 					}
 				}
 				else {
@@ -147,75 +157,63 @@ const Login = ({ navigation }) => {
 	};
 
 	return (
-		<Contenedor >
-      {/* Encabezado Back */}
-      <Encabezado>
-          <FontAwesomeIcon 
-            icon={ faArrowLeft } size={ 18 } 
-          />
-          <Back 
-            onPress={() => navigation.navigate('Home')}
-          >Regresar</Back>
-      </Encabezado>
-      <ContGen>
-        <TituloPrin>Bienvenido a Henry World</TituloPrin>
-        <ContInputs >
-          {/* Email Input */}
-          <BorderBotInput>
-            <InpText
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              placeholder="Ingresa el email"
-              onChangeText={(value) => handleChangeText(value, 'email')}
-              value={state.email}
-            />
-          </BorderBotInput>
-          {/* Input Password*/}
-          <BorderBotInput>
-            <InpText
-              secureTextEntry={true}
-              placeholder="Ingrese una password"
-              onChangeText={(value) => handleChangeText(value, 'password')}
-              value={state.password}
-          />
-          </BorderBotInput>
-        </ContInputs>
+		<Contenedor>
+			{/* Encabezado Back */}
+			<Encabezado>
+				<FontAwesomeIcon icon={faArrowLeft} size={18} />
+				<Back onPress={() => navigation.navigate('Home')}>Regresar</Back>
+			</Encabezado>
+			<ContGen>
+				<TituloPrin>Bienvenido a Henry World</TituloPrin>
+				<ContInputs>
+					{/* Email Input */}
+					<BorderBotInput>
+						<InpText
+							textContentType="emailAddress"
+							keyboardType="email-address"
+							placeholder="Ingresa el email"
+							onChangeText={(value) => handleChangeText(value, 'email')}
+							value={state.email}
+						/>
+					</BorderBotInput>
+					{/* Input Password*/}
+					<BorderBotInput>
+						<InpText
+							secureTextEntry={true}
+							placeholder="Ingrese una password"
+							onChangeText={(value) => handleChangeText(value, 'password')}
+							value={state.password}
+						/>
+					</BorderBotInput>
+				</ContInputs>
 
-        <BotonLog onPress={() => loginManual()}>
-          <TextButton  >
-            Iniciar Sesion 
-          </TextButton>
-        </BotonLog>
+				<BotonLog onPress={() => loginManual()}>
+					<TextButton>Iniciar Sesion</TextButton>
+				</BotonLog>
 
-        <ContSocialRed>
-          <Text> O inicia sesión con </Text>
-          <IconSocialRed>
-            <TouchableOpacity onPress={() => loginGoogle()}>
-              <FontAwesomeIcon 
-                icon={ faGoogle } size={ 20 } 
-              />
-            </TouchableOpacity>
-            <TouchableOpacity >
-              <FontAwesomeIcon 
-                icon={ faLinkedin } size={ 20 } 
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => loginGithub()}>
-              <FontAwesomeIcon 
-                icon={ faGithub } size={ 20 } 
-              />
-            </TouchableOpacity>
-          </IconSocialRed>
-        </ContSocialRed>
-        {/* 
+				<ContSocialRed>
+					<Text> O inicia sesión con </Text>
+					<IconSocialRed>
+						<TouchableOpacity onPress={() => loginGoogle()}>
+							<FontAwesomeIcon icon={faGoogle} size={20} />
+						</TouchableOpacity>
+						<TouchableOpacity>
+							<FontAwesomeIcon icon={faLinkedin} size={20} />
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => loginGithub()}>
+							<FontAwesomeIcon icon={faGithub} size={20} />
+						</TouchableOpacity>
+					</IconSocialRed>
+				</ContSocialRed>
+				{/* 
         <TouchableOpacity>
           <Text style={styles.btntext} onPress={() => goToRegister()}>
             {' '}
             Crear Cuenta {' '}
           </Text>
         </TouchableOpacity> */}
-      </ContGen>
-    </Contenedor>
+			</ContGen>
+		</Contenedor>
 	);
 };
 
