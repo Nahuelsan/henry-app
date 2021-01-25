@@ -53,7 +53,7 @@ const Login = ({ navigation }) => {
 
   const loginManual = async () => {
 		if (state.email === '' || state.password === '') {
-			if (state.email === '' || !state.password.includes('@')) {
+			if (state.email === '' || !state.email.includes('@')) {
 				alert('Ingrese un email válido');
 			}
 			if (state.password === '') {

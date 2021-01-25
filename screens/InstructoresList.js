@@ -4,8 +4,8 @@ import { ListItem, Avatar } from 'react-native-elements';
 import firebase from '../database/database.js';
 import db from '../database/database.js';
 
-import AdminHeader from './AdminHeader';
-import AdminNavBar from './AdminNavBar';
+import AdminHeader from './OptionAdmin/AdminHeader';
+import AdminNavBar from './OptionAdmin/AdminNavBar';
 
 const list = [
 	{

@@ -12,13 +12,14 @@ import firebase from "../database/database";
 
 const FormularioDatos = (props) => {
   const initalState = {
-    firts_name: "",
+    first_name: "",
     last_name: "",
     email: "",
     phone: "",
     dni: "",
     nacionalidad: "",
-    github: ""
+    github: "",
+    rol: "student"
   };
 
   const [state, setState] = useState(initalState);
@@ -31,7 +32,7 @@ const FormularioDatos = (props) => {
     for(var i = 0; state.length < i; i++){
       console.log(state[i])
     }
-    if(state.firts_name === ''){
+    if(state.first_name === ''){
       alert("Ingrese un nombre")
     }
     if(state.last_name === ''){
@@ -50,13 +51,14 @@ const FormularioDatos = (props) => {
 
       try {
         await firebase.db.collection("users").add({
-          firts_name: state.firts_name,
+          first_name: state.first_name,
           last_name: state.last_name,
           email: state.email,
           phone: state.phone,
           dni: state.dni,
           nacionalidad: state.nacionalidad,
-          github: state.github
+          github: state.github,
+          rol: state.rol
         });
 
         props.navigation.navigate("UsersList");
@@ -72,8 +74,8 @@ const FormularioDatos = (props) => {
       <View style={styles.inputGroup}>
         <TextInput
           placeholder="Nombre"
-          onChangeText={(value) => handleChangeText(value, "firts_name")}
-          value={state.firts_name}
+          onChangeText={(value) => handleChangeText(value, "first_name")}
+          value={state.first_name}
         />
       </View>
       {/* Apellido Input */}
