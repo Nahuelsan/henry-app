@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
-import { computerDisplay } from '../assets/computer.svg';
+import { Icon } from 'react-native-elements';
 
 const UserBody = ({navigation}) => {
   
@@ -19,6 +19,15 @@ const UserBody = ({navigation}) => {
         <View style = {styles.containerText}>
         <Text style = {styles.titulo}>Tu Cohorte</Text>
         <Text style = {styles.subtitulo}>Quieres conocer quien es tu Instructor y a tus compañeros de Cohorte?</Text>
+        <View style = {{ display: 'flex', alignItems: 'flex-end', marginTop: -7 }}>
+        <Icon 
+          reverse
+          name='arrow-right'
+          type= 'font-awesome-5'
+          size={9}
+          color='yellow'
+        />
+        </View>
       </View>
       </View>
 
@@ -34,6 +43,16 @@ const UserBody = ({navigation}) => {
         <View style = {styles.containerText}>
         <Text style = {styles.titulo}>Pair Programming</Text>
         <Text style = {styles.subtitulo}>En tu Cohorte se asignan grupos de pair programming, Quieres saber más?</Text>
+        <View style = {{ display: 'flex', alignItems: 'flex-end', marginTop: -25 }}>
+        <Icon 
+          reverse
+          name='arrow-right'
+          type= 'font-awesome-5'
+          size={9}
+          
+          color='yellow'
+        />
+        </View>
       </View>
       </View>
 
@@ -49,6 +68,16 @@ const UserBody = ({navigation}) => {
         <View style = {styles.containerText}>
         <Text style = {styles.titulo}>Stand Up</Text>
         <Text style = {styles.subtitulo}>Reflexiona el trabajo hecho en el día con compañeros de un Cohorte más avanzada</Text>
+        <View style = {{ display: 'flex', alignItems: 'flex-end', marginTop: -25 }}>
+        <Icon 
+          reverse
+          name='arrow-right'
+          type= 'font-awesome-5'
+          size={9}
+          
+          color='yellow'
+        />
+        </View>
       </View>
       </View>
     </View>
@@ -89,16 +118,21 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 7
+    paddingBottom: 30
   },
   titulo: {
-    marginLeft: 7,
+    marginLeft: 30,
     fontWeight: 700
   },
   subtitulo: {
     marginLeft: 7,
     marginRight: 7
-  }
+  },
+  // arrow: {
+  //   display: 'flex',
+  //   alignItems: 'flex-end',
+  //   marginTop: -7
+  // }
 })
 
 export default UserBody;
