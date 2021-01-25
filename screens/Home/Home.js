@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
 			<InfoBot>
 				{' '}
 				Soy usuario nuevo
-				<SpanText onPress={() => navigation.navigate('Formulario Datos')}> Registro </SpanText>
+				<SpanText onPress={() => navigation.navigate('RegisterUser')}> Registro </SpanText>
 			</InfoBot>
 		</BackGround>
 	);
