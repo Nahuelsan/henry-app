@@ -15,7 +15,7 @@ import FormularioDatos from './screens/FormularioDatos';
 import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import InstructoresList from './screens/InstructoresList';
-import NuevoHenry from './screens/NuevoHenry';
+import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import CohorteList from './screens/CohorteList';
 import CrearCohorte from './screens/CrearCorte';
 import UserView from './screens/UserView';
