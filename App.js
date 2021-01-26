@@ -63,9 +63,9 @@ export default function App () {
 					}
 				}}
 			>
+				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
-				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
