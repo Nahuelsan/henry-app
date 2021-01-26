@@ -34,11 +34,7 @@ const NuevoHenry = ({ navigation }) => {
       if (!e.includes('@') || !e.includes('.com') || e===''){
         return alert(`Email ${i+1} invalido`)
       }
-      // if(!e){
-        
-      // }else{
         await axiosEmail(e)
-      // }
     })
     alert('Email sent')
     setStudents([])
