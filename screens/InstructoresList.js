@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 		height : 100
 	},
 	instructor : {
-		fontWeight : 700,
+		/* fontWeight : 700, */
 		fontSize   : 20
 	}
 

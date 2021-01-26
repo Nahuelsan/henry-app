@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 		height : 100
 	},
 	estudiante : {
-		fontWeight : 700,
+		/* fontWeight : 700, */
 		fontSize   : 20
 	}
 });
