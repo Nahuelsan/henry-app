@@ -31,7 +31,7 @@ const NuevoHenry = ({ navigation }) => {
   
   const onPress=  ()=>{
     students.map(async (e,i)=>{
-      if (!e.includes('@') || !e.includes('.com') || e===''){
+      if (!e.includes('@') || !e.includes('.') || e===''){
         return alert(`Email ${i+1} invalido`)
       }
         await axiosEmail(e)
