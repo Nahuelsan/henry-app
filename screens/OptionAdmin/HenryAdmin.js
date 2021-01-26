@@ -17,15 +17,14 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
-const HenryAdmin = ({ navigation }, props) => {
-	console.log(props);
-	//	const { info } = props.route.params;
+const HenryAdmin = (props) => {
+	const { info } = props.route.params;
 	return (
 		<Contenedor>
-			<AdminHeader navigation={navigation} />
-			<AdminNavBar navigation={navigation} />
+			<AdminHeader navigation={props.navigation} info={info}/>
+			<AdminNavBar navigation={props.navigation} />
 			<ContStudents>
-				<Options onPress={() => navigation.navigate('Nuevo Henry')}>
+				<Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
 					<BackImg>
 						<Image style={{ width: '90px', height: '90px' }} source={card1} />
 					</BackImg>
@@ -42,13 +41,13 @@ const HenryAdmin = ({ navigation }, props) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
+						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						name="ghost"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
+						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
 						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
@@ -58,14 +57,14 @@ const HenryAdmin = ({ navigation }, props) => {
 						name="comment-dots"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
+						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						solid={true}
 						name="user"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
+						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 				</IconContent>
 			</ContMinf>

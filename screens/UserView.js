@@ -10,7 +10,7 @@ const UserView = (props) => {
 	return (
 		<View>
 			{console.log(info)}
-			<UserHeader info={info} />
+			<UserHeader info={info} navigation={props.navigation}/>
 			<UserNavBar info={info} />
 			<UserBody info={info} />
 			<Footer />

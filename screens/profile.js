@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, Button, Alert } from 'react-native'
-import { Avatar, Icon } from 'react-native-elements'
+import { Avatar } from 'react-native-elements'
 import firebase from '../database/database'
 
-const Profile = () => {
+const Profile = (props) => {
+    const { info } = props.route.params
     const [user, setUser] = useState({})
     const [edit, setEdit] = useState(false)
-    const [loading, setLoading] = useState(true)
-    const dbRef = firebase.db.collection("users").doc('NxIN47R31XzyXF1LvFyg')
+    const dbRef = firebase.db.collection("users").doc(info.id)
     useEffect(() => {
-        getUser()
+        setUser(info)
     }, [])
 
     const profile = [
@@ -31,13 +31,6 @@ const Profile = () => {
         }
     ]
 
-    const getUser = async () => {
-        const doc = await dbRef.get()
-        const user = doc.data()
-        setUser(user)
-        setLoading(false)
-    }
-
     const updateUser = async () => {
         profile.map(field => !!user[field.val]).includes(false) ? Alert.alert(
             "Todos los campos deben estar completos",
@@ -46,19 +39,12 @@ const Profile = () => {
         ) : (await  dbRef.set(user))
     }
 
-    return loading ? (
-        <View>
-            <ActivityIndicator
-            size="large"
-            color="gray"
-            />
-        </View>
-    ) : (
+    return (
         <ScrollView style={styles.container_main}>
             <View style={styles.container_img_name}>
                 <Avatar
                 source={{
-                    uri: user.img ? user.img : 
+                    uri: user.photo ? user.photo : 
                     "https://www.mendozapost.com/files/image/7/7142/54b6f4c45797b.jpg"
                 }}
                 size="large"
@@ -71,7 +57,7 @@ const Profile = () => {
             <View style={styles.datos}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Datos</Text>
                 {profile.map(field => (
-                    <View style={styles.container}>
+                    <View style={styles.container} key={field.att}>
                         <View style={styles.container_data}>
                             <Text style={styles.attribute}>{field.att}</Text>
                             {edit ? <TextInput
