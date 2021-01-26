@@ -15,12 +15,13 @@ import FormularioDatos from './screens/FormularioDatos';
 import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import InstructoresList from './screens/InstructoresList';
-import NuevoHenry from './screens/NuevoHenry';
+import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import CohorteList from './screens/CohorteList';
 import CrearCohorte from './screens/CrearCorte';
 import UserView from './screens/UserView';
 import Profile from './screens/profile';
 import StudentList from './screens/StudentList';
+import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 
 const Stack = createStackNavigator();
 
@@ -42,8 +43,8 @@ export default function App () {
 			'redRose-light'   : require('./src/assets/fonts/RedRose-Light.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
-			gadugi            : require('./src/assets/fonts/GADUGI.ttf'),
-			gadugib           : require('./src/assets/fonts/GADUGIB.ttf')
+			gadugi            : require('./src/assets/fonts/gadugi.ttf'),
+			gadugib           : require('./src/assets/fonts/gadugib.ttf')
 		});
 		setFontsLoad(true);
 	};
@@ -63,6 +64,8 @@ export default function App () {
 				}}
 			>
 				<Stack.Screen name="Home" component={Home} />
+				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
+				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
@@ -70,7 +73,6 @@ export default function App () {
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
-				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
