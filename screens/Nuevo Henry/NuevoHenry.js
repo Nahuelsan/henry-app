@@ -1,6 +1,28 @@
 import React,{useState} from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { CheckBox, Icon, Image, Input, Text, ListItem } from 'react-native-elements'
+import {
+  Contenedor,
+  Encabezado,
+  ConTitle,
+  TextTitle,
+  Options,
+  BackImg,
+  ContText,
+  TituloCard,
+  ContMinf,
+  IconContent,
+  ImgMinf,
+  BodyCont,
+  TitleBody,
+  ContList,
+  TextContList,
+  BotonLog,
+  TextButton
+} from './styledNueHenry';
+let card1 = require('../../src/assets/img/imgCard1.png');
+let logFont = require('../../src/assets/img/henry_logo.jpg'); 
+
 import axios from 'axios'
 import firebase from "../../database/database";
 
@@ -41,9 +63,9 @@ const NuevoHenry = ({ navigation }) => {
         await axiosEmail(e)
       // }
     })
-    alert('Email sent')
-    setStudents([])
-    setCount([])
+    setStudents([]);
+    setCount([]);
+    navigation.navigate('Mensaje NuevoEstudiante');
   }
   
   const addEmail = ()=>{
@@ -52,78 +74,88 @@ const NuevoHenry = ({ navigation }) => {
     console.log("counter",count)
 
   }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header} >
-        <Icon
-          name="left"
-          type='antdesign'
-          onPress={() => navigation.navigate('Henry Student')}
-        />
-        <Text h4>Home</Text>
-      </View>
-      <View style={styles.card}>
-        <Image
-          style={{ width: '150px', height: '150px' }}
-          source={{ uri: 'https://simpsonizados.club/wp-content/uploads/2019/08/l18xQsO27KFJwsj35JaAsG95dN7-185x278.jpg' }} />
-        <View style={styles.text}>
-          <Text>INVITAR NUEVO HENRY</Text>
-          <Text>Lorem ipsum dolor sit amet consectetur adipiscing, elit curabitur mollis dictum ornare, ac morbi dictumst metus ut. Integer risus tellus pulvinar diam convallis platea sed massa, </Text>
-        </View>
-      </View>
-        <View>
-          <Text h4>Inscribe a un futuro Henry</Text>
-          {
-            count.map((e,i)=>(
-              <ListItem key={i} bottomDivider>
-                Estudiante {i+1}
-              <View>
+    <Contenedor>
+      <Encabezado >
+			  <ConTitle
+          onPress={() => navigation.navigate('Henry Admin')}
+        >
+          <Icon
+						solid={true}
+            name="chevron-left"
+						type="font-awesome-5"
+          />
+          <TextTitle>Home</TextTitle>
+        </ConTitle>
+      </Encabezado>
+      <Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
+        <BackImg>
+          <Image style={{ width: '90px', height: '90px' }} source={card1} />
+        </BackImg>
+        <ContText>
+          <TituloCard>Invitar un nuevo Henry</TituloCard>
+          <Text>Invita a un nuevo henry a una cohorte </Text>
+        </ContText>
+      </Options>
+      <BodyCont>
+        <TitleBody h4>Inscribe a un futuro Henry</TitleBody>
+        { count.map((e,i)=>(
+            <ListItem key={i} >
+              <ContList bottomDivider={true}>
+                <TextContList>Estudiante {i+1}</TextContList>
                 <Input
                   placeholder='Ingrese el email de destino'
                   onChangeText={value => sendEmailStudents(value,i)}
                 />
-                  
-              </View>
-              </ListItem>
-
-            ))
-          }
-          <Button
-            title="Agregar  email estudiante "
-          onPress={addEmail}
-          />
-          <Button
-            title="Enviar email"
-           onPress={onPress}
-          />
-        </View>
-    </View>
+              </ContList>
+            </ListItem>
+          ))}
+        <BotonLog 
+          onPress={addEmail}>
+					<TextButton>Agregar email estudiante</TextButton>
+				</BotonLog>
+        <BotonLog 
+          onPress={onPress}>
+					<TextButton>Enviar email</TextButton>
+				</BotonLog>
+      </BodyCont>
+			{/* Menu inferior General */}
+			<ContMinf>
+				<IconContent>
+					<Icon
+						name="home"
+						type="font-awesome"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<Icon
+						name="ghost"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<ImgMinf>
+						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
+					</ImgMinf>
+					<Icon
+						solid={true}
+						name="comment-dots"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<Icon
+						solid={true}
+						name="user"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+				</IconContent>
+			</ContMinf>
+    </Contenedor>
   )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    display:'flex',
-    flexDirection: 'column',
-  },
-  header: {    
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#e5e500',
-  },
-  card: {
-    margin:'20px',
-    //border: 'solid 2px grey',
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  text: {   
-    padding: '10px',
-    width: '60%',
-    display: 'flex',
-    flexDirection: 'column',
-  }
-});
 
 export default NuevoHenry;

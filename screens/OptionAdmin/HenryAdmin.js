@@ -33,6 +33,16 @@ const HenryAdmin = (props) => {
 						<Text>Invita a un nuevo henry a una nueva cohorte </Text>
 					</ContText>
 				</Options>
+
+				<Options onPress={() => props.navigation.navigate('Lista de Estudiantes')}>
+					<BackImg>
+						<Image style={{ width: '90px', height: '90px' }} source={card1} />
+					</BackImg>
+					<ContText>
+						<TituloCard>Ver Estudiantes</TituloCard>
+						<Text>Muestra el listado de alumnos activos y antiguos </Text>
+					</ContText>
+				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
 			<ContMinf>

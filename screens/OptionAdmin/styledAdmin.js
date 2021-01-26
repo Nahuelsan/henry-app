@@ -108,7 +108,7 @@ export const BackImg = styled.View`
 
 export const ContText = styled.View`
   padding: 10px;
-  width: 80%;
+  width: 70%;
 `
 
 export const TituloCard = styled.Text`

@@ -19,7 +19,9 @@ import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import CohorteList from './screens/CohorteList';
 import CrearCohorte from './screens/CrearCorte';
 import UserView from './screens/UserView';
-import Profile from './screens/profile'
+import Profile from './screens/profile';
+import StudentList from './screens/StudentList';
+import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 
 const Stack = createStackNavigator();
 
@@ -41,8 +43,8 @@ export default function App () {
 			'redRose-light'   : require('./src/assets/fonts/RedRose-Light.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
-			gadugi            : require('./src/assets/fonts/GADUGI.ttf'),
-			gadugib           : require('./src/assets/fonts/GADUGIB.ttf')
+			gadugi            : require('./src/assets/fonts/gadugi.ttf'),
+			gadugib           : require('./src/assets/fonts/gadugib.ttf')
 		});
 		setFontsLoad(true);
 	};
@@ -61,6 +63,8 @@ export default function App () {
 					}
 				}}
 			>
+				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
+				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
@@ -69,11 +73,11 @@ export default function App () {
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
-				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
 				<Stack.Screen name="Perfil" component={Profile} />
+				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 			</Stack.Navigator>
 		);
 	}

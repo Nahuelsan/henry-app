@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 
 export const Contenedor = styled.View`
   flex: 1;
+  align-items: center;
+  background-color:white;
 `;
 
 export const Encabezado = styled.View`
@@ -9,65 +11,87 @@ export const Encabezado = styled.View`
   height: 25%;
   padding: 50px 30px;
   background-color: #FFFF94;  
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px; 
   z-index: 1; 
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
 `
-
-export const ContGen = styled.View`
-  width: 100%;
-  height: 80%;
-  background-color: white;
-  top: 15%;
-  padding: 28px;
-  position: absolute;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px; 
-  z-index: 2;
-`
-
-export const Back = styled.Text`
-  margin-left: 15px;
-  font-family: 'gadugi';
-  font-size: 18px;
-`
-
-export const TituloPrin = styled.Text`
-  margin-top: 60px;
-  font-family: 'gadugib';
-  font-size: 27px;
-`
-
-export const ContInputs = styled.View`
-  height: 100px;
-  margin-top: 90px;
-  margin-bottom: 50px;
+export const ConTitle = styled.TouchableOpacity` 
+  flex-direction: row;
   justify-content: space-between;
 `
 
-export const BorderBotInput = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: #707070;
+export const TextTitle = styled.Text` 
+  font-family: 'gadugi';
+  font-size: 18px;
+  margin-left: 10px
 `
 
-export const InpText = styled.TextInput`
+export const Options = styled.TouchableOpacity`
+  width: 85%;
+  height: 120px;
+  position: absolute;
+  top: 15%;
+  flex-direction: row;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px; 
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; 
+  background-color: #EBEBEB;
+  z-index: 5;
+`
+
+export const BackImg = styled.View`
+  width: 100px;
+  background-color: #FFFF01;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ContText = styled.View`
+  padding: 10px;
+  width: 70%;
+`
+
+export const TituloCard = styled.Text`
+margin: 10px 0;
+font-family: 'gadugib';
+font-size: 14px;
+`
+
+/* Body Content */
+
+export const BodyCont = styled.ScrollView `
+  width: 85%;
+  flex: 1;
+  margin-top: 20%;
+`
+
+export const TitleBody = styled.ScrollView `
+font-family: 'gadugib';
+font-size: 22px;
+`
+
+export const ContList = styled.View `
+  width: 100%
+`
+
+export const TextContList = styled.Text `
   font-family: 'gadugi';
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 20px;
 `
 
 export const BotonLog = styled.TouchableOpacity`
-  width: 70%;
+  width: 90%;
   padding: 15px 30px;
-  margin: 0 auto;
+  margin: 0 auto 15px auto;
   background-color: #FFFF01;
   text-align: center;
   border-radius: 10px;
-`
-
-export const ContSocialRed = styled.View`
-  margin-top: auto;
 `
 
 export const TextButton = styled.Text`
@@ -75,11 +99,27 @@ export const TextButton = styled.Text`
   font-size: 18px;
 `
 
-export const IconSocialRed = styled.View`
-  margin-top:20px;
-  margin-left: 30px;
-  width: 25%;
-  flex-direction: row;
-  justify-content: space-between;
+/* Menu inferior */
+export const ContMinf = styled.View`
+  padding: 0 30px;  
+  margin: auto 0 30px 0;
+  width: 100%;
 `
 
+export const IconContent = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+
+export const ImgMinf = styled.View`
+  width: 70px;
+  height: 70px;
+  background-color: #FFFF01;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  justify-content: center;
+  align-items: center;
+`
