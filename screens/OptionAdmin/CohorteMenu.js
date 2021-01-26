@@ -53,13 +53,13 @@ const CohorteMenu = ({ navigation }) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-						onPress={() => navigation.navigate('Henry Student')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						name="ghost"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Student')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
 						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
@@ -69,14 +69,14 @@ const CohorteMenu = ({ navigation }) => {
 						name="comment-dots"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Student')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						solid={true}
 						name="user"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => navigation.navigate('Henry Student')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 				</IconContent>
 			</ContMinf>

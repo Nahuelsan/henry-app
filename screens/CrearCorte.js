@@ -130,29 +130,28 @@ const CrearCohorte = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#e5e500',
-  },
-  container: {
-    //border: 'solid 2px grey',
-    padding: '7px',
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  image: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  text: {
-    padding: '10px',
-    width: '60%',
-    display: 'flex',
-    flexDirection: 'column',
-  }
+	header    : {
+		display         : 'flex',
+		flexDirection   : 'row',
+		alignItems      : 'center',
+		backgroundColor : '#e5e500'
+	},
+	container : {
+		//border: 'solid 2px grey',
+		padding       : '7px',
+		display       : 'flex',
+		flexDirection : 'row'
+	},
+	image     : {
+		display       : 'flex',
+		flexDirection : 'column'
+	},
+	text      : {
+		padding       : '10px',
+		width         : '60%',
+		display       : 'flex',
+		flexDirection : 'column'
+	}
 });
 
 export default CrearCohorte;
-

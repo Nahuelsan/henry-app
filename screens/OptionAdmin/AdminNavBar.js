@@ -12,7 +12,7 @@ const AdminNavBar = ({ navigation }) => {
 						name="user"
 						type="font-awesome"
 						size={35}
-						onPress={() => navigation.navigate('Henry Student')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 				</OptionCard>
 				<OptionText> Students</OptionText>
