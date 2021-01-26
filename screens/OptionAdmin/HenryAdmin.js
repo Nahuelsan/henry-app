@@ -21,8 +21,8 @@ const HenryAdmin = (props) => {
 	const { info } = props.route.params;
 	return (
 		<Contenedor>
-			<AdminHeader navigation={props.navigation} info={info}/>
-			<AdminNavBar navigation={props.navigation} />
+			<AdminHeader navigation={props.navigation} info={info} />
+			<AdminNavBar navigation={props.navigation} info={info} />
 			<ContStudents>
 				<Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
 					<BackImg>
@@ -31,6 +31,16 @@ const HenryAdmin = (props) => {
 					<ContText>
 						<TituloCard>Invitar un nuevo Henry</TituloCard>
 						<Text>Invita a un nuevo henry a una nueva cohorte </Text>
+					</ContText>
+				</Options>
+
+				<Options onPress={() => props.navigation.navigate('Lista de Estudiantes')}>
+					<BackImg>
+						<Image style={{ width: '90px', height: '90px' }} source={card1} />
+					</BackImg>
+					<ContText>
+						<TituloCard>Ver Estudiantes</TituloCard>
+						<Text>Muestra el listado de alumnos activos y antiguos </Text>
 					</ContText>
 				</Options>
 			</ContStudents>

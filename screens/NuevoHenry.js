@@ -58,7 +58,7 @@ const NuevoHenry = ({ navigation }) => {
         <Icon
           name="left"
           type='antdesign'
-          onPress={() => navigation.navigate('Henry Student')}
+          onPress={() => navigation.navigate('Henry Admin')}
         />
         <Text h4>Home</Text>
       </View>
