@@ -1,28 +1,56 @@
 import React,{useState} from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { CheckBox, Icon, Image, Input, Text } from 'react-native-elements'
+import { CheckBox, Icon, Image, Input, Text, ListItem } from 'react-native-elements'
 import axios from 'axios'
+import firebase from "../database/database";
 
 const NuevoHenry = ({ navigation }) => {
-  const [input,setInput]=useState('')
-  const sendEmail=(value) =>{
-    setInput(value)
-    
+ 
+  const [count,setCount]=useState([0])
+  const [students,setStudents]=useState([])
+ 
+  const sendEmailStudents=(value,i) =>{
+    var aux =students 
+    aux[i]=value
+    setStudents(aux)
+    console.log(students)
   }
-  const onPress= async ()=>{
-    if (!input.includes('@') || !input.includes('.com')){
-      return alert('email invalido')
+  const axiosEmail =(mail)=>{
+       axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
+      {to:mail, 
+        message:`Buenas tardes`,
+        subject:"hola prueba app henry"
+      })
+      .then(res=>{
+        firebase.db.collection('invited users').add({
+          email:mail
+        })
+      })
+      
     }
-    await firebase.db.collection('invited_users').add(input);
-    await axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
-    {to:input, 
-      message:`<h1>Buenas tardes</h1>`,
-      subject:"hola prueba app henry"
+
+  
+  const onPress=  ()=>{
+    students.map(async (e,i)=>{
+      if (!e.includes('@') || !e.includes('.com') || e===''){
+        return alert(`Email ${i+1} invalido`)
+      }
+      // if(!e){
+        
+      // }else{
+        await axiosEmail(e)
+      // }
     })
-    .then(res=>{
-      alert(res.data.message)
-    })
-    setInput('')
+    alert('Email sent')
+    setStudents([])
+    setCount([])
+  }
+  
+  const addEmail = ()=>{
+    setCount(count.concat(count.length))
+   
+    console.log("counter",count)
+
   }
   return (
     <View style={styles.container}>
@@ -45,10 +73,24 @@ const NuevoHenry = ({ navigation }) => {
       </View>
         <View>
           <Text h4>Inscribe a un futuro Henry</Text>
-          <Input
-            placeholder='Ingrese el email de destino'
-            onChangeText={value => sendEmail(value) }
-            value={input}
+          {
+            count.map((e,i)=>(
+              <ListItem key={i} bottomDivider>
+                Estudiante {i+1}
+              <view>
+                <Input
+                  placeholder='Ingrese el email de destino'
+                  onChangeText={value => sendEmailStudents(value,i)}
+                />
+                  
+              </view>
+              </ListItem>
+
+            ))
+          }
+          <Button
+            title="Agregar  email estudiante "
+          onPress={addEmail}
           />
           <Button
             title="Enviar email"
