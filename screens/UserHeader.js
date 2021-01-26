@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		marginTop   : 40,
 		paddingLeft : 24,
 		fontSize    : 20,
-		fontWeight  : 700
+		/* fontWeight  : 700 */
 	},
 	avatar    : {
 		alignItems   : 'flex-end',

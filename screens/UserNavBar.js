@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     height: 130,
-    borderColor: '2px solid black'
+    /* borderColor: '2px solid black' */
   },
   icon: {
     display: 'flex',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center' 
   },
   text: {
-    fontWeight: 700
+    /* fontWeight: 700 */
   }
 })
 

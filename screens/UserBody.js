@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   titulo: {
     marginLeft: 30,
-    fontWeight: 700
+    /* fontWeight: 700 */
   },
   subtitulo: {
     marginLeft: 7,

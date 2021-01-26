@@ -7,7 +7,7 @@ export const Contenedor = styled.View`
 
 export const Encabezado = styled.View`
   width: 100%;
-  height: 25%;
+  height: 30%;
   padding: 50px 30px;
   background-color: #FFFF94;  
   border-bottom-left-radius: 40px;
@@ -41,12 +41,10 @@ export const ContAvatar = styled.TouchableOpacity`
   border-bottom-right-radius: 10px; 
 `
 
-
-
 export const NavMenu = styled.View`
   position: absolute;
   width: 100%;
-  top: 150px;
+  top: 20%;
   padding: 0px 30px;
   flex-direction: row;
   justify-content: space-between;
@@ -54,7 +52,7 @@ export const NavMenu = styled.View`
 `
 
 export const Card = styled.View`
-  width: 100px;
+  width: 30%;
   height: 125px;
   background-color: #FFFF01;
   padding: 20px 10px;
@@ -82,8 +80,8 @@ export const OptionText = styled.Text`
   font-size: 13px;
 `
 
-export const ContStudents = styled.View `
-  margin-top: 100px;
+export const ContStudents = styled.ScrollView `
+  margin-top: 25%;
   padding: 0 30px;
 `
 export const Options = styled.TouchableOpacity`

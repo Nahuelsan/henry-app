@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
 	},
 	btntext    : {
 		fontWeight : 'bold',
-		fontSize: '25px'
+		fontSize: 25
 	}
 });
 

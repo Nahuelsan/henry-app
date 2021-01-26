@@ -43,8 +43,8 @@ export default function App () {
 			'redRose-light'   : require('./src/assets/fonts/RedRose-Light.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
-			gadugi            : require('./src/assets/fonts/gadugi.ttf'),
-			gadugib           : require('./src/assets/fonts/gadugib.ttf')
+			'gadugi'          : require('./src/assets/fonts/gadugi.ttf'),
+			'gadugib '        : require('./src/assets/fonts/gadugib.ttf')
 		});
 		setFontsLoad(true);
 	};
@@ -63,11 +63,12 @@ export default function App () {
 					}
 				}}
 			>
+				
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
-				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
+        <Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
