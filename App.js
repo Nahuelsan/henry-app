@@ -19,6 +19,7 @@ import NuevoHenry from './screens/NuevoHenry';
 import CohorteList from './screens/CohorteList';
 import CrearCohorte from './screens/CrearCorte';
 import UserView from './screens/UserView';
+import Profile from './screens/profile'
 
 const Stack = createStackNavigator();
 
@@ -72,6 +73,7 @@ export default function App () {
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
+				<Stack.Screen name="Perfil" component={Profile} />
 			</Stack.Navigator>
 		);
 	}

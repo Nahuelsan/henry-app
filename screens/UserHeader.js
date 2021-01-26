@@ -2,23 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
-const UserHeader = ({ info }) => {
+const UserHeader = ({info, navigation}) => {
 	return (
 		<View style={styles.container}>
 			<View>
 				<Text style={styles.text}>Bienvenido {info.first_name}</Text>
 			</View>
-			<View style={styles.avatar}>
-				{!info.photo ? (
-					<Avatar
-						rounded
-						size="medium"
-						source={{ uri: 'https://www.netclipart.com/pp/m/411-4114765_avatar-icon.png' }}
-						onPress={() => console.log('Funciona')}
-					/>
-				) : (
-					<Avatar rounded size="medium" source={{ uri: info.photo }} onPress={() => console.log('Avatar')} />
-				)}
+			<View style={styles.avatar} >
+				<Avatar
+				rounded
+				size="medium"
+				onPress={() => navigation.navigate('Perfil', {info: info})}
+				source={{uri: info.photo ? info.photo : 'https://www.netclipart.com/pp/m/411-4114765_avatar-icon.png'}}
+				/>
 			</View>
 		</View>
 	);
