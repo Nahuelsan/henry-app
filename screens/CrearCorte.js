@@ -12,6 +12,7 @@ const CrearCohorte = ({ navigation }) => {
   const buttons = ['Full Time', 'Part Time']
   const updateIndex = (index) => {
     setIndex(index)
+    handleChangeText(buttons[index],'modalidad')
   }
 
   //Modal Calendario
@@ -23,12 +24,67 @@ const CrearCohorte = ({ navigation }) => {
   const hideDateTimePicker = () => {
     setIsVisible(false);
   };
-  const handleDatePicked = (date) => {
-    console.log("A date has been picked: ", date);
+  const handleDatePicked = (date,name) => {
+    handleChangeText(date,name)
+    //console.log("A date has been picked: ", date);
     hideDateTimePicker();
   };
 
+  const initalState = {
+		numero_de_cohorte   : '',
+		modalidad   : '',
+		fecha_de_inicio: '',
+		fecha_de_finalizacion: '',
+		instructor: '',
+    numero_de_grupo: '',
+    alumnos: []		
+	};
 
+	const [state,	setState] = useState(initalState);
+
+	const handleChangeText = (value, name) => {
+    setState({ ...state, [name]: value });
+    console.log('state',state)
+	};
+
+	const saveNewCohorte = async () => {
+		for (var i = 0; state.length < i; i++) {
+			console.log(state[i]);
+		}
+		if (state.modalidad === '') {
+			alert('Ingrese modalidad');
+		}
+		if (state.fecha_de_inicio === '') {
+			alert('Ingrese fecha de inicio');
+		}
+		if (state.fecha_de_finalizacion === '') {
+			alert('Ingrese fecha de finalizacio');
+		}
+		if (state.instructor === '') {
+			alert('Ingrese un instructor');
+		}
+		if (state.numero_de_grupo === '') {
+			alert('Ingrese numero de grupo');
+    }
+    if (state.alumnos === []) {
+			alert('Ingrese alumnos');
+		}
+		else {
+			try {
+				await firebase.db.collection('cohortes').add({
+					modalidad: state.modalidad,
+					fecha_de_inicio: state.fecha_de_inicio,
+					fecha_de_finalizacion: state.fecha_de_finalizacion,
+					instructor: state.instructor,
+					numero_de_grupo: state.numero_de_grupo,
+					alumnos : state.alumnos,
+				});
+				props.navigation.navigate('Henry Admin');
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 
 
   return (
@@ -57,10 +113,20 @@ const CrearCohorte = ({ navigation }) => {
         <ListItem>
           <Text h4>COHORTE N°</Text>
           <RNPickerSelect
-            onValueChange={(value) => console.log(value)}
+            onValueChange={(value) => handleChangeText(value,'numero_de_cohorte')}
+            value={state.value}
             items={[
               { label: '01', value: '01' },
               { label: '02', value: '02' },
+              { label: '03', value: '03' },
+              { label: '04', value: '04' },
+              { label: '05', value: '05' },
+              { label: '06', value: '06' },
+              { label: '07', value: '07' },
+              { label: '08', value: '08' },
+              { label: '09', value: '09' },
+              { label: '10', value: '10' },
+              { label: '11', value: '11' },
             ]}
           />
         </ListItem>
@@ -86,6 +152,7 @@ const CrearCohorte = ({ navigation }) => {
             display="default"
             style={{ width: 320, backgroundColor: "white" }}
             isVisible={isVisible}
+            name='fecha_de_inicio'
             onConfirm={handleDatePicked}
             onCancel={hideDateTimePicker}
           />
@@ -97,12 +164,22 @@ const CrearCohorte = ({ navigation }) => {
             name='calendar-sharp'
             type='ionicon'
             onPress={showDateTimePicker} />
+            <DateTimePicker
+            mode='date'
+            display="default"
+            style={{ width: 320, backgroundColor: "white" }}
+            isVisible={isVisible}
+            name='fecha_de_finalizacion'
+            onConfirm={handleDatePicked}
+            onCancel={hideDateTimePicker}
+          />
         </ListItem>
 
         <ListItem>
           <Text h4>INSTRUCTOR</Text>
           <RNPickerSelect
-            onValueChange={(value) => console.log(value)}
+            onValueChange={(value) => handleChangeText(value,'instructor')}
+            value={state.value}
             items={[
               { label: 'Franco Etcheverry', value: 'Franco Etcheverry' },
               { label: 'Toni Tralice', value: 'Toni Tralice' },
@@ -112,7 +189,10 @@ const CrearCohorte = ({ navigation }) => {
 
         <ListItem>
           <Text h4>NUMERO DE GRUPOS</Text>
-          <Input placeholder='00' />
+          <Input 
+          placeholder='00'
+          onChangeText={(value) => handleChangeText(value,'numero_de_grupo')}
+           />
         </ListItem>
 
         <ListItem>
@@ -120,10 +200,12 @@ const CrearCohorte = ({ navigation }) => {
           <ListItem.Content>
             <ListItem.Title>ALUMNOS</ListItem.Title>
           </ListItem.Content>
-          <ListItem.Chevron onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte')} />
+          <ListItem.Chevron onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, setState:{setState} })} />
         </ListItem>
 
-        <Button title="CREAR COHORTE" />
+        <Button 
+        title="CREAR COHORTE"
+        onPress={() => saveNewCohorte()} />
       </View>
     </View>
   )
