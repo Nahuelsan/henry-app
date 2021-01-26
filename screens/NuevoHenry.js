@@ -28,6 +28,7 @@ const NuevoHenry = ({ navigation }) => {
       })
       
     }
+
   
   const onPress=  ()=>{
     students.map(async (e,i)=>{
@@ -45,6 +46,7 @@ const NuevoHenry = ({ navigation }) => {
     setCount(count.concat(count.length))
    
     console.log("counter",count)
+
   }
   return (
     <View style={styles.container}>

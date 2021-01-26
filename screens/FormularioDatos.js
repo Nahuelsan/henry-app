@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { CountryDropdown} from 'react-country-region-selector';
 
 import firebase from '../database/database';
 
 const FormularioDatos = (props) => {
+	console.log()
 	const initalState = {
 		first_name   : '',
 		last_name    : '',
-		email        : '',
+		email        : props.route.params.email,
 		phone        : '',
 		dni          : '',
 		nacionalidad : '',
@@ -59,7 +61,7 @@ const FormularioDatos = (props) => {
 					photo        : state.photo
 				});
 
-				props.navigation.navigate('UsersList');
+				props.navigation.navigate('Menu Usuario"');
 			} catch (error) {
 				console.log(error);
 			}
@@ -90,7 +92,6 @@ const FormularioDatos = (props) => {
 					textContentType="emailAddress"
 					keyboardType="email-address"
 					placeholder="Email"
-					onChangeText={(value) => handleChangeText(value, 'email')}
 					value={state.email}
 				/>
 			</View>
@@ -116,10 +117,10 @@ const FormularioDatos = (props) => {
 			</View>
 			{/* Input Nacionalidad */}
 			<View style={styles.inputGroup}>
-				<TextInput
-					placeholder="Nacionalidad"
-					onChangeText={(value) => handleChangeText(value, 'nacionalidad')}
+				<CountryDropdown
+					className={styles.inputGroup}
 					value={state.nacionalidad}
+					onChange={(value) =>  handleChangeText(value, 'nacionalidad')} 
 				/>
 			</View>
 			{/* Input github account*/}
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
 		padding           : 0,
 		marginBottom      : 15,
 		borderBottomWidth : 1,
-		borderBottomColor : '#cccccc'
+		borderBottomColor : '#cccccc',
 	},
 	loader     : {
 		left           : 0,
@@ -171,7 +172,8 @@ const styles = StyleSheet.create({
 		backgroundColor : '#ffe227'
 	},
 	btntext    : {
-		fontWeight : 'bold'
+		fontWeight : 'bold',
+		fontSize: '25px'
 	}
 });
 

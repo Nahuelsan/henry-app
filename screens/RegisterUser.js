@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import firebase from '../database/database.js';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Encabezado, Back } from './Login/styledLogin';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-const RegisterUser = (props) => {
+const RegisterUser = ({navigation}) => {
 	const initalState = {
 		password         : '',
 		password_checked : '',
@@ -35,7 +38,8 @@ const RegisterUser = (props) => {
 			try {
 				await firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
 				alert('Usuario creado');
-				props.navigation.navigate('Formulario Datos');
+				navigation.navigate('Formulario Datos', { email: state.email });
+
 			} catch (error) {
 				console.log(error);
 				alert('Error');
@@ -46,6 +50,10 @@ const RegisterUser = (props) => {
 	return (
 		<ScrollView style={styles.container}>
 			{/* Email Input */}
+			<Encabezado>
+				<FontAwesomeIcon icon={faArrowLeft} size={18} />
+				<Back onPress={() => navigation.navigate('Home')}>Regresar</Back>
+			</Encabezado>
 			<View style={styles.inputGroup}>
 				<TextInput
 					textContentType="emailAddress"
@@ -59,6 +67,7 @@ const RegisterUser = (props) => {
 			{/* Input Password*/}
 			<View style={styles.inputGroup}>
 				<TextInput
+					secureTextEntry={true} 
 					placeholder="Ingrese una password"
 					onChangeText={(value) => handleChangeText(value, 'password')}
 					value={state.password}
@@ -67,6 +76,7 @@ const RegisterUser = (props) => {
 			{/* Input Password Checked*/}
 			<View style={styles.inputGroup}>
 				<TextInput
+					secureTextEntry={true} 
 					placeholder="Validar password"
 					onChangeText={(value) => handleChangeText(value, 'password_checked')}
 					value={state.password_checked}
