@@ -10,9 +10,15 @@ export const LogoSise = styled.Image`
   height: 40px;
 `
 
+export const ImgListUn = styled.Image`
+  width: 80px;
+  height: 60px;
+`
+
 export const Contenedor = styled.View`
   flex: 1;
   align-items: center;
+  justify-content: space-between;
   background-color:white;
 `;
 
@@ -21,9 +27,6 @@ export const Encabezado = styled.View`
   height: 25%;
   padding: 50px 30px;
   background-color: #FFFF94;  
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px; 
-  z-index: 1; 
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
@@ -38,8 +41,7 @@ export const TextTitle = styled.Text`
   font-size: 18px;
   margin-left: 10px
 `
-
-export const Options = styled.TouchableOpacity`
+export const Options = styled.View`
   width: 85%;
   height: 120px;
   position: absolute;
@@ -49,7 +51,7 @@ export const Options = styled.TouchableOpacity`
   border-top-right-radius: 20px; 
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px; 
-  background-color: #EBEBEB;
+  background-color: #F5F5F5;
   z-index: 5;
 `
 
@@ -73,34 +75,63 @@ font-family: 'gadugib';
 font-size: 14px;
 `
 
-/* Body Content */
-
-export const BodyCont = styled.ScrollView `
-  width: 85%;
-  flex: 1;
-  margin-top: 20%;
+export const ContGeneral = styled.View`
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  height: 80%;
+  z-index: 2; 
+  background-color: white;
+  align-items: center;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px; 
+`
+export const ContListGen = styled.ScrollView`
+  width: 80%;
+  max-width: 80%;
+  margin-top: 25%;
 `
 
-export const TitleBody = styled.Text `
-font-family: 'gadugib';
-font-size: 22px;
+/* Boddy Listas */
+
+
+export const BodyUnitItem = styled.View`
+  flex:1;
+  flex-direction: row;
+  width: 120%;
 `
 
-export const ContList = styled.View `
-  width: 100%
+export const TextPrin = styled.Text`
+  font-family: 'gadugib';
+  font-size: 14px;
 `
 
-export const TextContList = styled.Text `
-  font-family: 'gadugi';
-  font-size: 20px;
+/* Contenido table Cohorte */
+
+export const ContPirnTable = styled.TouchableOpacity`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+`
+
+export const TextContTable = styled.Text`
+  font-family: 'gadugib';
+  font-size: 14px;
+`
+
+/* Botones */
+
+export const ContBtnOut = styled.View`
+  flex-direction: row;
+  justify-content: space-between
 `
 
 export const BotonLog = styled.TouchableOpacity`
-  width: 90%;
-  padding: 15px 30px;
-  margin: 0 auto 15px auto;
+  padding: 3px 15px; 
   background-color: #FFFF01;
-  text-align: center;
+  align-items: center;
   border-radius: 10px;
 `
 
@@ -109,11 +140,18 @@ export const TextButton = styled.Text`
   font-size: 18px;
 `
 
+export const TextButtonOp2 = styled.Text`
+  font-family: 'gadugi';
+  font-size: 15px;
+`
+
+
 /* Menu inferior */
 export const ContMinf = styled.View`
   padding: 0 30px;  
   margin: auto 0 30px 0;
   width: 100%;
+  z-index: 2; 
 `
 
 export const IconContent = styled.View`
@@ -133,3 +171,4 @@ export const ImgMinf = styled.View`
   justify-content: center;
   align-items: center;
 `
+
