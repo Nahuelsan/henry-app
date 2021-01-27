@@ -18,7 +18,9 @@ import {
   ContList,
   TextContList,
   BotonLog,
-  TextButton
+  TextButton,
+  ImgSise,
+  LogoSise
 } from './styledNueHenry';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg'); 
@@ -91,7 +93,7 @@ const NuevoHenry = ({ navigation }) => {
       </Encabezado>
       <Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
         <BackImg>
-          <Image style={{ width: '90px', height: '90px' }} source={card1} />
+          <ImgSise source={card1} />
         </BackImg>
         <ContText>
           <TituloCard>Invitar un nuevo Henry</TituloCard>
@@ -99,7 +101,7 @@ const NuevoHenry = ({ navigation }) => {
         </ContText>
       </Options>
       <BodyCont>
-        <TitleBody h4>Inscribe a un futuro Henry</TitleBody>
+        <TitleBody>Inscribe a un futuro Henry</TitleBody>
         { count.map((e,i)=>(
             <ListItem key={i} >
               <ContList bottomDivider={true}>
@@ -120,7 +122,7 @@ const NuevoHenry = ({ navigation }) => {
 					<TextButton>Enviar email</TextButton>
 				</BotonLog>
       </BodyCont>
-			{/* Menu inferior General */}
+			
 			<ContMinf>
 				<IconContent>
 					<Icon
@@ -136,7 +138,7 @@ const NuevoHenry = ({ navigation }) => {
 						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
-						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
+						<LogoSise source={logFont} />
 					</ImgMinf>
 					<Icon
 						solid={true}
