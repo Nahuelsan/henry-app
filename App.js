@@ -23,6 +23,7 @@ import CrearCohorte from './screens/Cohortes/CrearCorte';
 import UserView from './screens/UserView';
 import Profile from './screens/Perfil/profile';
 import StudentList from './screens/Estudiantes/StudentList';
+import Studentcohortes from './screens/Studentcohortes';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 
@@ -82,6 +83,8 @@ export default function App () {
 				<Stack.Screen name="Menu Usuario" component={UserView} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
+				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
+				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 			</Stack.Navigator>
 		);
 	}
