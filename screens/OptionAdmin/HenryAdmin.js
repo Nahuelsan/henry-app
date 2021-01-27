@@ -20,11 +20,11 @@ let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 const HenryAdmin = (props) => {
-  /* const { info } = props.route.params; */
+  const { info } = props.route.params;
   {/* info={info} */}
 	return (
 		<Contenedor>
-			<AdminHeader navigation={props.navigation} /> 
+			<AdminHeader navigation={props.navigation} info={info} /> 
 			<AdminNavBar navigation={props.navigation} />
 			<ContStudents>
 				<Options onPress={() => props.navigation.navigate('Nuevo Henry')}>

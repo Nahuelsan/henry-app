@@ -16,14 +16,15 @@ import RegisterUser from './screens/RegisterUser';
 import FormularioDatos from './screens/FormularioDatos';
 import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
-import InstructoresList from './screens/InstructoresList';
+import InstructoresList from './screens/Instructorres/InstructoresList';
 import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import CohorteList from './screens/Cohortes/CohorteList';
 import CrearCohorte from './screens/Cohortes/CrearCorte';
 import UserView from './screens/UserView';
-import Profile from './screens/profile';
-import StudentList from './screens/StudentList';
+import Profile from './screens/Perfil/profile';
+import StudentList from './screens/Estudiantes/StudentList';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
+import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 
 const Stack = createStackNavigator();
 
@@ -70,6 +71,7 @@ export default function App () {
         <Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
         <Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
+        <Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />

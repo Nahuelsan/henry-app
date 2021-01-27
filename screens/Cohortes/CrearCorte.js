@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { Image, Icon, ListItem, Input, Button, ButtonGroup } from 'react-native-elements';
+import { Text, View } from 'react-native';
+import { Icon,  Input } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
 //import DateTimePicker from '@react-native-community/datetimepicker'
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -27,7 +27,6 @@ import {
   TextContTable,
   LogoSise,
   BotonLog,
-  ImgListUn,
   TextButton
 } from './StyledCohorteList';
 let card1 = require('../../src/assets/img/imgCard1.png');
@@ -107,7 +106,7 @@ const CrearCohorte = ({ navigation }) => {
 					numero_de_grupo: state.numero_de_grupo,
 					alumnos : state.alumnos,
 				});
-				props.navigation.navigate('Henry Admin');
+				props.navigation.navigate('Mensaje Cohorte');
 			} catch (error) {
 				console.log(error);
 			}
@@ -295,30 +294,5 @@ const CrearCohorte = ({ navigation }) => {
     </Contenedor>
   )
 };
-
-const styles = StyleSheet.create({
-	header    : {
-		display         : 'flex',
-		flexDirection   : 'row',
-		alignItems      : 'center',
-		backgroundColor : '#e5e500'
-	},
-	container : {
-		//border: 'solid 2px grey',
-		padding       : '7px',
-		display       : 'flex',
-		flexDirection : 'row'
-	},
-	image     : {
-		display       : 'flex',
-		flexDirection : 'column'
-	},
-	text      : {
-		padding       : '10px',
-		width         : '60%',
-		display       : 'flex',
-		flexDirection : 'column'
-	}
-});
 
 export default CrearCohorte;
