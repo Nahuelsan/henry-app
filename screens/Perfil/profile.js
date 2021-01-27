@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Alert  } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
 
@@ -26,7 +27,13 @@ const Profile = (props) => {
 	const [
 		edit,
 		setEdit
-	] = useState(false);
+  ] = useState(false);
+  
+  const [
+		selectedRol,
+		setSelectedRol
+	] = useState('');
+
 	const dbRef = firebase.db.collection('users').doc(info.id);
 	useEffect(() => {
 		setUser(info);
@@ -57,6 +64,66 @@ const Profile = (props) => {
 					{ text: 'Aceptar' }
 				])
 			: await dbRef.set(user);
+  };
+  
+  const eliminar = async () => {
+		/* if (confirm('Esta seguro de querer eliminar este Usuario')) {
+			await dbRef.delete();
+			alert('Usuario Eiminado');
+			navigation.navigate('Henry Admin');
+		}
+		else {
+    } */
+    
+    Alert.alert(
+			'Esta Eliminando un Usuario',
+			'Esta seguro de querer eliminar este Usuario',
+			[
+				{
+					text    : 'Cancel',
+					onPress : () => console.log('Cancel Pressed'),
+					style   : 'cancel'
+				},
+				{
+					text    : 'OK',
+					onPress : async () => {
+            await dbRef.delete();   
+            navigation.navigate('Henry Admin');         
+					}
+				}
+			],
+			{ cancelable: false }
+		);
+  };
+  
+  const setPermisos = async (rol) => {
+		/* if (confirm('Esta seguro del cambio de Perfil de Usuario')) {
+			await dbRef.set({ ...user, rol: rol });
+			setUser({ ...user, rol: rol });
+		}
+		else {
+		} */
+
+		Alert.alert(
+			'Cambiar Perfil Usuario',
+			'Esta seguro del cambio de Permisos de Usuario',
+			[
+				{
+					text    : 'Cancel',
+					onPress : () => console.log('Cancel Pressed'),
+					style   : 'cancel'
+				},
+				{
+					text    : 'OK',
+					onPress : async () => {
+            await dbRef.set({ ...user, rol: rol });
+            setUser({ ...user, rol: rol });
+
+					}
+				}
+			],
+			{ cancelable: false }
+		);
 	};
 
 	return (
@@ -86,6 +153,7 @@ const Profile = (props) => {
           <View >
             <Text style={styles.title}>{`${user.first_name} ${user.last_name}`}</Text>
             <Text style={styles.subtitle}>{user.email}</Text>
+            <Text style={styles.subtitle}>Perfil: {user.rol}</Text>
           </View>
         </ContAvatarPrin>
         <ContDatos style={styles.datos}>
@@ -113,6 +181,38 @@ const Profile = (props) => {
           >
             <TextButton>{edit ? 'Guardar cambios' : 'Editar'}</TextButton>
           </BotonLog>
+          <View style={styles.datos}>
+            <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Actualizar Permisos de Usuario</Text>
+            <Text style={{ fontSize: 15 }}>Selecciona el rol del usuario</Text>
+            <RNPickerSelect
+                onValueChange={(itemValue, itemIndex) => setSelectedRol(itemValue)}
+                items={[
+                  {label:"Estudiante", value:"student" },
+                  {label:"PM", valuE:"pm" },
+                  { label:"Instructor", value:"instructor" },
+                  { label:"Administrador", value:"admin" },
+                ]}
+            />
+            {/* <Picker
+               style={{ height: 50, width: 150 }}
+              onValueChange={}
+            >
+              <Picker.Item label="Selección" value="" />
+              {user.rol !== 'student' ? <Picker.Item label="Estudiante" value="student" /> : null}
+              {user.rol !== 'pm' ? <Picker.Item label="PM" value="pm" /> : null}
+              {user.rol !== 'instructor' ? <Picker.Item label="Instructor" value="instructor" /> : null}
+              {user.rol !== 'admin' ? <Picker.Item label="Administrador" value="admin" /> : null}
+            </Picker> */}
+
+            <Button
+              title={selectedRol ? 'Actualizar' : 'Seleccione una opción'}
+              disabled={selectedRol ? false : true}
+              onPress={() => setPermisos(selectedRol)}
+            />
+          </View>
+          <View style={styles.datos}>
+            <Button style={{ backgroundColor: 'red' }} title="Eliminar Usuario" onPress={() => eliminar()} />
+          </View>
         </ContDatos>
       </ContGeneral>
     </Contenedor>

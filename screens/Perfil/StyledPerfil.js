@@ -98,7 +98,7 @@ export const ContAvatarPrin = styled.View`
   justify-content: space-between;
 `
 
-export const ContDatos = styled.View`
+export const ContDatos = styled.ScrollView`
   width: 80%;
 `
 

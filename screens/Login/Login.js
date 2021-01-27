@@ -16,7 +16,7 @@ import {
 	ContSocialRed,
 	IconSocialRed
 } from './styledLogin';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import firebase from '../../database/database.js';
 
 const Login = ({ navigation }) => {
