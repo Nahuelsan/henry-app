@@ -12,7 +12,9 @@ import {
 	ContText,
 	ContMinf,
 	IconContent,
-	ImgMinf
+  ImgMinf,
+  ImgSise,
+  LogoSise
 } from './styledAdmin';
 let card1 = require('../../src/assets/img/imgCard2.png');
 let card2 = require('../../src/assets/img/imgCard3.png');
@@ -27,7 +29,7 @@ const CohorteMenu = ({ navigation }) => {
 			<ContStudents>
 				<Options onPress={() => navigation.navigate('Lista de Cohortes')}>
 					<BackImg>
-						<Image style={{ width: '80px', height: '80px' }} source={card1} />
+						<ImgSise source={card1} />
 					</BackImg>
 					<ContText>
 						<TituloCard>Ver Cohortes</TituloCard>
@@ -37,7 +39,7 @@ const CohorteMenu = ({ navigation }) => {
 
 				<Options onPress={() => navigation.navigate('Crear Cohorte')}>
 					<BackImg>
-						<Image style={{ width: '90px', height: '90px' }} source={card2} />
+						<ImgSise source={card2} />
 					</BackImg>
 					<ContText>
 						<TituloCard>Crear Cohorte</TituloCard>
@@ -62,7 +64,7 @@ const CohorteMenu = ({ navigation }) => {
 						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
-						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
+						<LogoSise source={logFont} />
 					</ImgMinf>
 					<Icon
 						solid={true}

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Text } from 'react-native';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,8 +18,8 @@ import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import InstructoresList from './screens/InstructoresList';
 import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
-import CohorteList from './screens/CohorteList';
-import CrearCohorte from './screens/CrearCorte';
+import CohorteList from './screens/Cohortes/CohorteList';
+import CrearCohorte from './screens/Cohortes/CrearCorte';
 import UserView from './screens/UserView';
 import Profile from './screens/profile';
 import StudentList from './screens/StudentList';
@@ -31,22 +33,22 @@ export default function App () {
 		setFontsLoad
 	] = React.useState(false);
 
-	React.useEffect(() => {
+	/* React.useEffect(() => {
 		if (!fontsLoad) {
 			getFonts();
 		}
-	}, []);
+	}, []); */
 
 	const getFonts = async () => {
 		await Font.loadAsync({
-			'redRose-bold'    : require('./src/assets/fonts/RedRose-Bold.ttf'),
+      'Inter-Black': require('./src/assets/fonts/Inter-Black-900.otf'),
+      'redRose-bold'    : require('./src/assets/fonts/RedRose-Bold.ttf'),
 			'redRose-light'   : require('./src/assets/fonts/RedRose-Light.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
 			'redRose-regular' : require('./src/assets/fonts/RedRose-Regular.ttf'),
 			'gadugi'          : require('./src/assets/fonts/gadugi.ttf'),
-			'gadugib '        : require('./src/assets/fonts/gadugib.ttf')
+			'gadugib'        : require('./src/assets/fonts/gadugib.ttf')
 		});
-		setFontsLoad(true);
 	};
 
 	function MyStack () {
@@ -63,12 +65,11 @@ export default function App () {
 					}
 				}}
 			>
-				
 				<Stack.Screen name="Home" component={Home} />
-				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
-				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
         <Stack.Screen name="Henry Admin" component={HenryAdmin} />
+				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
+        <Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
@@ -82,10 +83,19 @@ export default function App () {
 			</Stack.Navigator>
 		);
 	}
+  if(!fontsLoad){
+    return(
+      <AppLoading
+      startAsync={getFonts}
+      onFinish={()=>{setFontsLoad(true);}}
+      onError={console.warn}/>
+    )
+  }else{
 
-	return (
-		<NavigationContainer>
-			<MyStack />
-		</NavigationContainer>
-	);
+    return (
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    );
+  }
 }
