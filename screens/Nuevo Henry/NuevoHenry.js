@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import { View, StyleSheet, Button } from 'react-native';
 import { CheckBox, Icon, Image, Input, Text, ListItem } from 'react-native-elements'
 import {
   Contenedor,

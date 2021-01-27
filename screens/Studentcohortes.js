@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
 import firebase from '../database/database.js';
 
-const StudentList = ({ navigation,route }) => {
+const StudentList = ({ navigation, route }) => {
     const [
         users,
         setUsers
     ] = useState([]);
+    
     var numeroCohorte = route.params.state.numero_de_cohorte
     useEffect(() => {
         firebase.db.collection('users').onSnapshot((snap) => {
