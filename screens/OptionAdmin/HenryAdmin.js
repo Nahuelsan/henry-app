@@ -9,7 +9,9 @@ import {
 	Options,
 	BackImg,
 	TituloCard,
-	ContText,
+  ContText,
+  ImgSise,
+  LogoSise,
 	ContMinf,
 	IconContent,
 	ImgMinf
@@ -18,15 +20,16 @@ let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 const HenryAdmin = (props) => {
-	/* const { info } = props.route.params; */
+  /* const { info } = props.route.params; */
+  {/* info={info} */}
 	return (
 		<Contenedor>
-			<AdminHeader navigation={props.navigation} /> {/* info={info} */}
+			<AdminHeader navigation={props.navigation} /> 
 			<AdminNavBar navigation={props.navigation} />
 			<ContStudents>
 				<Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
 					<BackImg>
-						<Image style={{ width: '90px', height: '90px' }} source={card1} />
+						<ImgSise source={card1} />
 					</BackImg>
 					<ContText>
 						<TituloCard>Invitar un nuevo Henry</TituloCard>
@@ -36,7 +39,7 @@ const HenryAdmin = (props) => {
 
 				<Options onPress={() => props.navigation.navigate('Lista de Estudiantes')}>
 					<BackImg>
-						<Image style={{ width: '90px', height: '90px' }} source={card1} />
+						<ImgSise source={card1} />
 					</BackImg>
 					<ContText>
 						<TituloCard>Ver Estudiantes</TituloCard>
@@ -60,7 +63,7 @@ const HenryAdmin = (props) => {
 						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
-						<Image style={{ width: '40px', height: '40px' }} source={logFont} />
+						<LogoSise source={logFont} />
 					</ImgMinf>
 					<Icon
 						solid={true}

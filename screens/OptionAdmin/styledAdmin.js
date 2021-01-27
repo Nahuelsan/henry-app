@@ -29,6 +29,16 @@ export const Welcome = styled.Text`
   margin-bottom: 5px;
 `
 
+export const ImgSise = styled.Image`
+  width: 90px;
+  height: 90px;
+`
+
+export const LogoSise = styled.Image`
+  width: 40px;
+  height: 40px;
+`
+
 export const ContAvatar = styled.TouchableOpacity` 
   width: 53px;
   height: 53px;
