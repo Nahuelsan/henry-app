@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Icon,  Input } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
+import firebase from '../../database/database'
 //import DateTimePicker from '@react-native-community/datetimepicker'
 import DateTimePicker from "react-native-modal-datetime-picker";
 
@@ -43,19 +44,30 @@ const CrearCohorte = ({ navigation }) => {
   }
 
   //Modal Calendario
-  const [isVisible, setIsVisible] = useState(false)
-  const showDateTimePicker = () => {
-    setIsVisible(true);
-    console.log('entre', isVisible)
+  const [isVisibleStart, setIsVisibleStart] = useState(false)
+  const [isVisibleEnd, setIsVisibleEnd] = useState(false)
+  const showDateTimePicker = (date) => {
+    date === 'start' ? setIsVisibleStart(true) : setIsVisibleEnd(true)
   };
   const hideDateTimePicker = () => {
-    setIsVisible(false);
+    setIsVisibleStart(false);
+    setIsVisibleEnd(false)
   };
-  const handleDatePicked = (date,name) => {
-    handleChangeText(date,name)
-    //console.log("A date has been picked: ", date);
+  const handleDatePickedStart = (date) => {
+    let newDate = date.toString().split(" ")
+    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
+    handleChangeText(returnDate.join("/"), 'fecha_de_inicio')
     hideDateTimePicker();
   };
+  const handleDatePickedEnd = (date) => {
+    let newDate = date.toString().split(" ")
+    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
+    handleChangeText(returnDate.join("/"), 'fecha_de_finalizacion')
+    hideDateTimePicker();
+  };
+  const getMonthOfDate = name => {
+    return ("JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(name) / 3 + 1)
+  }
 
   const initalState = {
 		numero_de_cohorte   : '',
@@ -92,21 +104,22 @@ const CrearCohorte = ({ navigation }) => {
 		}
 		if (state.numero_de_grupo === '') {
 			alert('Ingrese numero de grupo');
-    }
+    }/* 
     if (state.alumnos === []) {
 			alert('Ingrese alumnos');
-		}
+		} */
 		else {
 			try {
-				await firebase.db.collection('cohortes').add({
+				await firebase.db.collection('cohorte').add({
 					modalidad: state.modalidad,
-					fecha_de_inicio: state.fecha_de_inicio,
-					fecha_de_finalizacion: state.fecha_de_finalizacion,
+					comienzo: state.fecha_de_inicio,
+					fin: state.fecha_de_finalizacion,
 					instructor: state.instructor,
 					numero_de_grupo: state.numero_de_grupo,
-					alumnos : state.alumnos,
+          alumnos : state.alumnos,
+          nombre: state.numero_de_cohorte
 				});
-				props.navigation.navigate('Mensaje Cohorte');
+				navigation.navigate('Mensaje Cohorte');
 			} catch (error) {
 				console.log(error);
 			}
@@ -139,13 +152,11 @@ const CrearCohorte = ({ navigation }) => {
       </Options> 
       <ContGeneral>
         <ContListGen>
-          <ContPirnTable>
-            <View>
-              <TextContTable>COHORTE N°</TextContTable>
-            </View>
+          <View>
+            <TextContTable>COHORTE N°</TextContTable>
             <RNPickerSelect
               onValueChange={(value) => handleChangeText(value,'numero_de_cohorte')}
-              value={state.value}
+              /* value={state.value} */
               items={[
                 { label: '01', value: '01' },
                 { label: '02', value: '02' },
@@ -160,7 +171,7 @@ const CrearCohorte = ({ navigation }) => {
                 { label: '11', value: '11' },
               ]}
             />
-          </ContPirnTable>
+          </View>
 
           <ContPirnTable>
             <View>
@@ -186,14 +197,14 @@ const CrearCohorte = ({ navigation }) => {
                 name='calendar-sharp'
                 type='ionicon'
                 size={40}
-                onPress={showDateTimePicker} />
+                onPress={() => showDateTimePicker('start')} />
               <DateTimePicker
                 mode='date'
                 display="default"
                 style={{ width: 320, backgroundColor: "white" }}
-                isVisible={isVisible}
+                isVisible={isVisibleStart}
                 name='fecha_de_inicio'
-                onConfirm={handleDatePicked}
+                onConfirm={val => handleDatePickedStart(val)}
                 onCancel={hideDateTimePicker}
               />
             </View>
@@ -209,35 +220,35 @@ const CrearCohorte = ({ navigation }) => {
                 name='calendar-sharp'
                 type='ionicon'
                 size={40}
-                onPress={showDateTimePicker} 
+                onPress={() => showDateTimePicker('end')}
               />
               <DateTimePicker
                 mode='date'
                 display="default"
                 style={{ width: 320, backgroundColor: "white" }}
-                isVisible={isVisible}
+                isVisible={isVisibleEnd}
                 name='fecha_de_finalizacion'
-                onConfirm={handleDatePicked}
+                onConfirm={val => handleDatePickedEnd(val)}
                 onCancel={hideDateTimePicker}
               />
             </View>
           </ContPirnTable>
 
-          <ContPirnTable>
+          <View>
             <View>
               <TextContTable>INSTRUCTOR</TextContTable>
             </View>
             <RNPickerSelect
               onValueChange={(value) => handleChangeText(value,'instructor')}
-              value={state.value}
+              /* value={state.value} */
               items={[
                 { label: 'Franco Etcheverry', value: 'Franco Etcheverry' },
                 { label: 'Toni Tralice', value: 'Toni Tralice' },
               ]}
             />
-          </ContPirnTable>
+          </View>
 
-          <ContPirnTable>
+          <View>
             <View>
               <TextContTable>NUMERO DE GRUPOS</TextContTable>
             </View>
@@ -245,7 +256,7 @@ const CrearCohorte = ({ navigation }) => {
             placeholder='00'
             onChangeText={(value) => handleChangeText(value,'numero_de_grupo')}
             />
-          </ContPirnTable>
+          </View>
 
           <ContPirnTable onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, state:state })}>
             <View>
@@ -254,7 +265,7 @@ const CrearCohorte = ({ navigation }) => {
             <Icon name='account-group' type='material-community' size={40} />
           </ContPirnTable>
           <BotonLog onPress={saveNewCohorte}>
-            <TextButton>CREAR COHORTE</TextButton>
+            <TextButton onPress={saveNewCohorte}>CREAR COHORTE</TextButton>
           </BotonLog>
         </ContListGen>
         <ContMinf>

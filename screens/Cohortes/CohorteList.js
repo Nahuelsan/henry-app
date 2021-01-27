@@ -37,13 +37,14 @@ const CohorteList = ({ navigation }) => {
 		firebase.db.collection('cohorte').onSnapshot((query) => {
 			var data = [];
 			query.docs.forEach((docs) => {
-				const { comienzo, descripcion, fin, modalidad } = docs.data();
+				const { comienzo, descripcion, fin, modalidad, nombre } = docs.data();
 				data.push({
 					id          : docs.id,
 					comienzo,
 					descripcion,
 					fin,
-					modalidad
+          modalidad,
+          nombre
 				});
 			});
 			setCohorte(data);
@@ -86,7 +87,7 @@ const CohorteList = ({ navigation }) => {
                   <ImgListUn source={logFont} />
                 </BackImg>
                 <ContText>
-                  <TextPrin>{`Cohorte ${l.id}`}</TextPrin>
+                  <TextPrin>{`Cohorte ${l.nombre}`}</TextPrin>
                   <Text>{`Comienzo ${l.comienzo}`} - {`Fin ${l.fin}`}</Text>
                   <ContBtnOut >
                     <BotonLog onPress={onPressSee}>
