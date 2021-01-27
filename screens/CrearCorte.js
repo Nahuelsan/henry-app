@@ -200,7 +200,7 @@ const CrearCohorte = ({ navigation }) => {
           <ListItem.Content>
             <ListItem.Title>ALUMNOS</ListItem.Title>
           </ListItem.Content>
-          <ListItem.Chevron onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, setState:{setState} })} />
+          <ListItem.Chevron onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, state:state })} />
         </ListItem>
 
         <Button 
