@@ -248,7 +248,7 @@ const CrearCohorte = ({ navigation }) => {
             />
           </ContPirnTable>
 
-          <ContPirnTable onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, setState:{setState} })}>
+          <ContPirnTable onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, state:state })}>
             <View>
               <TextContTable>ALUMNOS</TextContTable>
             </View>
