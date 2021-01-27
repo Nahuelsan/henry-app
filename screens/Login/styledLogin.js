@@ -17,7 +17,8 @@ export const Encabezado = styled.View`
 
 export const ContGen = styled.View`
   width: 100%;
-  height: 80%;
+  height: 85%;
+  display: flex;
   background-color: white;
   top: 15%;
   padding: 28px;
@@ -25,6 +26,7 @@ export const ContGen = styled.View`
   border-top-left-radius: 40px;
   border-top-right-radius: 40px; 
   z-index: 2;
+  justify-content: space-between;
 `
 
 export const Back = styled.Text`
@@ -34,14 +36,14 @@ export const Back = styled.Text`
 `
 
 export const TituloPrin = styled.Text`
-  margin-top: 60px;
+  margin-top: 10%;
   font-family: 'gadugib';
   font-size: 27px;
 `
 
 export const ContInputs = styled.View`
   height: 100px;
-  margin-top: 90px;
+  margin-top: 18%;
   margin-bottom: 50px;
   justify-content: space-between;
 `
