@@ -15,6 +15,7 @@ export const Img = styled.Image`
 export const Title = styled.Text`
   font-size: 35px;
   font-family: 'redRose-bold';
+  marginLeft: 50px;
 `
 
 export const TitleMin = styled.Text`
@@ -23,12 +24,12 @@ export const TitleMin = styled.Text`
 `
 
 export const InfoBot = styled.Text`
-  margin-top: auto;
+  margin-top: 5px;
   font-family: 'redRose-light';
   font-size: 20px;
 `
 export const CardText = styled.View`
-  margin-top: 20%;
+  margin-top: 10%;
   height: 20%;
 `
 
