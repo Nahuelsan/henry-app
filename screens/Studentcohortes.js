@@ -8,6 +8,7 @@ const StudentList = ({ navigation, route }) => {
         users,
         setUsers
     ] = useState([]);
+    
     var numeroCohorte = route.params.state.numero_de_cohorte
     useEffect(() => {
         firebase.db.collection('users').onSnapshot((snap) => {
