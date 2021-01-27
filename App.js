@@ -23,6 +23,7 @@ import CrearCohorte from './screens/Cohortes/CrearCorte';
 import UserView from './screens/UserView';
 import Profile from './screens/profile';
 import StudentList from './screens/StudentList';
+import Studentcohortes from './screens/Studentcohortes';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 
 const Stack = createStackNavigator();
@@ -79,7 +80,8 @@ export default function App () {
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
 				<Stack.Screen name="Perfil" component={Profile} />
-				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
+				<Stack.Screen name="Lista de Estudiantes" component={Studentcohortes} />
+				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 			</Stack.Navigator>
 		);
 	}
