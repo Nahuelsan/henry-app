@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import firebase from '../database/database.js';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Encabezado, Back } from './Login/styledLogin';
+import firebase from '../../database/database.js';
+import { Encabezado, Back } from '../Login/styledLogin';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
 const RegisterUser = ({navigation}) => {
 	const initalState = {

@@ -18,12 +18,12 @@ import CohorteList from './screens/Cohortes/CohorteList';
 import CrearCohorte from './screens/Cohortes/CrearCorte';
 import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
-import RegisterUser from './screens/register/registeruser';
+import RegisterUser from './screens/Register/registeruser';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import StudentList from './screens/Estudiantes/StudentList';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
-import FormularioDatos from './screens/register/formulariodatos';
+import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 
 const Stack = createStackNavigator();

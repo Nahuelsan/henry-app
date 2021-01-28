@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CountryDropdown} from 'react-country-region-selector';
 import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 
-import firebase from '../database/database';
+import firebase from '../../database/database';
 
 const FormularioDatos = (props) => {
 
