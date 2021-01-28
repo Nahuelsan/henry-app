@@ -69,7 +69,7 @@ export const BotonLog = styled.TouchableOpacity`
 `
 
 export const ContSocialRed = styled.View`
-  margin-top: auto;
+  margin-bottom: 5px;
 `
 
 export const TextButton = styled.Text`
