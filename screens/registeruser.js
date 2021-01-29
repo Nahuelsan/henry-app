@@ -36,26 +36,16 @@ const RegisterUser = ({navigation}) => {
 		}
 		else {
 			try {
-				await firebase.db.collection('invited users').where("email", "==", state.email)
-			   .get()
-  					.then(snapshot => {
-						   if (snapshot.empty) {
-						      console.log('No estas invitado');
-						      return;
-    						}else{
-									firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
-									alert('Usuario creado');
-									navigation.navigate('Formulario Datos', { email: state.email });    							
-    						}
-    				});
-  				
+				await firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
+				alert('Usuario creado');
+				navigation.navigate('Formulario Datos', { email: state.email });
+
 			} catch (error) {
 				console.log(error);
-				alert('No estas invitado');
+				alert('Error');
 			}
 		}
-	}
-		
+	};
 
 	return (
 		<ScrollView style={styles.container}>

@@ -5,11 +5,11 @@ import { CountryDropdown} from 'react-country-region-selector';
 import firebase from '../database/database';
 
 const FormularioDatos = (props) => {
-
+	console.log()
 	const initalState = {
 		first_name   : '',
 		last_name    : '',
-		email        : props.route.email,
+		email        : props.route.params.email,
 		phone        : '',
 		dni          : '',
 		nacionalidad : '',
