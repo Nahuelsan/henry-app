@@ -39,7 +39,7 @@ const NuevoHenry = ({ navigation }) => {
     console.log(students)
   }
   const axiosEmail =(mail)=>{
-       axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
+    axios.post('https://henry-express.herokuapp.com/',
       {to:mail, 
         message:`Buenas tardes`,
         subject:"hola prueba app henry"
