@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
-import { Icon, Image, Text} from 'react-native-elements'
+import { Icon} from 'react-native-elements'
 import {
   Contenedor,
   Encabezado,
@@ -12,7 +11,7 @@ import {
   TituloGen,
   TextGen,
   ImgContCenter
-} from './StyledMsg';
+} from './StyledMsgCohorte';
 let imgMsg = require('../../src/assets/img/imgMensaje.jpg'); 
 
 const MsgNuevoHenry = ({ navigation }) => {
@@ -32,8 +31,8 @@ const MsgNuevoHenry = ({ navigation }) => {
       </Encabezado>
       <ContGeneral>
         <ImgContCenter  source={imgMsg} />
-        <TituloGen>Felicidades correo enviado</TituloGen>
-        <TextGen>El correo fue enviado con éxito al destinatario seleccionado, regresa al inicio.</TextGen>
+        <TituloGen>Felicidades Creaste la Cohorte con Exito</TituloGen>
+        <TextGen>Ahora puedes asignar estudiantes a la cohorte o reasignar repitentes.</TextGen>
         <BotonLog 
           onPress={()=> navigation.navigate('Henry Admin')}>
           <TextButton>Volver al inicio</TextButton>

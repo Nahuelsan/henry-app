@@ -16,7 +16,7 @@ import {
 	ContSocialRed,
 	IconSocialRed
 } from './styledLogin';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, ScrollView } from 'react-native';
 import firebase from '../../database/database.js';
 
 const Login = ({ navigation }) => {
@@ -206,12 +206,12 @@ const Login = ({ navigation }) => {
 					</IconSocialRed>
 				</ContSocialRed>
 				{/* 
-        <TouchableOpacity>
-          <Text style={styles.btntext} onPress={() => goToRegister()}>
-            {' '}
-            Crear Cuenta {' '}
-          </Text>
-        </TouchableOpacity> */}
+		<TouchableOpacity>
+		<Text style={styles.btntext} onPress={() => goToRegister()}>
+			{' '}
+			Crear Cuenta {' '}
+		</Text>
+		</TouchableOpacity> */}
 			</ContGen>
 		</Contenedor>
 	);

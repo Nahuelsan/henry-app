@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { CountryDropdown} from 'react-country-region-selector';
+import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 
-import firebase from '../database/database';
+import firebase from '../../database/database';
 
 const FormularioDatos = (props) => {
-	console.log()
+
 	const initalState = {
 		first_name   : '',
 		last_name    : '',
@@ -61,7 +61,15 @@ const FormularioDatos = (props) => {
 					photo        : state.photo
 				});
 
-				props.navigation.navigate('Menu Usuario"');
+				return(
+					<View style={styles.inputGroup}>
+						<Text> Formulario cargado exitosamente, por favor vuelva al Home para poder Loguearse</Text>
+						<Button
+                                title="Volver al Home"
+                            onPress={() => navigation.navigate('Home')}
+                        />
+					</View>
+				)
 			} catch (error) {
 				console.log(error);
 			}

@@ -5,16 +5,17 @@ export const BackGround = styled.View`
   background-color: #FFFF01;
   padding: 150px 35px 100px 43px;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const Img = styled.Image`
-  margin: 0 110px;
+  margin: 0 1%;
 `;
 
 export const Title = styled.Text`
-  margin: 90px 0 40px 0;
   font-size: 35px;
   font-family: 'redRose-bold';
+  marginLeft: 50px;
 `
 
 export const TitleMin = styled.Text`
@@ -23,9 +24,13 @@ export const TitleMin = styled.Text`
 `
 
 export const InfoBot = styled.Text`
-  margin-top: auto;
+  margin-top: 5px;
   font-family: 'redRose-light';
   font-size: 20px;
+`
+export const CardText = styled.View`
+  margin-top: 10%;
+  height: 20%;
 `
 
 export const SpanText = styled.Text`
