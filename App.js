@@ -13,6 +13,8 @@ import Login from './screens/Login/Login';
 import UserView from './screens/UserView';
 import CreateUser from './screens/CreateUser';
 import Profile from './screens/Perfil/profile';
+import EditarPm from './screens/CRUDPms/EditarPm';
+import ListaPms from './screens/CRUDPms/ListaPms';
 import Studentcohortes from './screens/Studentcohortes';
 import CohorteList from './screens/Cohortes/CohorteList';
 import CrearCohorte from './screens/Cohortes/CrearCorte';
@@ -65,8 +67,11 @@ export default function App () {
 						fontWeight : 'bold'
 					}
 				}}
-			>
-				<Stack.Screen name="Home" component={Home} />
+			>	
+				<Stack.Screen name="Lista_PMs" component={ListaPms} />
+				<Stack.Screen name="EditarPM" component={EditarPm} />
+
+{/* 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
@@ -83,7 +88,7 @@ export default function App () {
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
-				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
+				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} /> */}
 			</Stack.Navigator>
 		);
 	}
