@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{ useState, useEffect } from 'react';
 import { CheckBox, Icon, Image, Input, Text, ListItem } from 'react-native-elements'
 import {
   Contenedor,
@@ -27,7 +27,8 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 import axios from 'axios'
 import firebase from "../../database/database";
 
-const NuevoHenry = ({ navigation }) => {
+const NuevoHenry = ({ navigation, route }) => {
+  const {instructor} = route.params
  
   const [count,setCount]=useState([0])
   const [students,setStudents]=useState([])
@@ -38,19 +39,25 @@ const NuevoHenry = ({ navigation }) => {
     setStudents(aux)
     console.log(students)
   }
+
   const axiosEmail =(mail)=>{
-       axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
+    axios.post('https://henry-express.herokuapp.com/',
       {to:mail, 
         message:`Buenas tardes`,
         subject:"hola prueba app henry"
       })
-      .then(res=>{
-        firebase.db.collection('invited users').add({
+    .then(res=>{
+      if(!instructor){
+          firebase.db.collection('invited users').add({
           email:mail
         })
-      })
-      
-    }
+      }else{
+        firebase.db.collection('invited instructor').add({
+          email:mail
+        })
+      }
+    })
+  }
 
   
   const onPress=  ()=>{
@@ -72,6 +79,10 @@ const NuevoHenry = ({ navigation }) => {
 
   }
 
+  const importHenrys = () => {
+    navigation.navigate('Importar Henrys' , {list: students, instructor: instructor})
+  }
+
   return (
     <Contenedor>
       <Encabezado >
@@ -86,21 +97,21 @@ const NuevoHenry = ({ navigation }) => {
           <TextTitle>Home</TextTitle>
         </ConTitle>
       </Encabezado>
-      <Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
+      <Options onPress={() => navigation.navigate('Nuevo Henry')}>
         <BackImg>
           <ImgSise source={card1} />
         </BackImg>
         <ContText>
-          <TituloCard>Invitar un nuevo Henry</TituloCard>
-          <Text>Invita a un nuevo henry a una cohorte </Text>
+          <TituloCard>Invitar un nuevo {instructor ? "Instructor" : "Henry"}</TituloCard>
+          <Text>Invita a un nuevo {instructor ? "instructor" : "henry a una cohorte"} </Text>
         </ContText>
       </Options>
       <BodyCont>
-        <TitleBody>Inscribe a un futuro Henry</TitleBody>
+        <TitleBody>Inscribe a un futuro {instructor ? "instructor" : "Henry"}</TitleBody>
         { count.map((e,i)=>(
             <ListItem key={i} >
               <ContList bottomDivider={true}>
-                <TextContList>Estudiante {i+1}</TextContList>
+                <TextContList>{instructor ? "Instructor" : "Estudiante"} {i+1}</TextContList>
                 <Input
                   placeholder='Ingrese el email de destino'
                   onChangeText={value => sendEmailStudents(value,i)}
@@ -110,8 +121,11 @@ const NuevoHenry = ({ navigation }) => {
           ))}
         <BotonLog 
           onPress={addEmail}>
-					<TextButton>Agregar email estudiante</TextButton>
+					<TextButton>Agregar email de {instructor ? "instructor" : "estudiante"}</TextButton>
 				</BotonLog>
+        <BotonLog onPress={importHenrys}>
+          <TextButton>Importar {instructor ? "Instructores" : "Henrys"}</TextButton>
+        </BotonLog>
         <BotonLog 
           onPress={onPress}>
 					<TextButton>Enviar email</TextButton>
@@ -124,13 +138,13 @@ const NuevoHenry = ({ navigation }) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						name="ghost"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => pnavigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
 						<LogoSise source={logFont} />
@@ -140,14 +154,14 @@ const NuevoHenry = ({ navigation }) => {
 						name="comment-dots"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						solid={true}
 						name="user"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 				</IconContent>
 			</ContMinf>

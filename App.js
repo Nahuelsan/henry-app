@@ -27,6 +27,7 @@ import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
+import ImportHenrys from './screens/Nuevo Henry/importHenrys';
 
 const Stack = createStackNavigator();
 
@@ -70,8 +71,7 @@ export default function App () {
 			>	
 				<Stack.Screen name="Lista_PMs" component={ListaPms} />
 				<Stack.Screen name="EditarPM" component={EditarPm} />
-
-{/* 				<Stack.Screen name="Home" component={Home} />
+ 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
@@ -88,7 +88,8 @@ export default function App () {
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
-				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} /> */}
+				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
+				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 			</Stack.Navigator>
 		);
 	}
