@@ -92,7 +92,7 @@ const YourCohort = ({ navigation }) => {
             </TituloPm>
             <Img style={{ flexDirection: 'row' }}>
               <View style={styles.usuario}>
-                <Text style={styles.instructor}>Gisela Capozzi{ }</Text>
+                <Text style={styles.instructor}>{ }</Text>
                 <User source={user} />
               </View>
             </Img>
