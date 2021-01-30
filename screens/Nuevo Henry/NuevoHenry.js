@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{ useState, useEffect } from 'react';
 import { CheckBox, Icon, Image, Input, Text, ListItem } from 'react-native-elements'
 import {
   Contenedor,
@@ -38,6 +38,7 @@ const NuevoHenry = ({ navigation }) => {
     setStudents(aux)
     console.log(students)
   }
+
   const axiosEmail =(mail)=>{
        axios.post('http://localhost:5000/henry-app-50edd/us-central1/mailer',
       {to:mail, 
@@ -70,6 +71,10 @@ const NuevoHenry = ({ navigation }) => {
    
     console.log("counter",count)
 
+  }
+
+  const importHenrys = () => {
+    navigation.navigate('Importar Henrys' , {list: students})
   }
 
   return (
@@ -112,6 +117,9 @@ const NuevoHenry = ({ navigation }) => {
           onPress={addEmail}>
 					<TextButton>Agregar email estudiante</TextButton>
 				</BotonLog>
+        <BotonLog onPress={importHenrys}>
+          <TextButton>Importar Henrys</TextButton>
+        </BotonLog>
         <BotonLog 
           onPress={onPress}>
 					<TextButton>Enviar email</TextButton>
