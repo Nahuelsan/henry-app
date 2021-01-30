@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, StyleSheet, Button, View } from 'react-native';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
-import BottomSheet from 'react-native-bottomsheet';
 
 const EditarPms = ({navigation, route}) => {
     const [state, setState] = useState(
