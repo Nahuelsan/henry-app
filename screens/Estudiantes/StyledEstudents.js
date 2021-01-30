@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const ImgSise = styled.Image`
+export const ImgSize = styled.Image`
   width: 90px;
   height: 90px;
 `

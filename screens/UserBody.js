@@ -26,6 +26,7 @@ const UserBody = ({navigation}) => {
           type= 'font-awesome-5'
           size={9}
           color='yellow'
+          onPress = {() => console.log('Your Cohort')}
         />
         </View>
       </View>
