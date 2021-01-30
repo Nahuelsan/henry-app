@@ -1,38 +1,59 @@
-import React, { useState } from 'react';
-import { ScrollView, Text, StyleSheet, Button, View } from 'react-native';
-import { Avatar, ListItem, Icon } from 'react-native-elements';
-import BottomSheet from 'react-native-bottomsheet';
+import { ScrollView, Text, StyleSheet, Picker, Button, View, TouchableHighlight } from 'react-native';
+import React, { useState, useEffect} from 'react';
+import { Avatar, ListView, Icon } from 'react-native-elements';
+import ListPopover from 'react-native-list-popover';
+import firebase from '../../database/database';
 
 const EditarPms = ({navigation, route}) => {
     const [state, setState] = useState(
-        route.params.pm
-    )
-    const [isVisible, setIsVisible] = useState(false);
-    const list = [
-        { title: 'List Item 1' },
-        { title: 'List Item 2' },
         {
-          title: 'Cancel',
-          containerStyle: { backgroundColor: 'red' },
-          titleStyle: { color: 'white' },
-          onPress: () => setIsVisible(false),
-        },
-      ];
-    console.log(state)
-    function Editar(){
+            isVisible: false,
+            nombre: 'nahuel sanchez',
+            cohorte: 'FT 05',
+            photo: '',
+            grupo: '5'
+        }
+    )
+    const [cohortes, setCohortes] = useState([])
+    useEffect(() =>{
+        firebase.db.collection('cohorte').onSnapshot((snap) => {
+            const cohorte = [];
+            snap.docs.forEach((doc) => {
+                const {
+                    comienzo, 
+                    description, 
+                    fin, 
+                    modalidad, 
+                    nombre
+                } = doc.data()
+                cohorte.push({
+                    comienzo, 
+                    description, 
+                    fin,
+                    modalidad,
+                    nombre
+                })
+            });
+            setCohortes(cohorte)
+        })
+    }, []);
+    function Editar(item, index){
 
     }
     return(
-        <ScrollView>
+        <ScrollView >
+            
+            {/* Cabecera */console.log(cohortes[1])}
             <View style={styles.header}>
                 <Icon name="left" type="antdesign"  />
                 <Button title="Go back" onPress={() => navigation.goBack()} />
             </View>
+            {/* Titulo */}
             <View style={styles.marco}>
                 <Text style={styles.text}>Editar PM</Text>
             </View>
-
-            {!state.photo ? (
+            {/* Contenedor */}
+            <View style={styles.container}>
                 <Avatar
                     style={styles.avatar}
                     source={{
@@ -40,27 +61,29 @@ const EditarPms = ({navigation, route}) => {
                     }}
                                 
                 />
-                ) : (
-                <Avatar
-                    style={styles.avatar}
-                    source={{ uri: state.photo }}
-                />
-            )}
-            <ListItem.Content>
-                    <ListItem.Title
-                        style={styles.pm}
+                    <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => this.setState({...state, isVisible: true})}
                     >
-                        {state.nombre}
-                    </ListItem.Title>
-                    <Text> Cohorte </Text>
-
-            </ListItem.Content>
+                    <Text>{state.cohorte || 'Select'}</Text>
+                    </TouchableHighlight>
+                    <ListPopover
+                        list={cohortes}
+                        isVisible={state.isVisible}
+                        onClick={(item) => this.setState({...state, grupo: item})}
+                        onClose={() => this.setState({...state, isVisible: false})}
+                    />
+            </View>
         </ScrollView>
     )
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
+    container:{
+        marginLeft: '50px'
+
+    },
+    formulario:{
+        textAlign: 'center'
     },
     header: {
         display: 'flex',
@@ -82,6 +105,13 @@ const styles = StyleSheet.create({
     pm: {
         /* fontWeight : 700, */
         fontSize: 20
-    }
+    },
+    button: {
+        backgroundColor: '#b8c',
+        borderRadius: 4,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+    },
 });
 export default EditarPms;
