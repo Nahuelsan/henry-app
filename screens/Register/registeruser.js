@@ -3,9 +3,10 @@ import firebase from '../../database/database.js';
 import { Encabezado, Back } from '../Login/styledLogin';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 const RegisterUser = ({navigation}) => {
+	const [loading, setLoading] = useState(false)
 	const initalState = {
 		password         : '',
 		password_checked : '',
@@ -35,21 +36,19 @@ const RegisterUser = ({navigation}) => {
 			alert('Las claves son coinciden');
 		}
 		else {
+			setLoading(true)
 			try {
-				await firebase.db.collection('invited users').where("email", "==", state.email)
-			   .get()
-  					.then(snapshot => {
-						   if (snapshot.empty) {
-						      console.log('No estas invitado');
-						      return;
-    						}else{
-									firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password);
-									alert('Usuario creado');
-									navigation.navigate('Formulario Datos', { email: state.email });    							
-    						}
-    				});
-  				
+				let snapshot = await firebase.db.collection('invited users').where("email", "==", state.email).get()
+				if(!snapshot.empty){
+					firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
+					navigation.navigate('Formulario Datos', {email: state.email})
+				}else{
+					let snapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
+					firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
+					navigation.navigate('Formulario Datos', {email: state.email, instructor: true})
+				}
 			} catch (error) {
+				setLoading(false)
 				console.log(error);
 				alert('No estas invitado');
 			}
@@ -57,7 +56,7 @@ const RegisterUser = ({navigation}) => {
 	}
 		
 
-	return (
+	return loading ? <ActivityIndicator size="large"/> : (
 		<ScrollView style={styles.container}>
 			{/* Email Input */}
 			<Encabezado>

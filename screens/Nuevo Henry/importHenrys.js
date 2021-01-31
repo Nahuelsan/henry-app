@@ -8,6 +8,7 @@ import firebase from "../../database/database";
 const ImportHenrys = ({navigation, route}) => {
     const [link, setLink] = useState()
     var students = []
+    const {instructor} = route.params
 
     const importStudents = () => {
         getRows(link.split("/")[link.split("/").length - 2])
@@ -34,10 +35,16 @@ const ImportHenrys = ({navigation, route}) => {
          subject:"hola prueba app henry"
        })
        .then(res=>{
-         firebase.db.collection('invited users').add({
-           email:mail
-         })
-       })
+        if(!instructor){
+            firebase.db.collection('invited users').add({
+            email:mail
+          })
+        }else{
+          firebase.db.collection('invited instructor').add({
+            email:mail
+          })
+        }
+      })
        
      }
 

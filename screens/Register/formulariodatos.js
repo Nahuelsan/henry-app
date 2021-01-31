@@ -5,6 +5,8 @@ import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button
 import firebase from '../../database/database';
 
 const FormularioDatos = (props) => {
+	const [goHome, setGoHome] = useState(false)
+	const {instructor} = props.route.params
 
 	const initalState = {
 		first_name   : '',
@@ -14,7 +16,7 @@ const FormularioDatos = (props) => {
 		dni          : '',
 		nacionalidad : '',
 		github       : '',
-		rol          : 'student',
+		rol          : instructor ? 'instructor' : 'student',
 		photo        :
 			'https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg'
 	};
@@ -60,23 +62,22 @@ const FormularioDatos = (props) => {
 					rol          : state.rol,
 					photo        : state.photo
 				});
-
-				return(
-					<View style={styles.inputGroup}>
-						<Text> Formulario cargado exitosamente, por favor vuelva al Home para poder Loguearse</Text>
-						<Button
-                                title="Volver al Home"
-                            onPress={() => navigation.navigate('Home')}
-                        />
-					</View>
-				)
+				setGoHome(true)
 			} catch (error) {
 				console.log(error);
 			}
 		}
 	};
 
-	return (
+	return goHome ? (
+			<View style={styles.inputGroup}>
+				<Text> Formulario cargado exitosamente, por favor vuelva al Home para poder Loguearse</Text>
+				<Button
+						title="Volver al Home"
+					onPress={() => props.navigation.navigate('Home')}
+				/>
+			</View>
+	) : (
 		<ScrollView style={styles.container}>
 			{/* Name Input */}
 			<View style={styles.inputGroup}>

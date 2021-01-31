@@ -145,6 +145,15 @@ export const TextButtonOp2 = styled.Text`
   font-size: 15px;
 `
 
+export const Btn = styled.TouchableOpacity` 
+  justify-content: center;
+  margin: auto;
+  backgroundColor: yellow;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+`
+
 
 /* Menu inferior */
 export const ContMinf = styled.View`
