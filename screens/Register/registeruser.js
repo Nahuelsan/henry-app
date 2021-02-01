@@ -46,7 +46,7 @@ const RegisterUser = ({navigation}) => {
 					let newSnapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
 					if(!newSnapshot.empty){
 						firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-						navigation.navigate('Formulario Datos', {email: state.email, instructor: true})
+						navigation.navigate('Formulario Datos', {email: state.email, instructor: true, cohorte: false})
 					}
 				}
 			} catch (error) {
