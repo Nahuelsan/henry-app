@@ -42,12 +42,22 @@ const selectTime = (props) => {
             let day = newDate[2]
             let age = newDate[3]
             let start = cohortes[modal].comienzo.split("/")
-            if(start[0] < day && start[1] < month && start[2] < age){
-                props.navigation.navigate('Formulario Datos', {
-                    email: email,
-                    instructor: false,
-                    cohorte: cohortes[modal].nombre
-                })
+            if(start[2] >= age){
+                if(start[1] > month){
+                    props.navigation.navigate('Formulario Datos', {
+                        email: email,
+                        instructor: false,
+                        cohorte: cohortes[modal].nombre
+                    }) 
+                }else if(start[1] > month){
+                    if(start[0] >day){
+                        props.navigation.navigate('Formulario Datos', {
+                            email: email,
+                            instructor: false,
+                            cohorte: cohortes[modal].nombre
+                        }) 
+                    }
+                }
             }else return alert('Tu cohorte todavia no esta preparado')
         }
     }
