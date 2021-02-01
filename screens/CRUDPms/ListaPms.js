@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert  } from 'react-native';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
-
 import firebase from '../../database/database';
+
+
 const ListaPms = (props) =>{
     const [
         pms,
@@ -12,19 +13,47 @@ const ListaPms = (props) =>{
         firebase.db.collection('PMs').onSnapshot((snap) => {
             const pm = [];
             snap.docs.forEach((doc) => {
-                const {nombre, cohorte, grupo, email} = doc.data()
+                const {nombre, cohorte, email, photo} = doc.data()
                 pm.push({
+                    photo,
                     nombre,
                     cohorte,
-                    grupo,
-                    email
+                    email,
+                    id: doc.id,
                 })
             });
             setPms(pm)
         });
     }, []);
-    function Eliminar(){
-
+    const eliminar = async (id) =>{
+        console.log("anda ? "+ id)
+        const dbRef = firebase.db.collection('PMs').doc(id);
+        if (confirm('Esta seguro de querer eliminar este PMs?')) {
+			await dbRef.delete();
+			alert('Usuario Eiminado');
+        }
+		else {
+        }
+        
+        Alert.alert(
+                'Esta Eliminando un Usuario',
+                'Esta seguro de querer eliminar este Usuario',
+                [
+                    {
+                        text    : 'Cancel',
+                        onPress : () => console.log('Cancel Pressed'),
+                        style   : 'cancel'
+                    },
+                    {
+                        text    : 'OK',
+                        onPress : async () => {
+                await dbRef.delete();   
+                navigation.navigate('Henry Admin');         
+                        }
+                    }
+                ],
+                { cancelable: false }
+            );
     }
 
     return (
@@ -62,8 +91,7 @@ const ListaPms = (props) =>{
                                 {pm.nombre}
                             </ListItem.Title>
                             <ListItem.Subtitle>{pm.email}</ListItem.Subtitle>
-                            <ListItem.Subtitle>Cohorte {pm.cohorte}</ListItem.Subtitle>
-                            <ListItem.Subtitle>Grupo {pm.grupo}</ListItem.Subtitle>
+                            
                             </ListItem.Content>
                             <View>
                                 <Button 
@@ -72,6 +100,7 @@ const ListaPms = (props) =>{
                                 /> 
                                 <Button 
                                     title="Eliminar"
+                                    onPress={() => eliminar(pm.id)}
                                 />     
                             </View>                   
                     </ListItem>
