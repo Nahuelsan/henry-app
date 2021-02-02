@@ -71,8 +71,6 @@ export default function App() {
 					}
 				}}
 			> 
-        
-        <Stack.Screen name="Formulario Datos" component={FormularioDatos} />
  				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
@@ -86,7 +84,7 @@ export default function App() {
 				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
-				{/* <Stack.Screen name="Formulario Datos" component={FormularioDatos} /> */}
+				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
