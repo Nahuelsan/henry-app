@@ -11,6 +11,7 @@ const ImportHenrys = ({navigation, route}) => {
     const {instructor} = route.params
 
     const importStudents = () => {
+      if(!link.includes("/")) return alert('Link invalido, asegurece de que el link sea de formato\n"https://docs.google.com/spreadsheets/d/XXXXXXXXXXXX/YYYYY"')
         getRows(link.split("/")[link.split("/").length - 2])
         .then(rows => {
             if(rows.length === 0) alert('No ha sido posible la importación \n asegurece de tener una fila llamada "email"')

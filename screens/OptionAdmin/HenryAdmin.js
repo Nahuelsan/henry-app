@@ -27,7 +27,7 @@ const HenryAdmin = (props) => {
 			<AdminHeader navigation={props.navigation} info={info} /> 
 			<AdminNavBar navigation={props.navigation} />
 			<ContStudents>
-				<Options onPress={() => props.navigation.navigate('Nuevo Henry')}>
+				<Options onPress={() => props.navigation.navigate('Nuevo Henry', {instructor: false})}>
 					<BackImg>
 						<ImgSise source={card1} />
 					</BackImg>

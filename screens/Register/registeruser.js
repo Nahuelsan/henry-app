@@ -41,11 +41,13 @@ const RegisterUser = ({navigation}) => {
 				let snapshot = await firebase.db.collection('invited users').where("email", "==", state.email).get()
 				if(!snapshot.empty){
 					firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-					navigation.navigate('Formulario Datos', {email: state.email})
+					navigation.navigate('SelectTime', {email: state.email})
 				}else{
-					let snapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
-					firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-					navigation.navigate('Formulario Datos', {email: state.email, instructor: true})
+					let newSnapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
+					if(!newSnapshot.empty){
+						firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
+						navigation.navigate('Formulario Datos', {email: state.email, instructor: true, cohorte: false})
+					}
 				}
 			} catch (error) {
 				setLoading(false)
