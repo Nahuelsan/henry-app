@@ -5,7 +5,7 @@ import { Card, Icon } from 'react-native-elements';
 const grey = '#f5f5f5';
 const yellow = '#feff04';
 
-const UserNavBar = ({ navigation}) => {
+const UserNavBar = ({ navigation }) => {
   const [press, setPress] = useState(grey);
   const select = (press) => {
     setPress(press)
