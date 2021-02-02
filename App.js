@@ -71,7 +71,6 @@ export default function App() {
 				}}
 			>
 
-				<Stack.Screen name="Home" component={Home} />
  				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
