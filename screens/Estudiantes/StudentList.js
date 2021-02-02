@@ -18,7 +18,7 @@ import {
   ContMinf,
   IconContent,
   ImgMinf,
-  ImgSise,
+  ImgSize,
   LogoSise,
 } from './StyledEstudents';
 let card1 = require('../../src/assets/img/imgCard1.png');
@@ -71,7 +71,7 @@ const StudentList = ({ navigation }) => {
       </Encabezado>
       <Options>
         <BackImg>
-          <ImgSise source={card1} />
+          <ImgSize source={card1} />
         </BackImg>
         <ContText>
           <TituloCard>Lista de Estudiantes</TituloCard>
