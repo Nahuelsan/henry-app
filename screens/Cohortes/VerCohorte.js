@@ -31,7 +31,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const VerCohorte = (props) => {
-  const { comienzo, descripcion, fin, modalidad, nombre } = props.route.params;
+  const { comienzo, descripcion, fin, modalidad, nombre, instructor } = props.route.params;
 
   return (
     <Contenedor>
@@ -66,6 +66,7 @@ const VerCohorte = (props) => {
               <TextContTable>Fecha de inicio: {comienzo} </TextContTable>
               <TextContTable>Fecha de finalizacion: {fin}</TextContTable>
               <TextContTable>Modalidad: {modalidad}</TextContTable>
+              <TextContTable>Instructor: {instructor}</TextContTable>
             </View>
           </ContPirnTable>
 
