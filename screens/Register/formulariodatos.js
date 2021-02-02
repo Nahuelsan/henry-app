@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { CountryDropdown } from 'react-country-region-selector';
 import { Icon } from 'react-native-elements'
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { TextInput } from 'react-native';
+import MsgRegistro from './MsgRegistro'
 
 import {
   Contenedor,
@@ -15,24 +16,23 @@ import {
   ScrollInView,
   ContsFormIn,
   InputsIndv,
-  ImgContCenter
 } from './StyledRegister';
 import firebase from '../../database/database';
 
-const FormularioDatos = ({navigation}) => {
+const FormularioDatos = (props, {navigation}) => {
 	const [goHome, setGoHome] = useState(false)
-	/* const {instructor, cohorte} = props.route.params */
+	const {instructor, cohorte} = props.route.params
 
 	const initalState = {
 		first_name   : '',
-		last_name    : '',/* 
-		email        : props.route.params.email, */
+		last_name    : '',
+		email        : props.route.params.email,
 		phone        : '',
 		dni          : '',
 		nacionalidad : '',
-		github       : '',/* 
+		github       : '',
 		rol          : instructor ? 'instructor' : 'student',
-		cohorte      : cohorte ? cohorte : '', */
+		cohorte      : cohorte ? cohorte : '',
 		photo        :
 			'https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg'
 	};
@@ -59,9 +59,9 @@ const FormularioDatos = ({navigation}) => {
 		if (state.dni === '') {
 			alert('Ingrese un numero dni/cedula');
 		}
-		if (state.nacionalidad === '') {
+		/* if (state.nacionalidad === '') {
 			alert('Ingrese una nacionalidad');
-		}
+		} */
 		if (state.github === '') {
 			alert('Ingrese una cuenta de github');
 		}
@@ -87,13 +87,7 @@ const FormularioDatos = ({navigation}) => {
 	};
 
 	return goHome ? (
-			<View style={styles.inputGroup}>
-				<Text> Formulario cargado exitosamente, por favor vuelva al Home para poder Loguearse</Text>
-				<Button
-						title="Volver al Home"
-					onPress={() => props.navigation.navigate('Home')}
-				/>
-			</View>
+      <MsgRegistro />
 	) : (
     <Contenedor>
 			{/* Email Input */}
