@@ -30,6 +30,7 @@ import InstructoresList from './screens/Instructorres/InstructoresList';
 import VerCohorte from './screens/Cohortes/VerCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
 import SelectTime from './screens/Register/selectTime';
+import EditarCohorte from './screens/Cohortes/EditarCohorte';
 
 const Stack = createStackNavigator();
 
@@ -84,6 +85,7 @@ export default function App() {
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
 				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
+				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				{/* <Stack.Screen name="Formulario Datos" component={FormularioDatos} /> */}
