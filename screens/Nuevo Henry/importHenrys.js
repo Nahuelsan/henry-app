@@ -1,6 +1,6 @@
 import React, { useState} from 'react'
 import { View, Button, TextInput, Text } from 'react-native'
-import getRows from '../../src/spreadsheets/spreadsheets'
+//import getRows from '../../src/spreadsheets/spreadsheets'
 
 import axios from 'axios'
 import firebase from "../../database/database";
