@@ -15,6 +15,8 @@ import CreateUser from './screens/CreateUser';
 import Profile from './screens/Perfil/profile';
 import EditarPm from './screens/CRUDPms/EditarPm';
 import ListaPms from './screens/CRUDPms/ListaPms';
+import VerCohorte from './screens/Cohortes/VerCohorte';
+import SelectTime from './screens/Register/selectTime';
 import Studentcohortes from './screens/Studentcohortes';
 import CohorteList from './screens/Cohortes/CohorteList';
 import CrearCohorte from './screens/Cohortes/CrearCorte';
@@ -23,13 +25,12 @@ import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import RegisterUser from './screens/Register/registeruser';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import StudentList from './screens/Estudiantes/StudentList';
+import AlumnosCohorte from './screens/Cohortes/AlumnoCohorte';
+import ImportHenrys from './screens/Nuevo Henry/importHenrys';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
-import VerCohorte from './screens/Cohortes/VerCohorte';
-import ImportHenrys from './screens/Nuevo Henry/importHenrys';
-import SelectTime from './screens/Register/selectTime';
 
 const Stack = createStackNavigator();
 
@@ -74,15 +75,20 @@ export default function App() {
  				<Stack.Screen name="Home" component={Home} />
          
 				<Stack.Screen name="Perfil" component={Profile} />
+				<Stack.Screen name="EditarPM" component={EditarPm} />
+				<Stack.Screen name="Lista_PMs" component={ListaPms} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
+				<Stack.Screen name="SelectTime" component={SelectTime} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
+				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
+				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
+				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
-				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
@@ -91,10 +97,6 @@ export default function App() {
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
-				<Stack.Screen name="Lista_PMs" component={ListaPms} />
-				<Stack.Screen name="EditarPM" component={EditarPm} />
-				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
-				<Stack.Screen name="SelectTime" component={SelectTime} />
 			</Stack.Navigator>
 		);
 	}
