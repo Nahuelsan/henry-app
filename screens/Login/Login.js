@@ -217,9 +217,6 @@ const Login = ({ navigation }) => {
 						<TouchableOpacity onPress={() => loginGoogle()}>
 							<FontAwesomeIcon icon={faGoogle} size={20} />
 						</TouchableOpacity>
-						<TouchableOpacity>
-							<FontAwesomeIcon icon={faLinkedin} size={20} />
-						</TouchableOpacity>
 						<TouchableOpacity onPress={() => loginGithub()}>
 							<FontAwesomeIcon icon={faGithub} size={20} />
 						</TouchableOpacity>
