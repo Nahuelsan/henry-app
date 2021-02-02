@@ -1,4 +1,4 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet')
+/* const { GoogleSpreadsheet } = require('google-spreadsheet')
 const credentials = require('../../database/credentials.json')
 
 const accessGoogleSheet = async (doc) => {
@@ -15,5 +15,5 @@ const getRows = async (doc, page = 0) => {
     return rows
 }
 
-export default getRows
+export default getRows */
 

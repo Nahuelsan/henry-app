@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
-import { CountryDropdown} from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
+import { Icon } from 'react-native-elements'
 import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 
+import {
+  Contenedor,
+  Encabezado,
+  ConTitle,
+  TextTitle,
+  BotonLog,
+  TextButton,
+  ContGeneral,
+  TituloGen,
+  ScrollInView,
+  ContsFormIn,
+  InputsIndv,
+  ImgContCenter
+} from './StyledRegister';
 import firebase from '../../database/database';
 
-const FormularioDatos = (props) => {
+const FormularioDatos = ({navigation}) => {
 	const [goHome, setGoHome] = useState(false)
-	const {instructor, cohorte} = props.route.params
+	/* const {instructor, cohorte} = props.route.params */
 
 	const initalState = {
 		first_name   : '',
-		last_name    : '',
-		email        : props.route.params.email,
+		last_name    : '',/* 
+		email        : props.route.params.email, */
 		phone        : '',
 		dni          : '',
 		nacionalidad : '',
-		github       : '',
+		github       : '',/* 
 		rol          : instructor ? 'instructor' : 'student',
-		cohorte      : cohorte ? cohorte : '',
+		cohorte      : cohorte ? cohorte : '', */
 		photo        :
 			'https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg'
 	};
@@ -80,112 +95,92 @@ const FormularioDatos = (props) => {
 				/>
 			</View>
 	) : (
-		<ScrollView style={styles.container}>
-			{/* Name Input */}
-			<View style={styles.inputGroup}>
-				<TextInput
-					placeholder="Nombre"
-					onChangeText={(value) => handleChangeText(value, 'first_name')}
-					value={state.first_name}
-				/>
-			</View>
-			{/* Apellido Input */}
-			<View style={styles.inputGroup}>
-				<TextInput
-					placeholder="Apellidos"
-					onChangeText={(value) => handleChangeText(value, 'last_name')}
-					value={state.last_name}
-				/>
-			</View>
+    <Contenedor>
 			{/* Email Input */}
-			<View style={styles.inputGroup}>
-				<TextInput
-					textContentType="emailAddress"
-					keyboardType="email-address"
-					placeholder="Email"
-					value={state.email}
-				/>
-			</View>
-
-			{/* Input Phone*/}
-			<View style={styles.inputGroup}>
-				<TextInput
-					placeholder="Telefono/Celular"
-					keyboardType="name-phone-pad"
-					onChangeText={(value) => handleChangeText(value, 'phone')}
-					value={state.phone}
-				/>
-			</View>
-
-			{/* Input DNI*/}
-			<View style={styles.inputGroup}>
-				<TextInput
-					keyboardType="number-pad"
-					placeholder="Numero DNI/Cedula de identidad"
-					onChangeText={(value) => handleChangeText(value, 'dni')}
-					value={state.dni}
-				/>
-			</View>
-			{/* Input Nacionalidad */}
-			<View style={styles.inputGroup}>
-				<CountryDropdown
-					className={styles.inputGroup}
-					value={state.nacionalidad}
-					onChange={(value) =>  handleChangeText(value, 'nacionalidad')} 
-				/>
-			</View>
-			{/* Input github account*/}
-			<View style={styles.inputGroup}>
-				<TextInput
-					keyboardType="web-search"
-					placeholder="Link a cuenta de Github"
-					onChangeText={(value) => handleChangeText(value, 'github')}
-					value={state.github}
-				/>
-			</View>
-			<View>
-				<TouchableOpacity style={styles.button}>
-					<Text style={styles.btntext} onPress={() => saveNewUser()}>
-						{' '}
-						ENVIAR{' '}
-					</Text>
-				</TouchableOpacity>
-			</View>
-		</ScrollView>
+			<Encabezado>
+        <ConTitle
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Icon
+						solid={true}
+            name="chevron-left"
+						type="font-awesome-5"
+          />
+          <TextTitle>Home</TextTitle>
+        </ConTitle>
+			</Encabezado>
+			<ContGeneral>
+        <TituloGen>Completa el registro</TituloGen>
+        <ContsFormIn>
+          <ScrollInView>
+            {/* Input Nombre*/}
+            <InputsIndv >
+              <TextInput
+                placeholder="Nombre"
+                onChangeText={(value) => handleChangeText(value, 'first_name')}
+                value={state.first_name}
+              />
+            </InputsIndv>
+            {/* Input Apellidos*/}
+            <InputsIndv >
+              <TextInput
+                placeholder="Apellidos"
+                onChangeText={(value) => handleChangeText(value, 'last_name')}
+                value={state.last_name}
+              />
+            </InputsIndv>
+            {/* Input Email*/}
+            <InputsIndv >
+              <TextInput
+                textContentType="emailAddress"
+                keyboardType="email-address"
+                placeholder="Email"
+                value={state.email}
+              />
+            </InputsIndv>
+            {/* Input Telefono/Celular*/}
+            <InputsIndv >
+              <TextInput
+                placeholder="Telefono/Celular"
+                keyboardType="name-phone-pad"
+                onChangeText={(value) => handleChangeText(value, 'phone')}
+                value={state.phone}
+              />
+            </InputsIndv>
+            {/* Input Numero DNI/Cedula de identidad*/}
+            <InputsIndv >
+              <TextInput
+                keyboardType="number-pad"
+                placeholder="Numero DNI/Cedula de identidad"
+                onChangeText={(value) => handleChangeText(value, 'dni')}
+                value={state.dni}
+              />
+            </InputsIndv>
+            {/* Input Link a cuenta de Github*/}
+            <InputsIndv >
+              <TextInput
+                keyboardType="web-search"
+                placeholder="Link a cuenta de Github"
+                onChangeText={(value) => handleChangeText(value, 'github')}
+                value={state.github}
+              />
+            </InputsIndv>
+            {/* Input Link a cuenta de Github*/}
+            <InputsIndv >
+              {/* <CountryDropdown
+                    value={state.nacionalidad}
+                    onChange={(value) =>  handleChangeText(value, 'nacionalidad')} 
+                  />  */}
+            </InputsIndv>
+          </ScrollInView>
+          <BotonLog 
+            onPress={() => saveNewUser()}>
+            <TextButton>Completar</TextButton>
+          </BotonLog>
+        </ContsFormIn>
+      </ContGeneral>
+    </Contenedor>
 	);
 };
-
-const styles = StyleSheet.create({
-	container  : {
-		flex    : 1,
-		padding : 35
-	},
-	inputGroup : {
-		flex              : 1,
-		padding           : 0,
-		marginBottom      : 15,
-		borderBottomWidth : 1,
-		borderBottomColor : '#cccccc',
-	},
-	loader     : {
-		left           : 0,
-		right          : 0,
-		top            : 0,
-		bottom         : 0,
-		position       : 'absolute',
-		alignItems     : 'center',
-		justifyContent : 'center'
-	},
-	button     : {
-		alignSelf       : 'stretch',
-		alignItems      : 'center',
-		padding         : 20,
-		backgroundColor : '#ffe227'
-	},
-	btntext    : {
-		fontWeight : 'bold',
-		fontSize: 25
-	}
-});
 
 export default FormularioDatos;
