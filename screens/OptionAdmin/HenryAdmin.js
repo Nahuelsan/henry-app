@@ -18,10 +18,17 @@ import {
 } from './styledAdmin';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
+import firebase from '../../database/database.js';
+
 
 const HenryAdmin = (props) => {
   const { info } = props.route.params;
   {/* info={info} */}
+  const Logout =()=> {
+	  firebase.firebase
+		  .auth().signOut().then(()=>console.log('sign out'))
+	  props.navigation.navigate('Iniciar Sesion')
+  }
 	return (
 		<Contenedor>
 			<AdminHeader navigation={props.navigation} info={info} /> 
@@ -77,7 +84,7 @@ const HenryAdmin = (props) => {
 						name="user"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => Logout()}
 					/>
 				</IconContent>
 			</ContMinf>
