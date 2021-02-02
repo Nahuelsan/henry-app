@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { Icon,  Input } from 'react-native-elements';
+import { Icon, Input } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
 import firebase from '../../database/database'
 //import DateTimePicker from '@react-native-community/datetimepicker'
@@ -34,13 +34,18 @@ let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
-const CrearCohorte = ({ navigation }) => {
+const CrearCohorte = (props) => {
+  const { comienzo, descripcion, fin, modalidad, nombre } = props.route.params || '';
+
+
+
   //Botones Full Time - Part Time
   const [index, setIndex] = useState(1)
   const buttons = ['Full Time', 'Part Time']
+ 
   const updateIndex = (index) => {
     setIndex(index)
-    handleChangeText(buttons[index],'modalidad')
+    handleChangeText(buttons[index], 'modalidad')
   }
 
   //Modal Calendario
@@ -70,75 +75,65 @@ const CrearCohorte = ({ navigation }) => {
   }
 
   const initalState = {
-		numero_de_cohorte   : '',
-		modalidad   : '',
-		fecha_de_inicio: '00/00/0000',
-		fecha_de_finalizacion: '00/00/0000',
-		instructor: '',
-    numero_de_grupo: '',
-    alumnos: []		
-	};
+    numero_de_cohorte: '' || nombre,
+    modalidad: '' || modalidad,
+    fecha_de_inicio: '00/00/0000' || comienzo,
+    fecha_de_finalizacion: '00/00/0000' || fin,
+    instructor: '',
+  };
 
-	const [state,	setState] = useState(initalState);
+  const [state, setState] = useState(initalState);
 
-	const handleChangeText = (value, name) => {
+  const handleChangeText = (value, name) => {
     setState({ ...state, [name]: value });
-    console.log('state',state)
-	};
+    console.log('state', state)
+  };
 
-	const saveNewCohorte = async () => {
-		for (var i = 0; state.length < i; i++) {
-			console.log(state[i]);
-		}
-		if (state.modalidad === '') {
-			alert('Ingrese modalidad');
-		}
-		if (state.fecha_de_inicio === '') {
-			alert('Ingrese fecha de inicio');
-		}
-		if (state.fecha_de_finalizacion === '') {
-			alert('Ingrese fecha de finalizacio');
-		}
-		if (state.instructor === '') {
-			alert('Ingrese un instructor');
-		}
-		if (state.numero_de_grupo === '') {
-			alert('Ingrese numero de grupo');
-    }/* 
-    if (state.alumnos === []) {
-			alert('Ingrese alumnos');
-		} */
-		else {
-			try {
-				await firebase.db.collection('cohorte').add({
-					modalidad: state.modalidad,
-					comienzo: state.fecha_de_inicio,
-					fin: state.fecha_de_finalizacion,
-					instructor: state.instructor,
-					numero_de_grupo: state.numero_de_grupo,
-          alumnos : state.alumnos,
-          nombre: state.numero_de_cohorte
-				});
-				navigation.navigate('Mensaje Cohorte');
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
+  const saveNewCohorte = async () => {
+    for (var i = 0; state.length < i; i++) {
+      console.log(state[i]);
+    }
+    if (state.modalidad === '') {
+      alert('Ingrese modalidad');
+    }
+    if (state.fecha_de_inicio === '') {
+      alert('Ingrese fecha de inicio');
+    }
+    if (state.fecha_de_finalizacion === '') {
+      alert('Ingrese fecha de finalizacio');
+    }
+    if (state.instructor === '') {
+      alert('Ingrese un instructor');
+    }
+    else {
+      try {
+        await firebase.db.collection('cohorte').add({
+          nombre: state.numero_de_cohorte,
+          modalidad: state.modalidad,
+          comienzo: state.fecha_de_inicio,
+          fin: state.fecha_de_finalizacion,
+          instructor: state.instructor,
+        });
+        props.navigation.navigate('Mensaje Cohorte');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
 
   return (
     <Contenedor>
       <Encabezado >
-			  <ConTitle
-          onPress={() => navigation.navigate('Henry Admin')}
+        <ConTitle
+          onPress={() => props.navigation.goBack()}
         >
           <Icon
-						solid={true}
+            solid={true}
             name="chevron-left"
-						type="font-awesome-5"
+            type="font-awesome-5"
           />
-          <TextTitle>Home</TextTitle>
+          <TextTitle>Atras</TextTitle>
         </ConTitle>
       </Encabezado>
       <Options>
@@ -147,16 +142,16 @@ const CrearCohorte = ({ navigation }) => {
         </BackImg>
         <ContText>
           <TituloCard>Crear Cohorte</TituloCard>
-          <Text>Alumnos que inician en henry los cuales no cuentan con ninguna asignación</Text>
+          <Text>Crea un nuevo espacio para el desarrollo de actividades académicas</Text>
         </ContText>
-      </Options> 
+      </Options>
       <ContGeneral>
         <ContListGen>
           <View>
             <TextContTable>COHORTE N°</TextContTable>
             <RNPickerSelect
-              onValueChange={(value) => handleChangeText(value,'numero_de_cohorte')}
-              /* value={state.value} */
+              onValueChange={(value) => handleChangeText(value, 'numero_de_cohorte')}
+              value={state.value || nombre}
               items={[
                 { label: '01', value: '01' },
                 { label: '02', value: '02' },
@@ -178,10 +173,14 @@ const CrearCohorte = ({ navigation }) => {
               <TextContTable>MODALIDAD</TextContTable>
             </View>
             <ContBtnOut >
-              <BotonLog onPress={()=> updateIndex(0)}>
+              <BotonLog
+                onPress={() => updateIndex(0)}
+                style={index === 0 && { border: '2px solid black' }}>
                 <TextButtonOp2>Full Time</TextButtonOp2>
               </BotonLog>
-              <BotonLog onPress={()=> updateIndex(1)} >
+              <BotonLog
+                onPress={() => updateIndex(1)}
+                style={index === 1 && { border: '2px solid black' }} >
                 <TextButtonOp2>Part Time</TextButtonOp2>
               </BotonLog>
             </ContBtnOut>
@@ -192,7 +191,7 @@ const CrearCohorte = ({ navigation }) => {
               <TextContTable>FECHA DE INICIO</TextContTable>
             </View>
             <View>
-              <Text>{state.fecha_de_inicio}</Text>
+              <Text>{state.fecha_de_inicio || comienzo}</Text>
               <Icon
                 name='calendar-sharp'
                 type='ionicon'
@@ -215,7 +214,7 @@ const CrearCohorte = ({ navigation }) => {
               <TextContTable>FECHA DE FINALIZACION</TextContTable>
             </View>
             <View>
-              <Text>{state.fecha_de_finalizacion}</Text>
+              <Text>{state.fecha_de_finalizacion || fin}</Text>
               <Icon
                 name='calendar-sharp'
                 type='ionicon'
@@ -239,8 +238,8 @@ const CrearCohorte = ({ navigation }) => {
               <TextContTable>INSTRUCTOR</TextContTable>
             </View>
             <RNPickerSelect
-              onValueChange={(value) => handleChangeText(value,'instructor')}
-              /* value={state.value} */
+              onValueChange={(value) => handleChangeText(value, 'instructor')}
+              value={state.value}
               items={[
                 { label: 'Franco Etcheverry', value: 'Franco Etcheverry' },
                 { label: 'Toni Tralice', value: 'Toni Tralice' },
@@ -248,59 +247,43 @@ const CrearCohorte = ({ navigation }) => {
             />
           </View>
 
-          <View>
-            <View>
-              <TextContTable>NUMERO DE GRUPOS</TextContTable>
-            </View>
-            <Input 
-            placeholder='00'
-            onChangeText={(value) => handleChangeText(value,'numero_de_grupo')}
-            />
-          </View>
-
-          <ContPirnTable onPress={() => navigation.navigate('Listado de Alumnos sin Cohorte',{ alumnos: state.alumnos, state:state })}>
-            <View>
-              <TextContTable>ALUMNOS</TextContTable>
-            </View>
-            <Icon name='account-group' type='material-community' size={40} />
-          </ContPirnTable>
           <BotonLog onPress={saveNewCohorte}>
             <TextButton onPress={saveNewCohorte}>CREAR COHORTE</TextButton>
           </BotonLog>
         </ContListGen>
         <ContMinf>
-            <IconContent>
-              <Icon
-                name="home"
-                type="font-awesome"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                name="ghost"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <ImgMinf>
-                <LogoSise source={logFont} />
-              </ImgMinf>
-              <Icon
-                solid={true}
-                name="comment-dots"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                solid={true}
-                name="user"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-            </IconContent>
-          </ContMinf>
+          <IconContent>
+            <Icon
+              name="home"
+              type="font-awesome"
+              size={40}
+              onPress={() => props.navigation.navigate('Henry Admin')}
+            />
+            <Icon
+              name="ghost"
+              type="font-awesome-5"
+              size={40}
+              onPress={() => props.navigation.navigate('Henry Admin')}
+            />
+            <ImgMinf>
+              <LogoSise source={logFont} />
+            </ImgMinf>
+            <Icon
+              solid={true}
+              name="comment-dots"
+              type="font-awesome-5"
+              size={40}
+              onPress={() => props.navigation.navigate('Henry Admin')}
+            />
+            <Icon
+              solid={true}
+              name="user"
+              type="font-awesome-5"
+              size={40}
+              onPress={() => props.navigation.navigate('Henry Admin')}
+            />
+          </IconContent>
+        </ContMinf>
       </ContGeneral>
     </Contenedor>
   )

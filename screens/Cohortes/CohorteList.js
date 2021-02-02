@@ -58,14 +58,14 @@ const CohorteList = ({ navigation }) => {
     <Contenedor>
       <Encabezado >
         <ConTitle
-          onPress={() => navigation.navigate('Henry Admin')}
+          onPress={() => navigation.goBack()}         
         >
           <Icon
             solid={true}
             name="chevron-left"
             type="font-awesome-5"
           />
-          <TextTitle>Home</TextTitle>
+          <TextTitle>Admin Henry</TextTitle>
         </ConTitle>
       </Encabezado>
       <Options>
@@ -94,7 +94,8 @@ const CohorteList = ({ navigation }) => {
                       { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre })}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={onPressEdit} >
+                    <BotonLog onPress={() => navigation.navigate('Crear Cohorte',
+                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre })}> 
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>
