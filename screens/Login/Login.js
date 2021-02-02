@@ -29,6 +29,10 @@ const Login = ({ navigation }) => {
 		users,
 		setUsers
 	] = useState([]);
+	const [
+		invitedUsers,
+		setInvitedUsers
+	] = useState([]);
 
 	const [
 		state,
@@ -36,6 +40,18 @@ const Login = ({ navigation }) => {
 	] = useState(initalState);
 
 	useEffect(() => {
+		firebase.db.collection('invited users').onSnapshot((snap) => {
+			const invitados = [];
+			snap.docs.forEach((doc) => {
+				const { email } = doc.data();
+				invitados.push({
+					email
+					
+				});
+			});
+			setInvitedUsers(invitados);
+			
+		});
 		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
@@ -103,21 +119,25 @@ const Login = ({ navigation }) => {
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
 			.then((result) => {
-				console.log(result.user);
-				var found = users.find((user) => user.email === result.user.email);
-				console.log('found', found);
-				if (found) {
+				console.log(result.user.email);
+				console.log(invitedUsers);
+				var found = invitedUsers.find((user) => user.email === result.user.email);
+				var found2 = users.find((user) => user.email === result.user.email);
+				if(!found){
+					throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+				}
+				if(!found2){
+					navigation.navigate('RegisterUser', { info: found2 });
+				}
+				if (found2) {
 					if (found.rol === 'admin') {
-						navigation.navigate('Henry Admin', { info: found });
+						navigation.navigate('Henry Admin', { info: found2 });
 					}
 					else {
-						navigation.navigate('Menu Usuario', { info: found });
+						navigation.navigate('Menu Usuario', { info: found2 });
 					}
 				}
-				else {
-					throw 'el email no se encuentra en la base de datos de estudiantes';
-				}
-				/* @type {firebase.auth.OAuthCredential} */
+				
 			})
 			.catch((error) => {
 				alert(error);
@@ -130,23 +150,23 @@ const Login = ({ navigation }) => {
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
 			.then((result) => {
-				console.log(result);
-				var found = users.find((user) => user.email === result.user.email);
-				if (found) {
+				console.log(result.user.providerData[0].email);
+				var found = invitedUsers.find((user) => user.email === result.user.providerData[0].email);
+				var found2 = users.find((user) => user.email === result.user.providerData[0].email);
+				if (!found) {
+					throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+				}
+				if (!found2) {
+					navigation.navigate('RegisterUser', { info: found2 });
+				}
+				if (found2) {
 					if (found.rol === 'admin') {
-						console.log('es admin, va a dashboard admin');
-						navigation.navigate('Henry Admin', { info: found });
+						navigation.navigate('Henry Admin', { info: found2 });
 					}
 					else {
-						console.log('es estudiante, va a dashboard estudiante');
-						navigation.navigate('Menu Usuario', { info: found });
+						navigation.navigate('Menu Usuario', { info: found2 });
 					}
 				}
-				else {
-					window.close();
-					throw 'el email no se encuentra en la base de datos de estudiantes';
-				}
-				/* @type {firebase.auth.OAuthCredential} */
 			})
 			.catch((error) => {
 				alert(error);
@@ -196,9 +216,6 @@ const Login = ({ navigation }) => {
 					<IconSocialRed>
 						<TouchableOpacity onPress={() => loginGoogle()}>
 							<FontAwesomeIcon icon={faGoogle} size={20} />
-						</TouchableOpacity>
-						<TouchableOpacity>
-							<FontAwesomeIcon icon={faLinkedin} size={20} />
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => loginGithub()}>
 							<FontAwesomeIcon icon={faGithub} size={20} />

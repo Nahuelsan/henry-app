@@ -29,6 +29,7 @@ import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 import VerCohorte from './screens/Cohortes/VerCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
+import SelectTime from './screens/Register/selectTime';
 
 const Stack = createStackNavigator();
 
@@ -93,6 +94,7 @@ export default function App() {
 				<Stack.Screen name="Lista_PMs" component={ListaPms} />
 				<Stack.Screen name="EditarPM" component={EditarPm} />
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
+				<Stack.Screen name="SelectTime" component={SelectTime} />
 			</Stack.Navigator>
 		);
 	}

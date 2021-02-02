@@ -6,7 +6,7 @@ import firebase from '../../database/database';
 
 const FormularioDatos = (props) => {
 	const [goHome, setGoHome] = useState(false)
-	const {instructor} = props.route.params
+	const {instructor, cohorte} = props.route.params
 
 	const initalState = {
 		first_name   : '',
@@ -17,6 +17,7 @@ const FormularioDatos = (props) => {
 		nacionalidad : '',
 		github       : '',
 		rol          : instructor ? 'instructor' : 'student',
+		cohorte      : cohorte ? cohorte : '',
 		photo        :
 			'https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg'
 	};
@@ -60,7 +61,8 @@ const FormularioDatos = (props) => {
 					nacionalidad : state.nacionalidad,
 					github       : state.github,
 					rol          : state.rol,
-					photo        : state.photo
+					photo        : state.photo,
+					cohorte      : state.cohorte
 				});
 				setGoHome(true)
 			} catch (error) {
