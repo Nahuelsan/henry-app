@@ -35,7 +35,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const CrearCohorte = (props) => {
-  const { comienzo, descripcion, fin, modalidad, nombre } = props.route.params || '';
+  const { comienzo, descripcion, fin, modalidad, nombre, instructor } = props.route.params || '';
 
 
 
@@ -79,7 +79,7 @@ const CrearCohorte = (props) => {
     modalidad: '' || modalidad,
     fecha_de_inicio: '00/00/0000' || comienzo,
     fecha_de_finalizacion: '00/00/0000' || fin,
-    instructor: '',
+    instructor: '' || instructor,
   };
 
   const [state, setState] = useState(initalState);
@@ -239,7 +239,7 @@ const CrearCohorte = (props) => {
             </View>
             <RNPickerSelect
               onValueChange={(value) => handleChangeText(value, 'instructor')}
-              value={state.value}
+              value={state.value || instructor}
               items={[
                 { label: 'Franco Etcheverry', value: 'Franco Etcheverry' },
                 { label: 'Toni Tralice', value: 'Toni Tralice' },
