@@ -97,21 +97,21 @@ const s = StyleSheet.create({
         fontWeight: "bold",
         backgroundColor: "#FFFF94",
         height: 120,
-        fontSize: 20,
+        /* fontSize: "20px", */
     },
     container_btns: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-evenly",
-        alignItems: "center",
+        /* alignItems: "space-between", */
         maxHeight: 100,
     },
     btns: {
         borderColor: "black",
-        borderWidth: 2,
+        /* borderWidth: "2px", */
         backgroundColor: "yellow",
         padding: "20px",
-        borderRadius: 8,
+        /* borderRadius: "8px", */
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
