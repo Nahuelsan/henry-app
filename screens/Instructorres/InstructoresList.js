@@ -93,7 +93,7 @@ const InstructoresList = ({ navigation }) => {
                 <ListItem.Content>
                   <ListItem.Title
                     style={styles.instructor}
-                    onPress={() => navigation.navigate('Perfil', { info: istructor })}
+                    onPress={() => navigation.navigate('Perfil', { info: tor })}
                   >
                     {instructor.last_name},{instructor.first_name}
                   </ListItem.Title>

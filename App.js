@@ -34,6 +34,7 @@ import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 import EditarCohorte from './screens/Cohortes/EditarCohorte';
 import AlumnoProfile from './screens/Perfil/AlumnoProfile';
+import YourCohort from './screens/Cohortes/YourCohort';
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,7 @@ export default function App() {
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
+				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
 		);
