@@ -31,6 +31,7 @@ import VerCohorte from './screens/Cohortes/VerCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
 import SelectTime from './screens/Register/selectTime';
 import EditarCohorte from './screens/Cohortes/EditarCohorte';
+import AlumnoProfile from './screens/Perfil/AlumnoProfile';
 
 const Stack = createStackNavigator();
 
@@ -71,11 +72,12 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-			> 
-        
-        <Stack.Screen name="Formulario Datos" component={FormularioDatos} />
- 				<Stack.Screen name="Home" component={Home} />
+			>
+
+
+				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
+				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
@@ -88,7 +90,7 @@ export default function App() {
 				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
-				{/* <Stack.Screen name="Formulario Datos" component={FormularioDatos} /> */}
+				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />

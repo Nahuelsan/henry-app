@@ -130,12 +130,4 @@ const RegisterUser = ({navigation}) => {
 	);
 };
 
-const styles = StyleSheet.create({
-	inputGroup : {
-		padding           : 0,
-		borderBottomWidth : 1,
-		borderBottomColor : '#cccccc'
-	}
-});
-
 export default RegisterUser;
