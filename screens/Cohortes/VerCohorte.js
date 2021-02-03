@@ -70,8 +70,8 @@ const VerCohorte = (props) => {
             </View>
           </ContPirnTable>
 
-          <BotonLog onPress={() => console.log('works')}>
-            <TextButton onPress={() => console.log('works')}>Alumnos</TextButton>
+          <BotonLog onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>
+            <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
           </BotonLog>
 
           <BotonLog onPress={() => console.log('works')}>

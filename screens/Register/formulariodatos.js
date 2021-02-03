@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import { Icon } from 'react-native-elements'
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { TextInput } from 'react-native';
+import MsgRegistro from './MsgRegistro'
 
 import {
   Contenedor,
@@ -15,7 +16,6 @@ import {
   ScrollInView,
   ContsFormIn,
   InputsIndv,
-  ImgContCenter
 } from './StyledRegister';
 import firebase from '../../database/database';
 

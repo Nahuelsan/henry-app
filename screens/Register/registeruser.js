@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import firebase from '../../database/database.js';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Icon } from 'react-native-elements'
-import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { TextInput, ActivityIndicator } from 'react-native';
 
 import {
   Contenedor,
@@ -17,8 +15,8 @@ import {
   TextGen,
   ContsInputs,
   InputsIndv,
-  ImgContCenter
 } from './StyledRegister';
+
 const RegisterUser = ({navigation}) => {
 	const [loading, setLoading] = useState(false)
 	const initalState = {
@@ -55,7 +53,8 @@ const RegisterUser = ({navigation}) => {
 				let snapshot = await firebase.db.collection('invited users').where("email", "==", state.email).get()
 				if(!snapshot.empty){
 					firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-					navigation.navigate('SelectTime', {email: state.email})
+				/* 	navigation.navigate('SelectTime', {email: state.email}) */
+					navigation.navigate('Formulario Datos', {email: state.email, instructor: false, cohorte: false})
 				}else{
 					let newSnapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
 					if(!newSnapshot.empty){

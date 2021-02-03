@@ -59,8 +59,7 @@ const ListaPms = (props) =>{
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Icon name="left" type="antdesign"  />
-                <Text h4>Home</Text>
+                <Button title="Go back" onPress={() => props.navigation.goBack()}/>
             </View>
 
             <View style={styles.marco}>
