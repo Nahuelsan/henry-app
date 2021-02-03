@@ -39,7 +39,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const YourCohort = (props) => {
-  const { checkpoint4 } = props.routes.params;
+  const  checkpoint4  = 5;
   
   const [users, setUsers] = useState([]);
 
@@ -68,7 +68,7 @@ console.log(estudiantes);
     <Contenedor>
       <Encabezado>
         <Home
-          onPress={() => console.log('Home')}
+          onPress={() => props.navigation.navigate('Menu Usuario')}
         >
           <Icon
             solid={true}
