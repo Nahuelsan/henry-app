@@ -35,7 +35,8 @@ const StudentList = ({ navigation }) => {
 		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
-				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone } = doc.data();
+        const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone } = doc.data();
+        console.log(email)
 				if (rol === 'pm' || rol === 'student') {
 					estudiantes.push({
 						email,

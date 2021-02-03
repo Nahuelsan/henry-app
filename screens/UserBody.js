@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const UserBody = ({navigation}) => {
+const UserBody = ({ navigation, info }) => {
   
   
   return (
@@ -26,7 +26,7 @@ const UserBody = ({navigation}) => {
           type= 'font-awesome-5'
           size={9}
           color='yellow'
-          onPress = {() => console.log('Your Cohort')}
+          onPress = {() => navigation.navigate('Your Cohorte')}
         />
         </View>
       </View>

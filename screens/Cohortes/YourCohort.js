@@ -43,19 +43,26 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    firebase.db.collection('users').onSnapshot(snap => {
-      const corte = []
-      snap.docs.forEach(doc => {
-        const { cohorte, rol } = doc.data;
-        if (rol === 'student') {
-          corte.push(
-            cohorte
-        )};
-      })
-      setUsers(corte);
-    })
-  }, [])
+		firebase.db.collection('users').onSnapshot((snap) => {
+			const estudiantes = [];
+			snap.docs.forEach((doc) => {
+        const { cohorte, rol, grupo, pm, instructor, progreso } = doc.data();
+        console.log(grupo)
+				if (rol === 'student') {
+					estudiantes.push({
+            cohorte,
+            grupo,
+            pm,
+            instructor,
+            progreso,
+						id : doc.id
+					});
+				}
+			});
 
+			setUsers(estudiantes);
+		});
+	}, []);
   return (
     <Contenedor>
       <Encabezado>
@@ -80,7 +87,7 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
         </ContText>
       </Options>
       <ContGeneral>
-        <Cohorte>Cohorte { }</Cohorte>
+        <Cohorte>Cohorte {}</Cohorte>
 
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>

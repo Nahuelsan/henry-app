@@ -37,7 +37,8 @@ const CohorteList = ({ navigation }) => {
 		firebase.db.collection('cohorte').onSnapshot((query) => {
 			var data = [];
 			query.docs.forEach((docs) => {
-				const { comienzo, descripcion, fin, modalidad, nombre } = docs.data();
+        const { comienzo, descripcion, fin, modalidad, nombre } = docs.data();
+        console.log(comienzo)
 				data.push({
 					id          : docs.id,
 					comienzo,
