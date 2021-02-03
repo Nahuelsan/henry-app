@@ -102,7 +102,7 @@ export const Titulo = styled.Text `
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   text-align: center;
-  justufy-content:center;
+  justify-content:center;
   padding-top: 5px;
 `
 
@@ -133,7 +133,7 @@ export const Pm = styled.View `
   top: 20%;
   flex-direction: column;
   z-index: 5;
-  align-itmes: center;
+  align-items: center;
   margin-left: 15px;
   margin-right: -15px;
 `
@@ -145,5 +145,5 @@ export const TituloPm = styled.Text `
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   text-align: center;
-  justufy-content: center;
+  justify-content: center;
 `

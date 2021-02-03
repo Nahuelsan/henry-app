@@ -29,6 +29,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 import firebase from '../../database/database';
 
 const CohorteList = ({ navigation }) => {
+
   const [
     cohorte,
     setCohorte
@@ -37,15 +38,15 @@ const CohorteList = ({ navigation }) => {
     firebase.db.collection('cohorte').onSnapshot((query) => {
       var data = [];
       query.docs.forEach((docs) => {
-        const { comienzo, descripcion, fin, modalidad, nombre, instructor } = docs.data();
+        const { comienzo, descripcion, fin, modalidad, nombre } = docs.data();
+        console.log(comienzo)
         data.push({
           id: docs.id,
           comienzo,
           descripcion,
           fin,
           modalidad,
-          nombre,
-          instructor
+          nombre
         });
       });
       setCohorte(data);
@@ -59,14 +60,14 @@ const CohorteList = ({ navigation }) => {
     <Contenedor>
       <Encabezado >
         <ConTitle
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Henry Admin')}
         >
           <Icon
             solid={true}
             name="chevron-left"
             type="font-awesome-5"
           />
-          <TextTitle>Admin Henry</TextTitle>
+          <TextTitle>Home</TextTitle>
         </ConTitle>
       </Encabezado>
       <Options>
@@ -91,12 +92,10 @@ const CohorteList = ({ navigation }) => {
                   <TextPrin>{`Cohorte ${l.nombre}`}</TextPrin>
                   <Text>{`Comienzo ${l.comienzo}`} - {`Fin ${l.fin}`}</Text>
                   <ContBtnOut >
-                    <BotonLog onPress={() => navigation.navigate('Ver Cohorte',
-                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
+                    <BotonLog onPress={onPressSee}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={() => navigation.navigate('Editar Cohorte',
-                      { id: l.id, comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
+                    <BotonLog onPress={onPressEdit} >
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>
