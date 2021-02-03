@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Avatar, ListItem, Icon } from 'react-native-elements';
 import firebase from '../../database/database.js';
 import AdminHeader from '../OptionAdmin/AdminHeader';
@@ -17,16 +17,11 @@ import {
   ContText,
   TituloCard,
   ContMinf,
-  ContBtnOut,
   IconContent,
   ImgMinf,
   ImgSise,
-  TextButtonOp2,
-  ContPirnTable,
-  TextContTable,
   LogoSise,
-  BotonLog,
-  TextButton
+  Btn
 } from './StyledInstructores';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
@@ -75,6 +70,7 @@ const InstructoresList = ({ navigation }) => {
       </Options> 
       <ContGeneral>
         <ContListGen>
+          <Btn onPress={() => navigation.navigate("Nuevo Henry", {instructor: true})}><Text>Agregar nuevo instructor</Text></Btn>
           <View>
             {instructores.map((instructor, i) => (
               <ListItem key={i} bottomDivider>
@@ -116,13 +112,13 @@ const InstructoresList = ({ navigation }) => {
                 name="home"
                 type="font-awesome"
                 size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
+                onPress={() => navigation.navigate('Henry Admin')}
               />
               <Icon
                 name="ghost"
                 type="font-awesome-5"
                 size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
+                onPress={() => navigation.navigate('Henry Admin')}
               />
               <ImgMinf>
                 <LogoSise source={logFont} />
@@ -132,14 +128,14 @@ const InstructoresList = ({ navigation }) => {
                 name="comment-dots"
                 type="font-awesome-5"
                 size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
+                onPress={() => navigation.navigate('Henry Admin')}
               />
               <Icon
                 solid={true}
                 name="user"
                 type="font-awesome-5"
                 size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
+                onPress={() => navigation.navigate('Henry Admin')}
               />
             </IconContent>
           </ContMinf>

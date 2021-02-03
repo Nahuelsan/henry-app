@@ -12,7 +12,7 @@ const UserHeader = ({info, navigation}) => {
 				<Avatar
 				rounded
 				size="medium"
-				onPress={() => navigation.navigate('Perfil', {info: info})}
+				onPress={() => navigation.navigate('Perfil Alumno', {info: info})}
 				source={{uri: info.photo ? info.photo : 'https://www.netclipart.com/pp/m/411-4114765_avatar-icon.png'}}
 				/>
 			</View>
