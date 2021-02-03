@@ -38,7 +38,8 @@ let user = require('../../src/assets/img/user.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
-const YourCohort = ({ navigation, pms, checkpoint4 }) => {
+const YourCohort = (props) => {
+  const { checkpoint4 } = props.routes.params;
   
   const [users, setUsers] = useState([]);
 
@@ -59,7 +60,7 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
 					});
 				}
 			});
-
+console.log(estudiantes);
 			setUsers(estudiantes);
 		});
 	}, []);
@@ -87,8 +88,9 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
         </ContText>
       </Options>
       <ContGeneral>
-        <Cohorte>Cohorte {}</Cohorte>
-
+        
+          <Cohorte>Cohorte {`${user.cohorte}`}</Cohorte>
+        
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>
           <View>
@@ -96,7 +98,7 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
               <Text style={styles.text}>Grupo al que perteneces</Text>
             </Titulo>
             <Img>
-              <Text style={styles.titulo}>G - {users.cohorte}</Text>
+              <Text style={styles.titulo}>G - {`${user.grupo}`}</Text>
               <Imagen source={card2} />
             </Img>
           </View>
@@ -109,7 +111,7 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
               <Text style={styles.text}>Instructor del Cohorte</Text>
             </Titulo>
             <Img>
-              <Text style={styles.instructor}>{ }</Text>
+              <Text style={styles.instructor}>{`${user.instructor}`}</Text>
               <User source={user} />
             </Img>
           </View>
@@ -123,14 +125,17 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
             </TituloPm>
             <Img style={{ flexDirection: 'row' }}>
           
+        {users.map((student, i) => (
                   <View style={styles.usuario}>
-                <Text style={styles.instructor}>{}</Text>
+                <Text style={styles.instructor} key={i}>{student.pm}</Text>
                 <User source={user} />
                 </View>
-                        
+        ))}          
             </Img>
           </View>
         </Pm>
+  
+
 
         {/* TU PROGRESO */}
         <Pm style={{ marginTop: 280, position: 'absolute' }}>
@@ -204,7 +209,7 @@ const YourCohort = ({ navigation, pms, checkpoint4 }) => {
                 <Text style={styles.progreso}>Job Prep</Text>
               </View>
             }
-
+        
             </Img>
           </View>
         </Pm>

@@ -25,6 +25,7 @@ import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
+import YourCohort from './screens/Cohortes/YourCohort';
 
 const Stack = createStackNavigator();
 
@@ -84,6 +85,7 @@ export default function App () {
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
+        <Stack.Screen name="Your Cohorte" component={YourCohort}/>
 			</Stack.Navigator>
 		);
 	}

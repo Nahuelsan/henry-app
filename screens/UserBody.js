@@ -2,13 +2,13 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const UserBody = ({ navigation, info }) => {
+const UserBody = (props) => {
   
   
   return (
     <View style = {styles.marco}>
       <View style = {styles.container}
-            onPress={() => navigation.navigate()}
+            onPress={() => props.navigation.navigate()}
       >
       <View style={styles.containerImagen}>
         <Image
@@ -26,14 +26,14 @@ const UserBody = ({ navigation, info }) => {
           type= 'font-awesome-5'
           size={9}
           color='yellow'
-          onPress = {() => navigation.navigate('Your Cohorte')}
+          onPress = {() =>props.navigation.navigate('Your Cohorte')}
         />
         </View>
       </View>
       </View>
 
       <View style = {styles.container}
-            onPress={() => navigation.navigate()}
+            onPress={() => props.navigation.navigate()}
       >
       <View style={styles.containerImagen}>
         <Image
@@ -58,7 +58,7 @@ const UserBody = ({ navigation, info }) => {
       </View>
 
       <View style = {styles.container} 
-        onPress={() => navigation.navigate()}
+        onPress={() => props.navigation.navigate()}
       >
       <View style={styles.containerImagen}>
         <Image
