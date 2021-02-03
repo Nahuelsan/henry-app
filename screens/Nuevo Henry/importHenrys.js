@@ -53,12 +53,12 @@ const ImportHenrys = ({navigation, route}) => {
         <View>
             <Text>Ingrese el link de google docs para importar mails</Text>
             <TextInput
-            placeholder=''
-            onChangeText={setLink}
+              placeholder=''
+              onChangeText={setLink}
             />
-            <Button
-            onPress={importStudents}
-            />
+            {/* <Button
+              onPress={importStudents}
+            /> */}
         </View>
     )
 }

@@ -95,8 +95,8 @@ const CohorteList = ({ navigation }) => {
                       { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={() => navigation.navigate('Crear Cohorte',
-                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
+                    <BotonLog onPress={() => navigation.navigate('Editar Cohorte',
+                      { id: l.id, comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>

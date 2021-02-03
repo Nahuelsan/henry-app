@@ -9,14 +9,14 @@ import {
 } from './StyledMsg';
 let imgMsg = require('../../src/assets/img/imgMensaje.jpg'); 
 
-const MsgRegistro = ({ navigation }) => {
+const MsgRegistro = ({navigation}) => {
   return (   
       <ContGeneral>
         <ImgContCenter  source={imgMsg} />
         <TituloGen>Bienvenido a henry</TituloGen>
         <TextGen>Tienes algún inconveniente?  No te preocupues ahora eres parte de la familia Henry dejanos ayudarte.</TextGen>
         <BotonLog 
-          onPress={()=> navigation.navigate('Home')}>
+          onPress={()=> navigation.navigate('Iniciar Sesion')}>
           <TextButton>Ir al inicio</TextButton>
         </BotonLog>
       </ContGeneral>
