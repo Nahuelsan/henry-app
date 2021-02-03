@@ -34,12 +34,13 @@ let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
-const CrearCohorte = (props) => {
-  
+const EditarCohorte = (props) => {
+  const { id, comienzo, fin, modalidad, nombre, instructor } = props.route.params;
+
   //Botones Full Time - Part Time
   const [index, setIndex] = useState(1)
   const buttons = ['Full Time', 'Part Time']
- 
+
   const updateIndex = (index) => {
     setIndex(index)
     handleChangeText(buttons[index], 'modalidad')
@@ -72,11 +73,11 @@ const CrearCohorte = (props) => {
   }
 
   const initalState = {
-    numero_de_cohorte: '',
-    modalidad: '',
-    fecha_de_inicio: '00/00/0000',
-    fecha_de_finalizacion: '00/00/0000',
-    instructor: '',
+    numero_de_cohorte: '' || nombre,
+    modalidad: '' || modalidad,
+    fecha_de_inicio: '' || comienzo,
+    fecha_de_finalizacion: '' || fin,
+    instructor: '' || instructor,
   };
 
   const [state, setState] = useState(initalState);
@@ -86,7 +87,7 @@ const CrearCohorte = (props) => {
     console.log('state', state)
   };
 
-  const saveNewCohorte = async () => {
+  const updateNewCohorte = async () => {
     for (var i = 0; state.length < i; i++) {
       console.log(state[i]);
     }
@@ -104,7 +105,7 @@ const CrearCohorte = (props) => {
     }
     else {
       try {
-        await firebase.db.collection('cohorte').add({
+        await firebase.db.collection('cohorte').doc(id).update({
           nombre: state.numero_de_cohorte,
           modalidad: state.modalidad,
           comienzo: state.fecha_de_inicio,
@@ -138,8 +139,8 @@ const CrearCohorte = (props) => {
           <ImgSise source={card1} />
         </BackImg>
         <ContText>
-          <TituloCard>Crear Cohorte</TituloCard>
-          <Text>Crea un nuevo espacio para el desarrollo de actividades académicas</Text>
+          <TituloCard>Editar Cohorte</TituloCard>
+          <Text>Edita un nuevo espacio para el desarrollo de actividades académicas</Text>
         </ContText>
       </Options>
       <ContGeneral>
@@ -148,7 +149,7 @@ const CrearCohorte = (props) => {
             <TextContTable>COHORTE N°</TextContTable>
             <RNPickerSelect
               onValueChange={(value) => handleChangeText(value, 'numero_de_cohorte')}
-              value={state.value}
+              value={state.value || nombre}
               items={[
                 { label: '01', value: '01' },
                 { label: '02', value: '02' },
@@ -172,12 +173,12 @@ const CrearCohorte = (props) => {
             <ContBtnOut >
               <BotonLog
                 onPress={() => updateIndex(0)}
-                style={index === 0 && { border: '2px solid black' }}>
+                style={index === 0 && { backgroundColor: 'red'}}>
                 <TextButtonOp2>Full Time</TextButtonOp2>
               </BotonLog>
               <BotonLog
                 onPress={() => updateIndex(1)}
-                style={index === 1 && { border: '2px solid black' }} >
+                style={index === 1 && { backgroundColor: 'red'}} >
                 <TextButtonOp2>Part Time</TextButtonOp2>
               </BotonLog>
             </ContBtnOut>
@@ -188,7 +189,7 @@ const CrearCohorte = (props) => {
               <TextContTable>FECHA DE INICIO</TextContTable>
             </View>
             <View>
-              <Text>{state.fecha_de_inicio}</Text>
+              <Text>{state.fecha_de_inicio || comienzo}</Text>
               <Icon
                 name='calendar-sharp'
                 type='ionicon'
@@ -211,7 +212,7 @@ const CrearCohorte = (props) => {
               <TextContTable>FECHA DE FINALIZACION</TextContTable>
             </View>
             <View>
-              <Text>{state.fecha_de_finalizacion}</Text>
+              <Text>{state.fecha_de_finalizacion || fin}</Text>
               <Icon
                 name='calendar-sharp'
                 type='ionicon'
@@ -236,7 +237,7 @@ const CrearCohorte = (props) => {
             </View>
             <RNPickerSelect
               onValueChange={(value) => handleChangeText(value, 'instructor')}
-              value={state.value}
+              value={state.value || instructor}
               items={[
                 { label: 'Franco Etcheverry', value: 'Franco Etcheverry' },
                 { label: 'Toni Tralice', value: 'Toni Tralice' },
@@ -244,8 +245,8 @@ const CrearCohorte = (props) => {
             />
           </View>
 
-          <BotonLog onPress={saveNewCohorte}>
-            <TextButton onPress={saveNewCohorte}>CREAR COHORTE</TextButton>
+          <BotonLog onPress={updateNewCohorte}>
+            <TextButton onPress={updateNewCohorte}>MODIFICAR</TextButton>
           </BotonLog>
         </ContListGen>
         <ContMinf>
@@ -286,4 +287,4 @@ const CrearCohorte = (props) => {
   )
 };
 
-export default CrearCohorte;
+export default EditarCohorte;

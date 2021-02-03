@@ -70,7 +70,7 @@ const InstructoresList = ({ navigation }) => {
       </Options> 
       <ContGeneral>
         <ContListGen>
-          <Btn onPress={() => navigation.navigate("Nuevo Henry", {instructor: true})}>Agregar nuevo instructor</Btn>
+          <Btn onPress={() => navigation.navigate("Nuevo Henry", {instructor: true})}><Text>Agregar nuevo instructor</Text></Btn>
           <View>
             {instructores.map((instructor, i) => (
               <ListItem key={i} bottomDivider>
