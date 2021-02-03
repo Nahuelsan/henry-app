@@ -37,14 +37,15 @@ const CohorteList = ({ navigation }) => {
     firebase.db.collection('cohorte').onSnapshot((query) => {
       var data = [];
       query.docs.forEach((docs) => {
-        const { comienzo, descripcion, fin, modalidad, nombre } = docs.data();
+        const { comienzo, descripcion, fin, modalidad, nombre, instructor } = docs.data();
         data.push({
           id: docs.id,
           comienzo,
           descripcion,
           fin,
           modalidad,
-          nombre
+          nombre,
+          instructor
         });
       });
       setCohorte(data);
@@ -58,14 +59,14 @@ const CohorteList = ({ navigation }) => {
     <Contenedor>
       <Encabezado >
         <ConTitle
-          onPress={() => navigation.navigate('Henry Admin')}
+          onPress={() => navigation.goBack()}
         >
           <Icon
             solid={true}
             name="chevron-left"
             type="font-awesome-5"
           />
-          <TextTitle>Home</TextTitle>
+          <TextTitle>Admin Henry</TextTitle>
         </ConTitle>
       </Encabezado>
       <Options>
@@ -91,10 +92,11 @@ const CohorteList = ({ navigation }) => {
                   <Text>{`Comienzo ${l.comienzo}`} - {`Fin ${l.fin}`}</Text>
                   <ContBtnOut >
                     <BotonLog onPress={() => navigation.navigate('Ver Cohorte',
-                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre })}>
+                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={onPressEdit} >
+                    <BotonLog onPress={() => navigation.navigate('Editar Cohorte',
+                      { id: l.id, comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>

@@ -96,7 +96,7 @@ const Login = ({ navigation }) => {
 					.auth()
 					.signInWithEmailAndPassword(state.email, state.password)
 					.then((result) => {
-						if (found.rol === 'admin') {
+						if (found.rol === 'admin' || found.rol === 'instructor') {
 							console.log('es admin, va a dashboard admin');
 							navigation.navigate('Henry Admin', { info: found });
 						}
