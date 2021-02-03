@@ -77,7 +77,7 @@ const selectTime = (props) => {
                     <Text>Part Time</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={toForm}>Continuar</TouchableOpacity>
+            <TouchableOpacity onPress={toForm}><Text>Continuar</Text></TouchableOpacity>
         </View>
 	)
 }
@@ -103,18 +103,18 @@ const s = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-evenly",
-        /* alignItems: "space-between", */
+        alignItems: "center", 
         maxHeight: 100,
     },
     btns: {
         borderColor: "black",
-        /* borderWidth: "2px", */
+        borderWidth: 2,
         backgroundColor: "yellow",
-        padding: "20px",
-        /* borderRadius: "8px", */
+        padding: 20,
+        borderRadius: 8,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        margin: "10px",
+        margin: 10,
     },
 });

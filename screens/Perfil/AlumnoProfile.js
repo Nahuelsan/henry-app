@@ -17,7 +17,7 @@ import {
   TextButton
 } from './StyledPerfil';
 
-const Profile = (props) => {
+const AlumnoProfile = (props) => {
 	const { info } = props.route.params;
 	const { navigation } = props;
 	const [
@@ -29,10 +29,7 @@ const Profile = (props) => {
 		setEdit
   ] = useState(false);
   
-  const [
-		selectedRol,
-		setSelectedRol
-	] = useState('');
+  
 
 	const dbRef = firebase.db.collection('users').doc(info.id);
 	useEffect(() => {
@@ -96,35 +93,7 @@ const Profile = (props) => {
 		);
   };
   
-  const setPermisos = async (rol) => {
-		if (confirm('Esta seguro del cambio de Perfil de Usuario')) {
-			await dbRef.set({ ...user, rol: rol });
-			setUser({ ...user, rol: rol });
-		}
-		else {
-		}
-
-		Alert.alert(
-			'Cambiar Perfil Usuario',
-			'Esta seguro del cambio de Permisos de Usuario',
-			[
-				{
-					text    : 'Cancel',
-					onPress : () => console.log('Cancel Pressed'),
-					style   : 'cancel'
-				},
-				{
-					text    : 'OK',
-					onPress : async () => {
-            await dbRef.set({ ...user, rol: rol });
-            setUser({ ...user, rol: rol });
-
-					}
-				}
-			],
-			{ cancelable: false }
-		);
-	};
+ 
 
 	return (
     <Contenedor>
@@ -137,7 +106,7 @@ const Profile = (props) => {
             name="chevron-left"
 						type="font-awesome-5"
           />
-          <TextTitle>Home</TextTitle>
+          <TextTitle>Atras</TextTitle>
         </ConTitle>
       </Encabezado>
       <ContGeneral >
@@ -180,29 +149,8 @@ const Profile = (props) => {
             }}
           >
             <TextButton>{edit ? 'Guardar cambios' : 'Editar'}</TextButton>
-          </BotonLog>
-          <View style={styles.datos}>
-            <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Actualizar Permisos de Usuario</Text>
-            <Text style={{ fontSize: 15 }}>Selecciona el rol del usuario</Text>
-            <RNPickerSelect
-                onValueChange={(itemValue, itemIndex) => setSelectedRol(itemValue)}
-                items={[
-                  {label:"Estudiante", value:"student" },
-                  {label:"PM", value:"pm" },
-                  {label:"Instructor", value:"instructor" },
-                  {label:"Administrador", value:"admin" },
-                ]}
-            />
-           
-            <Button
-              title={selectedRol ? 'Actualizar' : 'Seleccione una opción'}
-              disabled={selectedRol ? false : true}
-              onPress={() => setPermisos(selectedRol)}
-            />
-          </View>
-          <View style={styles.datos}>
-            <Button style={{ backgroundColor: 'red' }} title="Eliminar Usuario" onPress={() => eliminar()} />
-          </View>
+          </BotonLog>         
+          
         </ContDatos>
       </ContGeneral>
     </Contenedor>
@@ -261,4 +209,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Profile;
+export default AlumnoProfile;

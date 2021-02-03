@@ -31,6 +31,11 @@ import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
+import VerCohorte from './screens/Cohortes/VerCohorte';
+import ImportHenrys from './screens/Nuevo Henry/importHenrys';
+import SelectTime from './screens/Register/selectTime';
+import EditarCohorte from './screens/Cohortes/EditarCohorte';
+import AlumnoProfile from './screens/Perfil/AlumnoProfile';
 
 const Stack = createStackNavigator();
 
@@ -71,12 +76,12 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-			> 
- 				<Stack.Screen name="Home" component={Home} />
-         
+			>
+
+
+				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
-				<Stack.Screen name="EditarPM" component={EditarPm} />
-				<Stack.Screen name="Lista_PMs" component={ListaPms} />
+				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="SelectTime" component={SelectTime} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
@@ -89,6 +94,8 @@ export default function App() {
 				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
+				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
+				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
