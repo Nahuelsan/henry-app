@@ -87,13 +87,7 @@ const FormularioDatos = (props) => {
   };
 
   return goHome ? (
-    <View>
-      <Text> Formulario cargado exitosamente, por favor vuelva al Home para poder Loguearse</Text>
-      <Button
-        title="Volver al Home"
-        onPress={() => props.navigation.navigate('Home')}
-      />
-    </View>
+    <MsgRegistro/>
   ) : (
       <Contenedor>
         {/* Email Input */}
