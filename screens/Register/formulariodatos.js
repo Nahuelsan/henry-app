@@ -19,14 +19,14 @@ import {
 } from './StyledRegister';
 import firebase from '../../database/database';
 
-const FormularioDatos = (props) => {
+const FormularioDatos = ({navigation, route}) => {
   const [goHome, setGoHome] = useState(false)
-  const { instructor, cohorte } = props.route.params
+  const { instructor, cohorte } = route.params
 
   const initalState = {
     first_name: '',
     last_name: '',
-    email: props.route.params.email,
+    email: route.params.email,
     phone: '',
     dni: '',
     nacionalidad: '',
@@ -79,7 +79,8 @@ const FormularioDatos = (props) => {
           photo: state.photo,
           cohorte: state.cohorte
         });
-        setGoHome(true)
+        navigation.navigate('Mensaje Registro')
+        /* setGoHome(true) */
       } catch (error) {
         console.log(error);
       }
@@ -87,7 +88,7 @@ const FormularioDatos = (props) => {
   };
 
   return goHome ? (
-    <MsgRegistro/>
+    {/* <MsgRegistro navigation={navigation}/> */}
   ) : (
       <Contenedor>
         {/* Email Input */}

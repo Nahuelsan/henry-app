@@ -27,13 +27,11 @@ import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import StudentList from './screens/Estudiantes/StudentList';
 import AlumnosCohorte from './screens/Cohortes/AlumnoCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
+import MsgRegistro from './screens/Register/MsgRegistro';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
-import VerCohorte from './screens/Cohortes/VerCohorte';
-import ImportHenrys from './screens/Nuevo Henry/importHenrys';
-import SelectTime from './screens/Register/selectTime';
 import EditarCohorte from './screens/Cohortes/EditarCohorte';
 import AlumnoProfile from './screens/Perfil/AlumnoProfile';
 
@@ -77,8 +75,6 @@ export default function App() {
 					}
 				}}
 			>
-
-
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
@@ -94,11 +90,11 @@ export default function App() {
 				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
-				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
+				<Stack.Screen name="Mensaje Registro" component={MsgRegistro} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />

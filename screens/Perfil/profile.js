@@ -67,13 +67,13 @@ const Profile = (props) => {
   };
   
   const eliminar = async () => {
-		if (confirm('Esta seguro de querer eliminar este Usuario')) {
+		/* if (confirm('Esta seguro de querer eliminar este Usuario')) {
 			await dbRef.delete();
 			alert('Usuario Eiminado');
 			navigation.navigate('Henry Admin');
 		}
 		else {
-    }
+    } */
     
     Alert.alert(
 			'Esta Eliminando un Usuario',
@@ -97,12 +97,12 @@ const Profile = (props) => {
   };
   
   const setPermisos = async (rol) => {
-		if (confirm('Esta seguro del cambio de Perfil de Usuario')) {
+		/* if (confirm('Esta seguro del cambio de Perfil de Usuario')) {
 			await dbRef.set({ ...user, rol: rol });
 			setUser({ ...user, rol: rol });
 		}
 		else {
-		}
+		} */
 
 		Alert.alert(
 			'Cambiar Perfil Usuario',
