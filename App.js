@@ -32,14 +32,21 @@ import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import YourCohort from './screens/Cohortes/YourCohort';
 =======
+=======
+import YourCohort from './screens/Cohortes/YourCohort';
+>>>>>>> b9aeab717d5cf6509454508f87ac47ddb1577e86
 import VerCohorte from './screens/Cohortes/VerCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
 import SelectTime from './screens/Register/selectTime';
 import EditarCohorte from './screens/Cohortes/EditarCohorte';
 import AlumnoProfile from './screens/Perfil/AlumnoProfile';
+<<<<<<< HEAD
 >>>>>>> origin
+=======
+>>>>>>> b9aeab717d5cf6509454508f87ac47ddb1577e86
 
 const Stack = createStackNavigator();
 

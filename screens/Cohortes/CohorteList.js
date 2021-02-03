@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, ListItem, Text } from 'react-native-elements';
+import { Icon, ListItem, Text  } from 'react-native-elements';
 import {
   Contenedor,
   Encabezado,
@@ -24,12 +24,15 @@ import {
   TextButton
 } from './StyledCohorteList';
 let card1 = require('../../src/assets/img/imgCard1.png');
-let logFont = require('../../src/assets/img/henry_logo.jpg');
+let logFont = require('../../src/assets/img/henry_logo.jpg'); 
 
 import firebase from '../../database/database';
 
 const CohorteList = ({ navigation }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b9aeab717d5cf6509454508f87ac47ddb1577e86
 	const [
 		cohorte,
 		setCohorte
@@ -45,6 +48,7 @@ const CohorteList = ({ navigation }) => {
 					comienzo,
 					descripcion,
 					fin,
+<<<<<<< HEAD
 =======
   const [
     cohorte,
@@ -61,30 +65,31 @@ const CohorteList = ({ navigation }) => {
           descripcion,
           fin,
 >>>>>>> origin
+=======
+>>>>>>> b9aeab717d5cf6509454508f87ac47ddb1577e86
           modalidad,
-          nombre,
-          instructor
-        });
-      });
-      setCohorte(data);
-    });
-  }, []);
+          nombre
+				});
+			});
+			setCohorte(data);
+		});
+	}, []);
 
-  const onPressSee = () => { };
-  const onPressEdit = () => { };
-
-  return (
-    <Contenedor>
+	const onPressSee = () => {};
+  const onPressEdit = () => {};
+  
+	return (
+		<Contenedor>
       <Encabezado >
-        <ConTitle
-          onPress={() => navigation.goBack()}
+			  <ConTitle
+          onPress={() => navigation.navigate('Henry Admin')}
         >
           <Icon
-            solid={true}
+						solid={true}
             name="chevron-left"
-            type="font-awesome-5"
+						type="font-awesome-5"
           />
-          <TextTitle>Admin Henry</TextTitle>
+          <TextTitle>Home</TextTitle>
         </ConTitle>
       </Encabezado>
       <Options>
@@ -96,11 +101,11 @@ const CohorteList = ({ navigation }) => {
           <Text>Historial de todas las cohortes de Henry</Text>
         </ContText>
       </Options>
-      {/* <Text h2> Listado de cohortes</Text> */}
+			{/* <Text h2> Listado de cohortes</Text> */}
       <ContGeneral>
         <ContListGen>
           {cohorte.map((l, i) => (
-            <ListItem key={i} style={{ width: '100%', }}>
+            <ListItem key={i} style={{ width: '100%',  }}>
               <BodyUnitItem >
                 <BackImg>
                   <ImgListUn source={logFont} />
@@ -109,12 +114,10 @@ const CohorteList = ({ navigation }) => {
                   <TextPrin>{`Cohorte ${l.nombre}`}</TextPrin>
                   <Text>{`Comienzo ${l.comienzo}`} - {`Fin ${l.fin}`}</Text>
                   <ContBtnOut >
-                    <BotonLog onPress={() => navigation.navigate('Ver Cohorte',
-                      { comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
+                    <BotonLog onPress={onPressSee}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={() => navigation.navigate('Editar Cohorte',
-                      { id: l.id, comienzo: l.comienzo, descripcion: l.descripcion, fin: l.fin, modalidad: l.modalidad, nombre: l.nombre, instructor: l.instructor })}>
+                    <BotonLog onPress={onPressEdit} >
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>
@@ -158,7 +161,7 @@ const CohorteList = ({ navigation }) => {
           </IconContent>
         </ContMinf>
       </ContGeneral>
-    </Contenedor>
-  );
+		</Contenedor>
+	);
 };
 export default CohorteList;
