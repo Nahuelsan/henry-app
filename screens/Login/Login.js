@@ -18,9 +18,18 @@ import {
 } from './styledLogin';
 import { Text, TouchableOpacity, ScrollView } from 'react-native';
 import firebase from '../../database/database.js';
+<<<<<<< HEAD
 import * as Google from 'expo-google-app-auth';
+=======
+//Redux
+import {useDispatch } from 'react-redux';
+import {login} from '../../src/action';
+
+>>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 
 const Login = ({ navigation }) => {
+	const dispatch = useDispatch()
+
 	const initalState = {
 		password : '',
 		email    : ''
@@ -56,8 +65,10 @@ const Login = ({ navigation }) => {
 		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
-				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone } = doc.data();
+				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone, cohorte, grupo } = doc.data();
 				estudiantes.push({
+					cohorte,
+					grupo,
 					email,
 					rol,
 					first_name,
@@ -71,7 +82,11 @@ const Login = ({ navigation }) => {
 				});
 			});
 			setUsers(estudiantes);
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 		});
 	}, []);
 
@@ -90,18 +105,18 @@ const Login = ({ navigation }) => {
 		}
 		else {
 			var found = users.find((user) => user.email === state.email);
-			console.log('found', found);
+
 			if (found) {
 				firebase.firebase
 					.auth()
 					.signInWithEmailAndPassword(state.email, state.password)
 					.then((result) => {
+						dispatch(login(found))
 						if (found.rol === 'admin' || found.rol === 'instructor') {
-							console.log('es admin, va a dashboard admin');
-							navigation.navigate('Henry Admin', { info: found });
+							navigation.navigate('Henry Admin');
 						}
 						else {
-							navigation.navigate('Menu Usuario', { info: found });
+							navigation.navigate('Menu Usuario');
 						}
 					})
 					.catch((error) => {
@@ -115,6 +130,7 @@ const Login = ({ navigation }) => {
 	};
 
 	const loginGoogle = async () => {
+<<<<<<< HEAD
 		console.log('entre')
 			try {
 				const result = await Google.logInAsync({
@@ -126,6 +142,16 @@ const Login = ({ navigation }) => {
 					var found = invitedUsers.find((user) => user.email === result.user.email);
 					var found2 = users.find((user) => user.email === result.user.email);
 					if (!found) {
+=======
+		firebase.firebase
+			.auth()
+			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
+			.then((result) => {
+
+				var found = invitedUsers.find((user) => user.email === result.user.email);
+				var found2 = users.find((user) => user.email === result.user.email);
+				if(!found){
+>>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 					throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
 				}
 				if(!found2){
@@ -181,7 +207,6 @@ const Login = ({ navigation }) => {
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
 			.then((result) => {
-				console.log(result.user.providerData[0].email);
 				var found = invitedUsers.find((user) => user.email === result.user.providerData[0].email);
 				var found2 = users.find((user) => user.email === result.user.providerData[0].email);
 				if (!found) {
