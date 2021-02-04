@@ -18,8 +18,14 @@ import {
 } from './styledLogin';
 import { Text, TouchableOpacity, ScrollView } from 'react-native';
 import firebase from '../../database/database.js';
+//Redux
+import {useDispatch } from 'react-redux';
+import {login} from '../../src/action';
+
 
 const Login = ({ navigation }) => {
+	const dispatch = useDispatch()
+
 	const initalState = {
 		password : '',
 		email    : ''
@@ -55,8 +61,10 @@ const Login = ({ navigation }) => {
 		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
-				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone } = doc.data();
+				const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone, cohorte, grupo } = doc.data();
 				estudiantes.push({
+					cohorte,
+					grupo,
 					email,
 					rol,
 					first_name,
@@ -70,7 +78,7 @@ const Login = ({ navigation }) => {
 				});
 			});
 			setUsers(estudiantes);
-			console.log(users);
+
 		});
 	}, []);
 
@@ -89,18 +97,18 @@ const Login = ({ navigation }) => {
 		}
 		else {
 			var found = users.find((user) => user.email === state.email);
-			console.log('found', found);
+
 			if (found) {
 				firebase.firebase
 					.auth()
 					.signInWithEmailAndPassword(state.email, state.password)
 					.then((result) => {
+						dispatch(login(found))
 						if (found.rol === 'admin' || found.rol === 'instructor') {
-							console.log('es admin, va a dashboard admin');
-							navigation.navigate('Henry Admin', { info: found });
+							navigation.navigate('Henry Admin');
 						}
 						else {
-							navigation.navigate('Menu Usuario', { info: found });
+							navigation.navigate('Menu Usuario');
 						}
 					})
 					.catch((error) => {
@@ -114,13 +122,11 @@ const Login = ({ navigation }) => {
 	};
 
 	const loginGoogle = async () => {
-		console.log('se ejecuta la funcionLoginGoogle');
 		firebase.firebase
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
 			.then((result) => {
-				console.log(result.user.email);
-				console.log(invitedUsers);
+
 				var found = invitedUsers.find((user) => user.email === result.user.email);
 				var found2 = users.find((user) => user.email === result.user.email);
 				if(!found){
@@ -150,7 +156,6 @@ const Login = ({ navigation }) => {
 			.auth()
 			.signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
 			.then((result) => {
-				console.log(result.user.providerData[0].email);
 				var found = invitedUsers.find((user) => user.email === result.user.providerData[0].email);
 				var found2 = users.find((user) => user.email === result.user.providerData[0].email);
 				if (!found) {

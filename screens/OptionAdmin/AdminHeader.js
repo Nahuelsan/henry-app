@@ -2,8 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Encabezado, ConTitle, ContAvatar, Welcome } from './styledAdmin';
+import {useSelector} from 'react-redux';
 
-const AdminHeader = ({navigation, info}) => {
+const AdminHeader = ({navigation}) => {
+	const info = useSelector(state => state)
 	return (
 		<Encabezado>
 			<ConTitle>

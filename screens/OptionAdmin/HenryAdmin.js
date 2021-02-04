@@ -20,18 +20,27 @@ let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 import firebase from '../../database/database.js';
 
+//Redux importamos funciones y hooks
+import {useDispatch} from 'react-redux';
+import {logout} from '../../src/action';
+
+
 
 const HenryAdmin = (props) => {
-  const { info } = props.route.params;
+
+  const dispatch = useDispatch();
   {/* info={info} */}
   const Logout =()=> {
+	  dispatch(logout())
 	  firebase.firebase
 		  .auth().signOut().then(()=>console.log('sign out'))
 	  props.navigation.navigate('Iniciar Sesion')
   }
+
+  
 	return (
 		<Contenedor>
-			<AdminHeader navigation={props.navigation} info={info} /> 
+			<AdminHeader navigation={props.navigation} /* info={info} */ /> 
 			<AdminNavBar navigation={props.navigation} />
 			<ContStudents>
 				<Options onPress={() => props.navigation.navigate('Nuevo Henry', {instructor: false})}>
