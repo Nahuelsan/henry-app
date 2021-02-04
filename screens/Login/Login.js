@@ -18,14 +18,12 @@ import {
 } from './styledLogin';
 import { Text, TouchableOpacity, ScrollView } from 'react-native';
 import firebase from '../../database/database.js';
-<<<<<<< HEAD
+
 import * as Google from 'expo-google-app-auth';
-=======
-//Redux
+
 import {useDispatch } from 'react-redux';
 import {login} from '../../src/action';
 
->>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 
 const Login = ({ navigation }) => {
 	const dispatch = useDispatch()
@@ -82,11 +80,7 @@ const Login = ({ navigation }) => {
 				});
 			});
 			setUsers(estudiantes);
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 		});
 	}, []);
 
@@ -130,7 +124,7 @@ const Login = ({ navigation }) => {
 	};
 
 	const loginGoogle = async () => {
-<<<<<<< HEAD
+
 		console.log('entre')
 			try {
 				const result = await Google.logInAsync({
@@ -142,16 +136,7 @@ const Login = ({ navigation }) => {
 					var found = invitedUsers.find((user) => user.email === result.user.email);
 					var found2 = users.find((user) => user.email === result.user.email);
 					if (!found) {
-=======
-		firebase.firebase
-			.auth()
-			.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
-			.then((result) => {
 
-				var found = invitedUsers.find((user) => user.email === result.user.email);
-				var found2 = users.find((user) => user.email === result.user.email);
-				if(!found){
->>>>>>> 7506fc53207ab76c97ffdd2c57bf5e1333e2642e
 					throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
 				}
 				if(!found2){
