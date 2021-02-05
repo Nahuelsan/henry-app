@@ -119,17 +119,11 @@ export default function App() {
 	} else {
 
 		return (
-<<<<<<< HEAD
-			<NavigationContainer>
-				<YourCohort />
-			</NavigationContainer>
-=======
 			<Provider store={store}>
 				<NavigationContainer>
 					<MyStack />
 				</NavigationContainer>
 			</Provider>
->>>>>>> f18af0d216d9f44d4a33d51cee05414f74985866
 		);
 	}
 }
