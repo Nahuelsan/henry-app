@@ -116,7 +116,7 @@ export default function App() {
 
 		return (
 			<NavigationContainer>
-				<MyStack />
+				<YourCohort />
 			</NavigationContainer>
 		);
 	}

@@ -39,7 +39,7 @@ export const Options = styled.View `
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px; 
   background-color: #F5F5F5;
-  z-index: 5;
+  z-index: 3;
 `
 
 export const BackImg = styled.View `
@@ -80,18 +80,18 @@ export const ContGeneral = styled.View `
 `
 
 export const Cohorte = styled.Text `
-  margin-top: 23%;
+  margin-top: 90px;
   font-family: 'gadugib';
   font-size: 20px;
   font-weight: 900
 `
 
 export const GroupCard = styled.View `
-  width: 85%;
-  height: 120px;
   position: absolute;
-  top: 18%;
+  top: 110px;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   z-index: 5;
 `
 
@@ -117,13 +117,13 @@ export const Img = styled.View `
 `
 
 export const Imagen = styled.Image `
-  width: 70px;
-  height: 70px;
+  width: 45px;
+  height: 45px;
 `
 
 export const User = styled.Image `
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
 `
 
 export const Pm = styled.View `

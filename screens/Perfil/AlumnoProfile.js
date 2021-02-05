@@ -18,7 +18,8 @@ import {
 } from './StyledPerfil';
 
 const AlumnoProfile = (props) => {
-	const { info } = props.route.params;
+  const { info } = props.route.params;
+  console.log(info);
 	const { navigation } = props;
 	const [
 		user,

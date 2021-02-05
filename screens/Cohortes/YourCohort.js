@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Image, Text, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import firebase from '../../database/database';
+//Redux
+import {useSelector} from 'react-redux';
 
 /* Estilos */
 import {
@@ -34,13 +36,15 @@ import {
 
 let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
-let user = require('../../src/assets/img/user.png');
+let userImg = require('../../src/assets/img/user.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const YourCohort = (props) => {
   const  checkpoint4  = 5;
-  
+  //Asignamos lo que tenemos en el store a la constante info 
+  const info = useSelector(state => state)
+  const [user, setUser] = useState(info);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -83,14 +87,11 @@ console.log(estudiantes);
           <ImgSize source={card3} />
         </BackImg>
         <ContText>
-          <TituloCard>Tu Cohorte</TituloCard>
+          <TituloCard>Tu Cohorte es {user.cohorte}</TituloCard>
           <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
         </ContText>
       </Options>
-      <ContGeneral>
-        
-          <Cohorte>Cohorte {`${user.cohorte}`}</Cohorte>
-        
+      <ContGeneral>        
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>
           <View>
@@ -112,7 +113,7 @@ console.log(estudiantes);
             </Titulo>
             <Img>
               <Text style={styles.instructor}>{`${user.instructor}`}</Text>
-              <User source={user} />
+              <User source={userImg} />
             </Img>
           </View>
         </GroupCard>
@@ -128,7 +129,7 @@ console.log(estudiantes);
         {users.map((student, i) => (
                   <View style={styles.usuario}>
                 <Text style={styles.instructor} key={i}>{student.pm}</Text>
-                <User source={user} />
+                <User source={userImg} />
                 </View>
         ))}          
             </Img>
