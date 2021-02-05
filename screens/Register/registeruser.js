@@ -65,11 +65,10 @@ const RegisterUser = ({navigation}) => {
 			} catch (error) {
 				setLoading(false)
 				console.log(error);
-				alert('No estas invitado');
+				alert('Error');
 			}
 		}
-	}
-		
+	};
 
 	return loading ? <ActivityIndicator size="large"/> : (
 		<Contenedor>
