@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TextInput, Button, Alert  } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
 import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
+//Redux
+import {useSelector} from 'react-redux';
 
 /* Estilos */
 import {
@@ -18,24 +20,23 @@ import {
 } from './StyledPerfil';
 
 const AlumnoProfile = (props) => {
+<<<<<<< HEAD
   const { info } = props.route.params;
   console.log(info);
+=======
+	const info  = useSelector(state => state)
+	console.lgo
+>>>>>>> f18af0d216d9f44d4a33d51cee05414f74985866
 	const { navigation } = props;
 	const [
 		user,
 		setUser
-	] = useState({});
+	] = useState(info);
 	const [
 		edit,
 		setEdit
   ] = useState(false);
   
-  
-
-	const dbRef = firebase.db.collection('users').doc(info.id);
-	useEffect(() => {
-		setUser(info);
-	}, []);
 
 	const profile = [
 		{

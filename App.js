@@ -1,6 +1,10 @@
 import * as React from 'react';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+//Redux
+import {Provider} from 'react-redux';
+import configureStore  from './configureStore'
+let store = configureStore()
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -115,9 +119,17 @@ export default function App() {
 	} else {
 
 		return (
+<<<<<<< HEAD
 			<NavigationContainer>
 				<YourCohort />
 			</NavigationContainer>
+=======
+			<Provider store={store}>
+				<NavigationContainer>
+					<MyStack />
+				</NavigationContainer>
+			</Provider>
+>>>>>>> f18af0d216d9f44d4a33d51cee05414f74985866
 		);
 	}
 }
