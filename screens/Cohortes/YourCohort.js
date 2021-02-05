@@ -32,6 +32,7 @@ import {
 } from './StyledYourCohort';
 
 import Footer from '../Footer';
+import { ScrollView } from 'react-native';
 
 let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
@@ -79,7 +80,7 @@ console.log(estudiantes);
           <TextTitle>Home</TextTitle>
         </Home>
       </Encabezado>
-      <View style = {{alignItems: 'center', bottom: '10%'}}>
+      <View style = {{alignItems: 'center', bottom: '10%', zIndex:100}}>
       <Options>
         <BackImg>
           <ImgSize source={card3} />
@@ -91,6 +92,7 @@ console.log(estudiantes);
       </Options>
       </View>
 
+      <ScrollView>
       <ContGeneral>         
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>
@@ -212,6 +214,7 @@ console.log(estudiantes);
           </TarjetaProgreso>
         </Progreso>
       </ContGeneral>
+      </ScrollView>
       <Footer />
     </Contenedor>
   )

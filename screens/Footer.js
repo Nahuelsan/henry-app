@@ -53,7 +53,7 @@ const Footer = (props) => {
 					/>
 					<Icon
 						solid={true}
-						name="user"
+						name="sign-out-alt"
 						type="font-awesome-5"
 						size={40}
 						onPress={() => Logout()}

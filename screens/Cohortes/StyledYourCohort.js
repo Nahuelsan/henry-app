@@ -39,7 +39,7 @@ export const Options = styled.View `
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px; 
   background-color: #F5F5F5;
-  z-index: 3;
+  z-index: 100;
 `
 
 export const BackImg = styled.View `
@@ -89,7 +89,7 @@ export const GroupCard = styled.View `
   width: 80%;
   height: 25%;
   position: absolute;
-  top: 50px;
+  top: 80px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
