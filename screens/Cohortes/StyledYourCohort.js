@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Contenedor = styled.View `
   flex: 1;
-  align-items: center;
   justify-content: space-between;
   background-color:white;
 `
@@ -32,6 +31,7 @@ export const Options = styled.View `
   width: 85%;
   height: 120px;
   position: absolute;
+  justify-content: space-between;
   top: 15%;
   flex-direction: row;
   border-top-left-radius: 20px;
@@ -73,7 +73,6 @@ export const ContGeneral = styled.View `
   width: 100%;
   height: 80%;
   z-index: 2;
-  background-color: #fff;
   align-items: center;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
@@ -87,12 +86,22 @@ export const Cohorte = styled.Text `
 `
 
 export const GroupCard = styled.View `
+  width: 80%;
+  height: 25%;
   position: absolute;
-  top: 110px;
+  top: 50px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   z-index: 5;
+`
+
+export const Tarjeta = styled.View `
+  width: 50%;
+  height: 25%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 `
 
 export const Titulo = styled.Text `
@@ -122,20 +131,51 @@ export const Imagen = styled.Image `
 `
 
 export const User = styled.Image `
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
 `
 
 export const Pm = styled.View `
-  width: 90%;
-  height: 90px;
+  width: 70%;
+  height: 25%;
   position: absolute;
-  top: 20%;
+  padding: 50px 30px;
   flex-direction: column;
-  z-index: 5;
+  justify-content: center;
   align-items: center;
-  margin-left: 15px;
-  margin-right: -15px;
+  top: 240px;
+  z-index: 5;
+`
+
+export const TarjetaPm = styled.View `
+  width: 150%;
+  height: 15%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+`
+
+export const Progreso = styled.View `
+  width: 70%;
+  height: 25%;
+  position: absolute;
+  padding: 50px 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 370px;
+  z-index: 5; 
+`
+
+export const TarjetaProgreso = styled.View `
+  width: 150%;
+  height: 25%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
 `
 
 export const TituloPm = styled.Text `

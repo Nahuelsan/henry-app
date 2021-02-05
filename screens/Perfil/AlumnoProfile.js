@@ -20,13 +20,8 @@ import {
 } from './StyledPerfil';
 
 const AlumnoProfile = (props) => {
-<<<<<<< HEAD
-  const { info } = props.route.params;
-  console.log(info);
-=======
 	const info  = useSelector(state => state)
 	console.lgo
->>>>>>> f18af0d216d9f44d4a33d51cee05414f74985866
 	const { navigation } = props;
 	const [
 		user,
