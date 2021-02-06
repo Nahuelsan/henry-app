@@ -24,7 +24,7 @@ function SignIn() {
   ] = useState(initalState);
 
   useEffect(() => {
-    firebase.db.collection('invited users').onSnapshot((snap) => {
+    firebase.db.collection('invited instructor').onSnapshot((snap) => {
       const invitados = [];
       snap.docs.forEach((doc) => {
         const { email } = doc.data();
@@ -59,13 +59,13 @@ function SignIn() {
 
     });
   }, []);
-console.log(invitedUsers)
+
   const handleInputChange = function (e) {
     setState({
       ...state,
       [e.target.name]: e.target.value
     });
-    console.log(state)
+    
   }
 
   const handleSubmit = function (e) {
@@ -86,22 +86,18 @@ console.log(invitedUsers)
     }
     else {
       var found = users.find((user) => user.email === state.email);
-      // var found2 = users.find((user) => user.email === state.email);
-      // if (!found2) {
-      //   window.location.href = 'http://localhost:3000/register';
-      //   alert('Aun no te has registrado')
-      // }
       if (found) {
         firebase.firebase
           .auth()
           .signInWithEmailAndPassword(state.email, state.password)
           .then((result) => {
+            console.log(result)
             if (found.rol === 'admin' || found.rol === 'instructor') {
               console.log('admin')
               window.location.href = 'http://localhost:3000/henrystudent';
             }
             else {
-              alert('Eres estudiante por favor dirijite a la app')
+              // alert('Eres estudiante por favor dirijite a la app')
             }
           })
           .catch((error) => {
@@ -125,20 +121,23 @@ console.log(invitedUsers)
  ;
     		var found = invitedUsers.find((user) => user.email === result.user.email);
     		var found2 = users.find((user) => user.email === result.user.email);
+        console.log("found2",found2)
     		if(!found){
-    			throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+    			throw 'El email no se encuentra en la base de datos de estudiantes invitados :(';
     		}
     		if(!found2){
           console.log('registrese ')
           window.location.href = 'http://localhost:3000/register';
+        
 
     		}
     		if (found2) {
-    			if (found.rol === 'admin') {
+    			if (found2.rol === 'admin') {
             console.log('admin ')
+            window.location.href = 'http://localhost:3000/henrystudent';
     			}
     			else {
-            alert('Eres estudiante por favor dirijite a la app')
+            throw 'Eres estudiante por favor dirijite a la app'
     			}
     		}
     	})
@@ -159,16 +158,15 @@ console.log(invitedUsers)
           throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
         }
         if (!found2) {
-          
           window.location.href = 'http://localhost:3000/register';
-
         }
         if (found2) {
-          if (found.rol === 'admin') {
+          if (found2.rol === 'admin') {
             console.log('admin') 
+            window.location.href = 'http://localhost:3000/henrystudent';
           }
           else {
-            alert('Eres estudiante por favor dirijite a la app') 
+            throw 'Eres estudiante por favor dirijite a la app'
           }
         }
       })
