@@ -39,6 +39,7 @@ import InstructoresList from './screens/Instructorres/InstructoresList';
 import EditarCohorte from './screens/Cohortes/EditarCohorte';
 import AlumnoProfile from './screens/Perfil/AlumnoProfile';
 import YourCohort from './screens/Cohortes/YourCohort';
+import PairPrograming from './screens/pairPrograming';
 
 const Stack = createStackNavigator();
 
@@ -79,7 +80,7 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-			>
+				>
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
@@ -105,6 +106,7 @@ export default function App() {
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
+				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
 		);
