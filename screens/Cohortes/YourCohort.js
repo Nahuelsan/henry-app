@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Image, Text, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import firebase from '../../database/database';
-//Redux
+
+//Redux importamos funciones y hooks
 import {useSelector} from 'react-redux';
 
 /* Estilos */
@@ -17,28 +18,25 @@ import {
   ContText,
   TituloCard,
   ContGeneral,
-  Cohorte,
   GroupCard,
   Titulo,
   Img,
   Imagen,
   User,
   Pm,
-  TituloPm
+  TituloPm,
+  Tarjeta,
+  TarjetaPm,
+  Progreso,
+  TarjetaProgreso
 } from './StyledYourCohort';
 
-import {
-  ContMinf,
-  IconContent,
-  ImgMinf,
-  LogoSise,
-} from '../Estudiantes/StyledEstudents';
+import Footer from '../Footer';
+import { ScrollView } from 'react-native';
 
 let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
-let logFont = require('../../src/assets/img/henry_logo.jpg');
-
 
 const YourCohort = (props) => {
   const  checkpoint4  = 5;
@@ -82,6 +80,7 @@ console.log(estudiantes);
           <TextTitle>Home</TextTitle>
         </Home>
       </Encabezado>
+      <View style = {{alignItems: 'center', bottom: '10%', zIndex:100}}>
       <Options>
         <BackImg>
           <ImgSize source={card3} />
@@ -91,10 +90,13 @@ console.log(estudiantes);
           <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
         </ContText>
       </Options>
-      <ContGeneral>        
+      </View>
+
+      <ScrollView>
+      <ContGeneral>         
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>
-          <View>
+          <Tarjeta >
             <Titulo>
               <Text style={styles.text}>Grupo al que perteneces</Text>
             </Titulo>
@@ -102,12 +104,10 @@ console.log(estudiantes);
               <Text style={styles.titulo}>G - {`${user.grupo}`}</Text>
               <Imagen source={card2} />
             </Img>
-          </View>
-        </GroupCard>
+          </Tarjeta>        
 
         {/* INSTRUCTOR DEL COHORTE */}
-        <GroupCard style={{ marginLeft: 350 }}>
-          <View>
+          <Tarjeta>
             <Titulo>
               <Text style={styles.text}>Instructor del Cohorte</Text>
             </Titulo>
@@ -115,12 +115,12 @@ console.log(estudiantes);
               <Text style={styles.instructor}>{`${user.instructor}`}</Text>
               <User source={userImg} />
             </Img>
-          </View>
+          </Tarjeta>
         </GroupCard>
 
         {/* TUS PM´S */}
-        <Pm style={{ marginTop: 140, position: 'absolute' }}>
-          <View>
+        <Pm>
+          <TarjetaPm>
             <TituloPm>
               <Text style={styles.text}>Tus PM's</Text>
             </TituloPm>
@@ -133,14 +133,14 @@ console.log(estudiantes);
                 </View>
         ))}          
             </Img>
-          </View>
+          </TarjetaPm>
         </Pm>
   
 
 
         {/* TU PROGRESO */}
-        <Pm style={{ marginTop: 280, position: 'absolute' }}>
-          <View>
+        <Progreso>
+          <TarjetaProgreso>
             <TituloPm>
               <Text style={styles.text}>Tu progreso</Text>
             </TituloPm>
@@ -209,45 +209,13 @@ console.log(estudiantes);
                   source={{ uri: 'https://www.soyhenry.com/static/rocket-176b443ed273a2a5a6f5cb11d6d33605.png' }} />
                 <Text style={styles.progreso}>Job Prep</Text>
               </View>
-            }
-        
+            }        
             </Img>
-          </View>
-        </Pm>
-        <ContMinf>
-          <IconContent>
-            <Icon
-              name="home"
-              type="font-awesome"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              name="ghost"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <ImgMinf>
-              <LogoSise source={logFont} />
-            </ImgMinf>
-            <Icon
-              solid={true}
-              name="comment-dots"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              solid={true}
-              name="user"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-          </IconContent>
-        </ContMinf>
+          </TarjetaProgreso>
+        </Progreso>
       </ContGeneral>
+      </ScrollView>
+      <Footer />
     </Contenedor>
   )
 };
@@ -269,8 +237,9 @@ const styles = StyleSheet.create({
   usuario: {
     paddingLeft: 12,
     paddingRight: 12,
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingTop: 15,
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
   },
   progreso: {
     fontSize: 12,

@@ -57,7 +57,7 @@ const UserBody = ({navigation}) => {
       </TouchableOpacity>
 
       <View style={styles.container}
-        onPress={() => navigation.navigate()}
+        onPress={() => navigation.navigate('Pair Programing')}
       >
         <View style={styles.containerImagen}>
           <Image

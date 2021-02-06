@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+// import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+// import { faGoogle, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
 	Contenedor,
 	Encabezado,
@@ -17,6 +17,7 @@ import {
 	IconSocialRed
 } from './styledLogin';
 import { Text, TouchableOpacity, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import firebase from '../../database/database.js';
 
 import * as Google from 'expo-google-app-auth';
@@ -221,7 +222,12 @@ const Login = ({ navigation }) => {
 		<Contenedor>
 			{/* Encabezado Back */}
 			<Encabezado>
-				<FontAwesomeIcon icon={faArrowLeft} size={18} />
+				{/* <FontAwesomeIcon icon={faArrowLeft} size={18} /> */}
+        <Icon 
+          name = 'arrow-left'
+          type = 'font-awesome-5'
+          size = {18}
+        />
 				<Back onPress={() => navigation.navigate('Home')}>Regresar</Back>
 			</Encabezado>
 			<ContGen>
@@ -252,14 +258,24 @@ const Login = ({ navigation }) => {
 					<TextButton>Iniciar Sesion</TextButton>
 				</BotonLog>
 
-				<ContSocialRed>
+				<ContSocialRed style = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
 					<Text> O inicia sesión con </Text>
 					<IconSocialRed>
 						<TouchableOpacity onPress={() => loginGoogle()}>
-							<FontAwesomeIcon icon={faGoogle} size={20} />
+							{/* <FontAwesomeIcon icon={faGoogle} size={20} /> */}
+              <Icon 
+                name = 'google'
+                type = 'font-awesome-5'
+                size = {20}
+              /> 
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => loginGithub()}>
-							<FontAwesomeIcon icon={faGithub} size={20} />
+							{/* <FontAwesomeIcon icon={faGithub} size={20} /> */}
+              <Icon 
+                name = 'github'
+                type = 'font-awesome-5'
+                size = {20}
+              /> 
 						</TouchableOpacity>
 					</IconSocialRed>
 				</ContSocialRed>
