@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
-import SideNavBar from '../SideNavBar/SideNavBar'
+/* import SideNavBar from '../SideNavBar/SideNavBar' */
 import firebase from '../../database/database'
 import axios from 'axios';
 
@@ -97,7 +97,7 @@ function HenryStudent() {
   return (
     <div>
       <Header />
-      <SideNavBar />
+      {/* <SideNavBar /> */}
 
       <div className='panel-estudiantes'>
         <h2>Panel Estudiantes Henry</h2>

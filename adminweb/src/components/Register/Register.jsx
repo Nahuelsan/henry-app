@@ -2,6 +2,15 @@ import React, { useState ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../../database/database';
 
+/* Estilos */
+import {
+  FormularioRegister,
+  Title,
+  InputCont,
+  Btn,
+  TextoSocial,
+  ContSocialMedia
+} from '../PrincipalScreen/StyledPrincipal';
 
 function Register() {
   const [state, setState] = useState({
@@ -176,64 +185,8 @@ function Register() {
         alert(error);
       });
   };
-  return (
-    <div>
-      <div>
-        <h2>Regístrate</h2>
-        <form onSubmit={handleSubmit}>
 
-          <input
-           type="email" 
-           placeholder="Correo" 
-           name="email" 
-           value={state.email} 
-           onChange={handleInputChange}
-           /><br />
-
-          <input 
-          type="password" 
-          placeholder="Contraseña"
-          name="password" 
-          value={state.password} 
-          onChange={handleInputChange} 
-          /><br />
-
-          <input 
-          type="password" 
-          placeholder="Confirma tu conraseña" 
-          name="password_checked"
-          value={state.password_checked } 
-          onChange={handleInputChange} 
-          />
-
-          <div>
-            <input 
-            type="submit" 
-            value="Registrarse"  
-            onClick={saveNewUser}
-            />
-          </div>
-
-        </form>
-        <h3>O registrate con una de las plataformas</h3>
-
-        <img 
-        src='https://cdn2.iconfinder.com/data/icons/font-awesome/1792/google-512.png' 
-        alt='Google' 
-        with='50px' 
-        height='50px' 
-        onClick={() =>loginGoogle()}
-        />
-
-        <img 
-        src='https://image.flaticon.com/icons/png/512/25/25231.png' 
-        alt='Github' 
-        with='50px' 
-        height='50px'
-          onClick={loginGithub}
-        />
-
-      </div>
+  /* 
       <div>
         <div>
           <h2>Eres uno de nosotros?</h2>
@@ -241,8 +194,55 @@ function Register() {
           <button><Link to='/'>Inicia Sesión</Link></button>
         </div>
         <img src='https://pbs.twimg.com/profile_images/686596277904273409/hocE2na7.jpg' alt='RegisteImage' />
-      </div>
-    </div>
+      </div> */
+  return (
+      <FormularioRegister className='form-register' onSubmit={handleSubmit}>
+          <Title >Regístrate</Title>
+          <InputCont >
+            <i className="far fa-user"></i>
+            <input
+              type="email" 
+              placeholder="Correo" 
+              name="email" 
+              value={state.email} 
+              onChange={handleInputChange}
+            />
+          </InputCont>
+          <InputCont >
+            <i className="fas fa-lock"></i>
+            <input 
+            type="password" 
+              placeholder="Contraseña"
+              name="password" 
+              value={state.password} 
+              onChange={handleInputChange} 
+            />
+          </InputCont>
+          <InputCont >
+            <i className="fas fa-lock"></i>
+            <input 
+              type="password" 
+              placeholder="Confirma tu conraseña" 
+              name="password_checked"
+              value={state.password_checked } 
+              onChange={handleInputChange} 
+            />
+          </InputCont>
+          <Btn 
+            type="submit" 
+            value="REGISTRATE"
+            onClick={saveNewUser} 
+          />
+          <TextoSocial>O regístrate con una de las plataformas</TextoSocial>
+          <ContSocialMedia>
+            <a onClick={() =>loginGoogle()}>
+              <i className="fab fa-google"></i>
+            </a>
+            <a onClick={loginGithub}>
+              <i className="fab fa-google"></i>
+            </a>
+          </ContSocialMedia>
+        </FormularioRegister>
   );
 }
 

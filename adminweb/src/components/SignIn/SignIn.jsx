@@ -2,6 +2,16 @@ import React, { useState ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../../database/database'
 
+/* Estilos */
+import {
+  FormularioLog,
+  Title,
+  InputCont,
+  Btn,
+  TextoSocial,
+  ContSocialMedia
+} from '../PrincipalScreen/StyledPrincipal';
+
 function SignIn() {
 
   const initalState = {
@@ -175,60 +185,50 @@ function SignIn() {
       });
   };
 
-  return (
+  {/* <div>
     <div>
-      <div>
-        <div>
-          <h2>Nuevo aqui?</h2>
-          <p>Se re ha enviado un correo, para ser parte de la familia Henry Admin, registrate con el coreo al que te llego el mensaje para continuar</p>
-          <button><Link to='/register'>Registrarse</Link></button>
-        </div>
-        <img src='https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg' alt='SignInImage' />
-      </div>
-      <div>
-        <h2>Iniciar Sesión</h2>
-        <form onSubmit={(e)=>e.preventDefault()}>
-          <input type="email"
-          placeholder="Correo" 
-          name="email" 
-            value={state.email}
-          onChange={handleInputChange} 
-          /><br />
-
-          <input 
-          type="password" 
-          placeholder="Contraseña"
-            name="password" 
-            value={state.password}
-          onChange={handleInputChange} 
-          />
-
-          <div>
-            <input 
-            type="submit" 
-            value="Iniciar Sesión"
-            onClick={loginManual} 
-             />
-          </div>
-        </form>
-        <h3>O inicia sesión con una de las plataformas</h3>
-        <img 
-        src='https://cdn2.iconfinder.com/data/icons/font-awesome/1792/google-512.png' 
-        alt='Google' 
-        with='50px' 
-        height='50px' 
-          onClick={loginGoogle}
-        />
-        <img 
-        src='https://image.flaticon.com/icons/png/512/25/25231.png' 
-        alt='Github' 
-        with='50px' 
-        height='50px'
-          onClick={loginGithub}
-
-         />
-      </div>
+      <h2>Nuevo aqui?</h2>
+      <p>Se re ha enviado un correo, para ser parte de la familia Henry Admin, registrate con el coreo al que te llego el mensaje para continuar</p>
+      <button><Link to='/register'>Registrarse</Link></button>
     </div>
+  </div> */}
+  return (
+        <FormularioLog className='form-login' onSubmit={(e)=>e.preventDefault()}>
+          <Title >Iniciar Sesión</Title>
+          <InputCont >
+            <i className="far fa-user"></i>
+            <input type="email"
+            placeholder="Correo" 
+            name="email" 
+              value={state.email}
+            onChange={handleInputChange} 
+            />
+          </InputCont>
+          <InputCont >
+            <i className="fas fa-lock"></i>
+            <input 
+              type="password" 
+              placeholder="Contraseña"
+              name="password" 
+              value={state.password}
+              onChange={handleInputChange} 
+            />
+          </InputCont>
+          <Btn 
+            type="submit" 
+            value="INICIAR SESION"
+            onClick={loginManual} 
+          />
+          <TextoSocial>O inicia sesión con una de las plataformas</TextoSocial>
+          <ContSocialMedia>
+            <a onClick={loginGoogle}>
+              <i className="fab fa-google"></i>
+            </a>
+            <a onClick={loginGithub}>
+              <i className="fab fa-google"></i>
+            </a>
+          </ContSocialMedia>
+        </FormularioLog>
   );
 }
 
