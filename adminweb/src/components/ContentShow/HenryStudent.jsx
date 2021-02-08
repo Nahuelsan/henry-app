@@ -17,6 +17,9 @@ import {
 /* Import imagen */
 import ImgErr from "../../assets/Img/ErrorImg.jpg";
 import ImgUser from "../../assets/Img/imgUser.png";
+//google docs funcion
+import GoogleDocs from './googledocs/googledocs'
+import getRows from '../../assets/spreadsheets/spreadsheets'
 
 function HenryStudent() {
   //Traer usuarios de la base de datos
@@ -108,8 +111,20 @@ function HenryStudent() {
     console.log('Alumno', user)
   }
 
+  //excel
+  const [excel, setExcel] = useState(false)
+
+  const sendExcel = async (id) => {
+    const ret = await getRows(id)
+    ret.map(async obj => {
+       await axiosEmail(obj.email)
+    })
+    setExcel(false)
+  }
+
   return (
     <div>
+      {excel && <GoogleDocs cb={sendExcel}/>}
       <ContenedorPanel className='panel-estudiantes'>
         <h2>Panel Estudiantes Henry</h2>
         <DetalleUser >
@@ -160,7 +175,7 @@ function HenryStudent() {
               <div className='img-user'>
                 <img src={ImgErr} alt='avatar' />
               </div>
-              <button>Enviar Excel</button>
+              <button onClick={() => setExcel(true)}>Enviar Excel</button>
             </div>
           </ContInCard>
         </InvitarUsuario>
