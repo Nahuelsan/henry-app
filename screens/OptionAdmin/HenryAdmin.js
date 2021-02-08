@@ -8,8 +8,12 @@ import {
 	Options,
 	BackImg,
 	TituloCard,
-  ContText,
-  ImgSise
+  	ContText,
+  	ImgSise,
+  	LogoSise,
+	ContMinf,
+	IconContent,
+	ImgMinf
 } from './styledAdmin';
 let card1 = require('../../src/assets/img/imgCard1.png');
 

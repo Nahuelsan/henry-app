@@ -35,7 +35,7 @@ class AlumnosCohorte extends Component {
         filterActive: false
     }
     componentDidMount(){
-            firebase.db.collection('users').onSnapshot((query) =>{
+            firebase.db.collection('users').where('rol', '==', 'student').onSnapshot((query) =>{
                 var data = []
                 query.docs.forEach((docs) => {
                     const {cohorte, dni, email, first_name, grupo, last_name, nacionalidad, phone, photo} = docs.data()
@@ -72,9 +72,6 @@ class AlumnosCohorte extends Component {
                  filterActive : false, 
             })
         }
-        console.log(this.state.alumnos)
-        console.log(this.state.alumnosFiltrados)
-        console.log(this.state.filterActive)
     }
     render(){
     return(

@@ -31,7 +31,7 @@ const Login = ({ navigation }) => {
 
 	const initalState = {
 		password : '',
-		email    : ''
+		email    : '',
 	};
 
 	const [
@@ -81,7 +81,6 @@ const Login = ({ navigation }) => {
 				});
 			});
 			setUsers(estudiantes);
-
 		});
 	}, []);
 
@@ -100,7 +99,6 @@ const Login = ({ navigation }) => {
 		}
 		else {
 			var found = users.find((user) => user.email === state.email);
-
 			if (found) {
 				firebase.firebase
 					.auth()

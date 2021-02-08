@@ -31,7 +31,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const VerCohorte = (props) => {
-  const { comienzo, descripcion, fin, modalidad, nombre, instructor } = props.route.params;
+  const { comienzo, descripcion, fin, modalidad, nombre, instructor } = props.route.params.cohorte;
 
   return (
     <Contenedor>
@@ -74,14 +74,14 @@ const VerCohorte = (props) => {
             <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
           </BotonLog>
 
-          <BotonLog onPress={() => console.log('works')}>
-            <TextButton onPress={() => console.log('works')}>PMs</TextButton>
+          <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
+            <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
           </BotonLog>
           <BotonLog onPress={() => console.log('works')}>
             <TextButton onPress={() => console.log('works')}>Crear Nuevo Grupo</TextButton>
           </BotonLog>
-          <BotonLog onPress={() => console.log('works')}>
-            <TextButton onPress={() => console.log('works')}>Grupos de PP</TextButton>
+          <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
+            <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUd de PP</TextButton>
           </BotonLog>
         </ContListGen>
 

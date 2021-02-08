@@ -17,28 +17,30 @@ import Login from './screens/Login/Login';
 import UserView from './screens/UserView';
 import CreateUser from './screens/CreateUser';
 import Profile from './screens/Perfil/profile';
+import CrearPp from './screens/Cohortes/CrearPP';
 import EditarPm from './screens/CRUDPms/EditarPm';
 import ListaPms from './screens/CRUDPms/ListaPms';
 import VerCohorte from './screens/Cohortes/VerCohorte';
+import YourCohort from './screens/Cohortes/YourCohort';
 import SelectTime from './screens/Register/selectTime';
 import Studentcohortes from './screens/Studentcohortes';
+import MsgRegistro from './screens/Register/MsgRegistro';
 import CohorteList from './screens/Cohortes/CohorteList';
 import CrearCohorte from './screens/Cohortes/CrearCorte';
 import HenryAdmin from './screens/OptionAdmin/HenryAdmin';
 import NuevoHenry from './screens/Nuevo Henry/NuevoHenry';
 import RegisterUser from './screens/Register/registeruser';
+import AlumnoProfile from './screens/Perfil/AlumnoProfile';
 import CohorteMenu from './screens/OptionAdmin/CohorteMenu';
 import StudentList from './screens/Estudiantes/StudentList';
+import EditarCohorte from './screens/Cohortes/EditarCohorte';
 import AlumnosCohorte from './screens/Cohortes/AlumnoCohorte';
 import ImportHenrys from './screens/Nuevo Henry/importHenrys';
-import MsgRegistro from './screens/Register/MsgRegistro';
 import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
-import EditarCohorte from './screens/Cohortes/EditarCohorte';
-import AlumnoProfile from './screens/Perfil/AlumnoProfile';
-import YourCohort from './screens/Cohortes/YourCohort';
+import PairPrograming from './screens/pairPrograming';
 
 const Stack = createStackNavigator();
 
@@ -79,10 +81,11 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-			>
+				>
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
-				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
+				<Stack.Screen name="Grupos PP" component={CrearPp} />
+				<Stack.Screen name="Lista PMs" component={ListaPms} />
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="SelectTime" component={SelectTime} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
@@ -92,19 +95,21 @@ export default function App() {
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
+				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
 				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
+				<Stack.Screen name="Mensaje Registro" component={MsgRegistro} />
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
+				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
 				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
-				<Stack.Screen name="Mensaje Registro" component={MsgRegistro} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
-				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
+				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
 		);
