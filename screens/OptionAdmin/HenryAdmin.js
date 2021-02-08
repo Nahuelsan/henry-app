@@ -9,9 +9,9 @@ import {
 	Options,
 	BackImg,
 	TituloCard,
-  ContText,
-  ImgSise,
-  LogoSise,
+  	ContText,
+  	ImgSise,
+  	LogoSise,
 	ContMinf,
 	IconContent,
 	ImgMinf

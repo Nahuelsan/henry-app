@@ -1,36 +1,71 @@
 import React, { useState, useEffect } from 'react'; 
-import { View, Text, StyleSheet, Button, Alert  } from 'react-native';
-import { Avatar, ListItem, Icon } from 'react-native-elements';
+import { StyleSheet, View, Button, Alert } from 'react-native';
+import { Icon, ListItem, Text } from 'react-native-elements';
+import {
+    Contenedor,
+    Encabezado,
+    ConTitle,
+    TextTitle,
+    ContGeneral,
+    ContListGen,
+    Options,
+    BackImg,
+    ContText,
+    TituloCard,
+    ContMinf,
+    ContBtnOut,
+    IconContent,
+    TextPrin,
+    ImgSise,
+    TextButtonOp2,
+    ContPirnTable,
+    TextContTable,
+    LogoSise,
+    BotonLog,
+    TextButton,
+    BodyUnitItem
+} from '../Cohortes/StyledCohorteList';
+let card1 = require('../../src/assets/img/imgCard1.png');
 import firebase from '../../database/database';
 
 
 const ListaPms = (props) =>{
-    const [
-        pms,
-        setPms
-    ] = useState([]);
+
+    const [pms, setPms] = useState([])
     useEffect(() => {
-        firebase.db.collection('PMs').onSnapshot((snap) => {
-            const pm = [];
+        firebase.db.collection('users').where('rol', '==', 'pm').onSnapshot((snap) => {
+            const PMs = [];
             snap.docs.forEach((doc) => {
-                const {nombre, cohorte, email, photo} = doc.data()
-                pm.push({
-                    photo,
-                    nombre,
-                    cohorte,
-                    email,
-                    id: doc.id,
-                })
+                const {last_name, first_name, cohorte, email} = doc.data()
+                if(props.route.params.cohorte === cohorte){
+                    PMs.push({
+                        last_name,
+                        first_name,
+                        cohorte,
+                        email,
+                        id: doc.id,
+                    })
+                    pms.push({
+                        last_name,
+                        first_name,
+                        cohorte,
+                        email,
+                        id: doc.id,
+                    })
+                }
             });
-            setPms(pm)
+            setPms(PMs)
         });
     }, []);
-    const eliminar = async (id) =>{
-        console.log("anda ? "+ id)
-        const dbRef = firebase.db.collection('PMs').doc(id);
+    const eliminar = async (pm) =>{
+
+        const dbRef = firebase.db.collection('users').doc(pm.id);
         if (confirm('Esta seguro de querer eliminar este PMs?')) {
-			await dbRef.delete();
-			alert('Usuario Eiminado');
+			await dbRef.set({
+                cohorte: '',
+                grupo: ''
+            });
+			alert('Se quito al PM del Cohorte');
         }
 		else {
         }
@@ -53,59 +88,57 @@ const ListaPms = (props) =>{
                     }
                 ],
                 { cancelable: false }
-            );
+            ); 
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Button title="Go back" onPress={() => props.navigation.goBack()}/>
-            </View>
-
-            <View style={styles.marco}>
-                <Text style={styles.text}>Lista de PMs</Text>
-            </View>
+        <Contenedor style={styles.container}>
+            <Encabezado >
+                <ConTitle
+                onPress={() => props.navigation.goBack()}
+                >
+                <Icon
+                    solid={true}
+                    name="chevron-left"
+                    type="font-awesome-5"
+                />
+                <TextTitle>Grupos PP</TextTitle>
+                </ConTitle>
+            </Encabezado>
+            <Options>
+                <BackImg>
+                    <ImgSise source={card1} />
+                </BackImg>
+                <ContText>
+                    <TituloCard>PMs de este cohortes</TituloCard>
+                    <Text>Puedes ver los PMs de este cohorte</Text>
+                </ContText>
+            </Options>
+            <ContGeneral>
+                <ContListGen>
+                    {
+                        pms.map((pm, i) => (
+                            <ListItem key={i} style={{ width: '100%', }}>
+                            <BodyUnitItem >
+                              <ContText>
+                                  {console.log(pm)}
+                                  <Text>Hola</Text>
+                                <TextPrin>{`${pm.last_name} ${pm.first_name}`}</TextPrin>
+                              </ContText>
+                              <ContBtnOut >
+                                  <BotonLog onPress={() => eliminar(pm)}>
+                                    <TextButton>Eliminar de este cohorte</TextButton>
+                                  </BotonLog>
+                                </ContBtnOut>
+                            </BodyUnitItem>
+                          </ListItem>
+                        ))
+                    }
+                </ContListGen>
+            </ContGeneral>
             <View>
-            {pms.map((pm, i) => (
-                    <ListItem key={i} bottomDivider>
-                        {!pm.photo ? (
-                            <Avatar
-                                style={styles.avatar}
-                                source={{
-                                    uri:
-                                        'https://2mingenieria.com.ve/wp-content/uploads/2018/10/kisspng-avatar-user-medicine-surgery-patient-avatar-5acc9f7a7cb983.0104600115233596105109.jpg'
-                                }}
-                                
-                            />
-                        ) : (
-                                <Avatar
-                                    style={styles.avatar}
-                                    source={{ uri: pm.photo }}
-                                />
-                            )}
-                        <ListItem.Content>
-                            <ListItem.Title
-                                style={styles.pm}
-                            >
-                                {pm.nombre}
-                            </ListItem.Title>
-                            <ListItem.Subtitle>{pm.email}</ListItem.Subtitle>
-                            
-                            </ListItem.Content>
-                            <View>
-                                <Button 
-                                    title="Editar"
-                                    onPress={() => props.navigation.navigate('EditarPM', {pm: pm})}
-                                /> 
-                                <Button 
-                                    title="Eliminar"
-                                    onPress={() => eliminar(pm.id)}
-                                />     
-                            </View>                   
-                    </ListItem>
-                ))}
             </View>
-        </View>
+        </Contenedor>
     );
 }
 const styles = StyleSheet.create({
