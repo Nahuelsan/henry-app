@@ -104,7 +104,7 @@ function SignIn() {
             console.log(result)
             if (found.rol === 'admin' || found.rol === 'instructor') {
               console.log('admin')
-              window.location.href = 'http://localhost:3000/henrystudent';
+              window.location.href = 'http://localhost:3000/vistaprincipal';
             }
             else {
               // alert('Eres estudiante por favor dirijite a la app')
