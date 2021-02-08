@@ -80,6 +80,9 @@ function HenryStudent() {
     if (!state.correo.includes('@') || !state.correo.includes('.') || state.correo === '') {
       return alert(`Email invalido`)
     }
+    if (state.checkeado !== 'on') {
+      return alert(`Checkear box de correo!`)
+    }
     try {
       await axiosEmail(state.correo)
       setState({
@@ -92,34 +95,64 @@ function HenryStudent() {
     }
   }
 
-  //Editar Alumno
-  const [alumno,setAlumno]=useState({})
+  //Seleccionar Alumno
+  const [alumno, setAlumno] = useState({})
   const handleEdit = (user) => {
-     setAlumno(user)
+    setAlumno(user)
     console.log('Alumno', user)
   }
+
+  //Cambiar Rol de alumno seleccionado
+  const [rol, setRol] = useState({})
+  const handleSelectedRol = (e) => {
+    console.log('ROLLL', e.target.value)
+    setRol(e.target.value);
+  }
+
+  const handleSubmitRol = async (e) => {
+    e.preventDefault();
+    console.log('SUBMIT', rol)
+    try {
+      await firebase.db.collection('users').doc(alumno.id).set(
+        {
+          rol:rol
+        }
+      );
+      alert(`El alumno ${alumno.first_name} fue promovido a ${alumno.rol}`)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
 
   return (
     <div>
       <ContenedorPanel className='panel-estudiantes'>
         <h2>Panel Estudiantes Henry</h2>
         <DetalleUser >
-          {/* {alumno && <h4>Selecciona un Estudiante</h4>}
-          {alumno && 
-          <div>
-            <image src={alumno.photo} alt='avatar' with='50px' height='50px'/>
-            <h5>{alumno.first_name}</h5>
-            <h5>{alumno.last_name}</h5>
-            <h5>{alumno.nacionalidad}</h5>
-            <h5>{alumno.dni}</h5>
-            <h5>{alumno.phone}</h5>
-            <h5>{alumno.cohorte}</h5>
-            <h5>{alumno.grupo}</h5>
-            <h5>{alumno.email}</h5>
-            <h5>{alumno.email}</h5>
-          </div>
-          } */}
           <h4>Selecciona un Estudiante</h4>
+          {alumno.first_name &&
+            <form onSubmit={handleSubmitRol}>
+              <image src={alumno.photo} alt='avatar' with='50px' height='50px' /><br />
+              <label>{alumno.first_name}</label><br />
+              <label>{alumno.last_name}</label><br />
+              <label>{alumno.nacionalidad}</label><br />
+              <label>{alumno.dni}</label><br />
+              <label>{alumno.phone}</label><br />
+              <label>{alumno.cohorte}</label><br />
+              <label>{alumno.grupo}</label><br />
+              <label>{alumno.email}</label><br />
+              <label>{alumno.email}</label><br />
+              <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
+              <datalist id="rol">
+                <option value="student" />
+                <option value="pm" />
+                <option value="instructor" />
+                <option value="admin" />
+              </datalist>
+              <input type="submit" value="Confirmar" />
+            </form>
+          }
         </DetalleUser>
         <InvitarUsuario >
           <h4>Invitar a un nuevo Henry</h4>
