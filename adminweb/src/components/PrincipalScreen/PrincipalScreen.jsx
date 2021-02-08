@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 //import de formularios
-import SignIn from '../SignIn/SignIn'
-import Register from '../Register/Register'
+import SignIn from './SignIn'
+import Register from './Register/Register'
 /* Estilos */
 import {
   Contenedor,

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../Header/Header';
-/* import SideNavBar from '../SideNavBar/SideNavBar' */
 import firebase from '../../database/database'
 import axios from 'axios';
+/* Estilos */
+import {
+  ContenedorPanel,
+  DetalleUser,
+  InvitarUsuario,
+  ContInCard
+} from './StyledContents';
 
 function HenryStudent() {
   //Traer usuarios de la base de datos
@@ -96,13 +101,10 @@ function HenryStudent() {
 
   return (
     <div>
-      <Header />
-      {/* <SideNavBar /> */}
-
-      <div className='panel-estudiantes'>
+      <ContenedorPanel className='panel-estudiantes'>
         <h2>Panel Estudiantes Henry</h2>
-        <div className='detalle-seleccion'>
-          {alumno && <h4>Selecciona un Estudiante</h4>}
+        <DetalleUser >
+          {/* {alumno && <h4>Selecciona un Estudiante</h4>}
           {alumno && 
           <div>
             <image src={alumno.photo} alt='avatar' with='50px' height='50px'/>
@@ -116,31 +118,32 @@ function HenryStudent() {
             <h5>{alumno.email}</h5>
             <h5>{alumno.email}</h5>
           </div>
-          }
-        </div>
-
-        <div className='invitar-henry'>
+          } */}
+          <h4>Selecciona un Estudiante</h4>
+        </DetalleUser>
+        <InvitarUsuario >
           <h4>Invitar a un nuevo Henry</h4>
-          <div className='info'>
-            <h4>Puedes invitar a 1 o mas Henry Students</h4>
-            <p>Para invitar a un Henry tiene que escribir el correo al cual va a llegar la invitación, en caso de invitar varios Henry Students lo pude hacer importando una Planilla Excel desde su ordenador</p>
-          </div>
-
-          <div className='enviar-un-mail'>
-            <form onSubmit={handleSubmit}>
+          <ContInCard>
+            <div className='info'>
+              <h4>Puedes invitar a 1 o mas Henry Students</h4>
+              <p>Para invitar a un Henry tiene que escribir el correo al cual va a llegar la invitación, en caso de invitar varios Henry Students lo pude hacer importando una Planilla Excel desde su ordenador</p>
+            </div>
+            <form className='enviar-un-mail' onSubmit={handleSubmit}>
               <input type='email' placeholder='Ingresa el email de destino' name='correo' value={state.correo} onChange={handleInputChange} />
-              <label>
-                Seguro que desea enviar el email?
-            <input name="checkeado" type="checkbox" checked={state.checkeado} onChange={handleInputChange} />
-              </label>
-              <div><input type="submit" value="Enviar Mail" /></div>
+              <div>
+                <input name="checkeado" type="checkbox" checked={state.checkeado} onChange={handleInputChange} />
+                <label>
+                  Seguro que desea enviar el email?
+                </label>
+              </div>
+              <input type="submit" value="Enviar Mail" />
             </form>
-          </div>
-          <div className='enviar-excel'>
-            <button>Enviar Excel</button>
-          </div>
-        </div>
-      </div>
+            <div className='enviar-excel'>
+              <button>Enviar Excel</button>
+            </div>
+          </ContInCard>
+        </InvitarUsuario>
+      </ContenedorPanel>
 
       <div className='lista-estudiantes'>
         <h4>Invitar a un nuevo Henry</h4>
