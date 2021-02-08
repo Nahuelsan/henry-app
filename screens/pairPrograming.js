@@ -24,13 +24,13 @@ import {
 let card1 = require('../src/assets/img/imgCard1.png');
 
 
-const PairPrograming = () => {
+const PairPrograming = ({navigation}) => {
     const [loading, setLoading] = useState(true)
     const [group, setGroup] = useState([])
     const [feedbacks, setFeedbacks] = useState([])
     const [editFeed, setEditFeed] = useState({see: false})
-    const user_id = /* useSelector(state => state.id) */"0RzKSFCK9KInmm7cKbF5"
-    const user_name = /* useSelector(state => state.first_name) */"Nahuel"
+    const user_id = useSelector(state => state.id)
+    const user_name = useSelector(state => state.first_name)
 
     const dbRef = firebase.db.collection('pair programing')
 
@@ -115,7 +115,7 @@ const PairPrograming = () => {
         </View>) : (
         <Contenedor>
             <Encabezado>
-                <ConTitle onPress={() => this.props.navigation.goBack()}>          
+                <ConTitle onPress={() => navigation.goBack()}>          
                     <Icon
                         solid={true}
                         name="chevron-left"
@@ -144,7 +144,7 @@ const PairPrograming = () => {
                         key={user.id}
                         />
                     )) : (
-                        <View>
+                        <View style={s.margin}>
                             <TextTitle>Parece que todavia no tienes un grupo de Pair Programing</TextTitle>
                             <TextTitle>No te preocupes, te lo estamos preparando</TextTitle>
                         </View>
@@ -228,4 +228,7 @@ const s = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
     },
+    margin: {
+        paddingTop: 30
+    }
 })

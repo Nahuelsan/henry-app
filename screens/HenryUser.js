@@ -24,10 +24,9 @@ import {logout} from '../src/action';
 
 let logFont = require('../src/assets/img/henry_logo.jpg');
 
-const HenryUser = (props, {navigation}) => {
-  const info = useSelector(state => state)
+const HenryUser = ({navigation}) => {
   const dispatch = useDispatch();
-  {/* info={info} */}
+  
   const Logout =()=> {
 	  dispatch(logout())
 	  firebase.firebase
@@ -36,8 +35,8 @@ const HenryUser = (props, {navigation}) => {
   }
   return (
     <Contenedor>
-      <UserHeader info={info} navigation={props.navigation}/>
-      <UserNavBar navigation={props.navigation}/>
+      <UserHeader navigation={navigation}/>
+      <UserNavBar navigation={navigation}/>
 			<ContStudents>
 				<Options onPress={() => navigation.navigate('Cohorte de Alumno')}>
 					<BackImg>
@@ -49,7 +48,7 @@ const HenryUser = (props, {navigation}) => {
 					</ContText>
 				</Options>
 
-				<Options onPress={() => props.navigation.navigate('Lista de Estudiantes')}>
+				<Options onPress={() => navigation.navigate('Pair Programing')}>
 					<BackImg>
 						<ImgSise  source={{ uri: 'https://raw.githubusercontent.com/DXHeroes/knowledge-base-content/master/files/pair-programming.svg?sanitize=true' }}/>
 					</BackImg>
@@ -76,13 +75,13 @@ const HenryUser = (props, {navigation}) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						name="ghost"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<ImgMinf>
 						<LogoSise source={logFont} />
@@ -92,7 +91,7 @@ const HenryUser = (props, {navigation}) => {
 						name="comment-dots"
 						type="font-awesome-5"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 					<Icon
 						solid={true}
