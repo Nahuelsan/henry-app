@@ -2,6 +2,16 @@ import React, { useState ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../../database/database'
 
+/* Estilos */
+import {
+  FormularioLog,
+  Title,
+  InputCont,
+  Btn,
+  TextoSocial,
+  ContSocialMedia
+} from '../PrincipalScreen/StyledPrincipal';
+
 function SignIn() {
 
   const initalState = {
@@ -24,7 +34,7 @@ function SignIn() {
   ] = useState(initalState);
 
   useEffect(() => {
-    firebase.db.collection('invited users').onSnapshot((snap) => {
+    firebase.db.collection('invited instructor').onSnapshot((snap) => {
       const invitados = [];
       snap.docs.forEach((doc) => {
         const { email } = doc.data();
@@ -59,13 +69,13 @@ function SignIn() {
 
     });
   }, []);
-console.log(invitedUsers)
+
   const handleInputChange = function (e) {
     setState({
       ...state,
       [e.target.name]: e.target.value
     });
-    console.log(state)
+    
   }
 
   const handleSubmit = function (e) {
@@ -86,22 +96,18 @@ console.log(invitedUsers)
     }
     else {
       var found = users.find((user) => user.email === state.email);
-      // var found2 = users.find((user) => user.email === state.email);
-      // if (!found2) {
-      //   window.location.href = 'http://localhost:3000/register';
-      //   alert('Aun no te has registrado')
-      // }
       if (found) {
         firebase.firebase
           .auth()
           .signInWithEmailAndPassword(state.email, state.password)
           .then((result) => {
+            console.log(result)
             if (found.rol === 'admin' || found.rol === 'instructor') {
               console.log('admin')
               window.location.href = 'http://localhost:3000/henrystudent';
             }
             else {
-              alert('Eres estudiante por favor dirijite a la app')
+              // alert('Eres estudiante por favor dirijite a la app')
             }
           })
           .catch((error) => {
@@ -125,20 +131,23 @@ console.log(invitedUsers)
  ;
     		var found = invitedUsers.find((user) => user.email === result.user.email);
     		var found2 = users.find((user) => user.email === result.user.email);
+        console.log("found2",found2)
     		if(!found){
-    			throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+    			throw 'El email no se encuentra en la base de datos de estudiantes invitados :(';
     		}
     		if(!found2){
           console.log('registrese ')
           window.location.href = 'http://localhost:3000/register';
+        
 
     		}
     		if (found2) {
-    			if (found.rol === 'admin') {
+    			if (found2.rol === 'admin') {
             console.log('admin ')
+            window.location.href = 'http://localhost:3000/henrystudent';
     			}
     			else {
-            alert('Eres estudiante por favor dirijite a la app')
+            throw 'Eres estudiante por favor dirijite a la app'
     			}
     		}
     	})
@@ -159,16 +168,15 @@ console.log(invitedUsers)
           throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
         }
         if (!found2) {
-          
           window.location.href = 'http://localhost:3000/register';
-
         }
         if (found2) {
-          if (found.rol === 'admin') {
+          if (found2.rol === 'admin') {
             console.log('admin') 
+            window.location.href = 'http://localhost:3000/henrystudent';
           }
           else {
-            alert('Eres estudiante por favor dirijite a la app') 
+            throw 'Eres estudiante por favor dirijite a la app'
           }
         }
       })
@@ -177,60 +185,50 @@ console.log(invitedUsers)
       });
   };
 
-  return (
+  {/* <div>
     <div>
-      <div>
-        <div>
-          <h2>Nuevo aqui?</h2>
-          <p>Se re ha enviado un correo, para ser parte de la familia Henry Admin, registrate con el coreo al que te llego el mensaje para continuar</p>
-          <button><Link to='/register'>Registrarse</Link></button>
-        </div>
-        <img src='https://okdiario.com/img/2019/09/05/mejores-frases-de-homer-simpson-655x368.jpg' alt='SignInImage' />
-      </div>
-      <div>
-        <h2>Iniciar Sesión</h2>
-        <form onSubmit={(e)=>e.preventDefault()}>
-          <input type="email"
-          placeholder="Correo" 
-          name="email" 
-            value={state.email}
-          onChange={handleInputChange} 
-          /><br />
-
-          <input 
-          type="password" 
-          placeholder="Contraseña"
-            name="password" 
-            value={state.password}
-          onChange={handleInputChange} 
-          />
-
-          <div>
-            <input 
-            type="submit" 
-            value="Iniciar Sesión"
-            onClick={loginManual} 
-             />
-          </div>
-        </form>
-        <h3>O inicia sesión con una de las plataformas</h3>
-        <img 
-        src='https://cdn2.iconfinder.com/data/icons/font-awesome/1792/google-512.png' 
-        alt='Google' 
-        with='50px' 
-        height='50px' 
-          onClick={loginGoogle}
-        />
-        <img 
-        src='https://image.flaticon.com/icons/png/512/25/25231.png' 
-        alt='Github' 
-        with='50px' 
-        height='50px'
-          onClick={loginGithub}
-
-         />
-      </div>
+      <h2>Nuevo aqui?</h2>
+      <p>Se re ha enviado un correo, para ser parte de la familia Henry Admin, registrate con el coreo al que te llego el mensaje para continuar</p>
+      <button><Link to='/register'>Registrarse</Link></button>
     </div>
+  </div> */}
+  return (
+        <FormularioLog className='form-login' onSubmit={(e)=>e.preventDefault()}>
+          <Title >Iniciar Sesión</Title>
+          <InputCont >
+            <i className="far fa-user"></i>
+            <input type="email"
+            placeholder="Correo" 
+            name="email" 
+              value={state.email}
+            onChange={handleInputChange} 
+            />
+          </InputCont>
+          <InputCont >
+            <i className="fas fa-lock"></i>
+            <input 
+              type="password" 
+              placeholder="Contraseña"
+              name="password" 
+              value={state.password}
+              onChange={handleInputChange} 
+            />
+          </InputCont>
+          <Btn 
+            type="submit" 
+            value="INICIAR SESION"
+            onClick={loginManual} 
+          />
+          <TextoSocial>O inicia sesión con una de las plataformas</TextoSocial>
+          <ContSocialMedia>
+            <a onClick={loginGoogle}>
+              <i className="fab fa-google"></i>
+            </a>
+            <a onClick={loginGithub}>
+              <i className="fab fa-google"></i>
+            </a>
+          </ContSocialMedia>
+        </FormularioLog>
   );
 }
 

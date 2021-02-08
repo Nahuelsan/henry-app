@@ -1,66 +1,66 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const Footer = () => {
+//Redux importamos funciones y hooks
+import {useDispatch} from 'react-redux';
+import {logout} from '../src/action';
+
+// Style
+import { 
+  ContMinf,
+  ImgMinf,
+  IconContent,
+  LogoSise } from './OptionAdmin/styledAdmin';
+
+let logFont = require('../src/assets/img/henry_logo.jpg');
+import firebase from '../database/database';
+  
+const Footer = (props) => {
+
+  const dispatch = useDispatch();
+  {/* info={info} */}
+  const Logout =()=> {
+	  dispatch(logout())
+	  firebase.firebase
+		  .auth().signOut().then(()=>console.log('sign out'))
+	  props.navigation.navigate('Iniciar Sesion')
+  }
+
   return (
-    <View style={styles.container}>
-      <Icon
-        reverse
-        name='home'
-        type='font-awesome'
-      />
-
-      <Icon
-        reverse
-        name='snapchat-ghost'
-        type='font-awesome'
-      />
-
-      <View style = {styles.circulo}>
-      <Image 
-        style = {styles.henry}
-        source = {{uri: 'https://media-exp1.licdn.com/dms/image/C4E0BAQGy6GZmHb_SXA/company-logo_200_200/0/1603651276024?e=1619654400&v=beta&t=kRb_lMNqQF3oGVL9IrNYVxKdJf1qDW3FNTRdSeIu4zI'}}
-      />
-      </View>
-
-      <Icon
-        reverse
-        name='chat'
-        type='material'
-      />
-
-      <Icon
-        reverse
-        name='user-o'
-        type='font-awesome'
-      />
-    </View>
+    <ContMinf>
+				<IconContent>
+					<Icon
+						name="home"
+						type="font-awesome"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<Icon
+						name="ghost"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<ImgMinf>
+						<LogoSise source={logFont} />
+					</ImgMinf>
+					<Icon
+						solid={true}
+						name="comment-dots"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => props.navigation.navigate('Henry Admin')}
+					/>
+					<Icon
+						solid={true}
+						name="sign-out-alt"
+						type="font-awesome-5"
+						size={40}
+						onPress={() => Logout()}
+					/>
+				</IconContent>
+			</ContMinf>
   )
 };
-
-const yellow = '#feff04';
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  henry: {
-    marginBottom: 20,
-    width: 40,
-    height: 40,
-    marginLeft: 7,
-    marginTop: 5
-  },
-  circulo: {
-    backgroundColor: yellow, 
-    borderRadius: 10,
-    width: 50,
-    height: 50,
-    marginBottom: 50    
-  }
-})
 
 export default Footer;

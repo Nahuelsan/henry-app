@@ -40,6 +40,8 @@ import MsgNuevoHenry from './screens/Nuevo Henry/MsgNuevoHenry';
 import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
+import PairPrograming from './screens/pairPrograming';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -79,7 +81,7 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-			>
+				>
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Grupos PP" component={CrearPp} />
@@ -107,6 +109,7 @@ export default function App() {
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
+				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
 		);

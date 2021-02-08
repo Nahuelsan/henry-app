@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View, StyleSheet } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 const UserBody = ({navigation}) => {
@@ -7,8 +7,8 @@ const UserBody = ({navigation}) => {
 
   return (
     <View style={styles.marco}>
-      <View style={styles.container}
-        onPress={() => navigation.navigate()}
+      <TouchableOpacity style={styles.container}
+        onPress={() => navigation.navigate('Cohorte de Alumno')}
       >
         <View style={styles.containerImagen}>
           <Image
@@ -26,14 +26,13 @@ const UserBody = ({navigation}) => {
               type='font-awesome-5'
               size={9}
               color='yellow'
-              onPress={() => navigation.navigate('Cohorte de Alumno')}
             />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
-      <View style={styles.container}
-        onPress={() => navigation.navigate()}
+      <TouchableOpacity style={styles.container}
+        onPress={() => navigation.navigate('Pair Programing')}
       >
         <View style={styles.containerImagen}>
           <Image
@@ -55,10 +54,10 @@ const UserBody = ({navigation}) => {
             />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.container}
-        onPress={() => navigation.navigate()}
+        onPress={() => navigation.navigate('Pair Programing')}
       >
         <View style={styles.containerImagen}>
           <Image
