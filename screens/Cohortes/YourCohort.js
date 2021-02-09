@@ -46,7 +46,7 @@ const YourCohort = (props) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-		firebase.db.collection('users').onSnapshot((snap) => {
+		firebase.db.collection('users', 'cohorte').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
         const { cohorte, rol, grupo, pm, instructor, progreso } = doc.data();
@@ -66,6 +66,7 @@ console.log(estudiantes);
 			setUsers(estudiantes);
 		});
 	}, []);
+  
   return (
     <Contenedor>
       <Encabezado>
@@ -86,7 +87,12 @@ console.log(estudiantes);
           <ImgSize source={card3} />
         </BackImg>
         <ContText>
-          <TituloCard>Tu Cohorte es {user.cohorte}</TituloCard>
+          {
+            !user.cohorte ? 
+            <TituloCard>Aún no tienes asignado Cohorte</TituloCard>
+            :
+            <TituloCard>Tu Cohorte es {user.cohorte}</TituloCard>
+          }
           <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
         </ContText>
       </Options>
@@ -101,7 +107,11 @@ console.log(estudiantes);
               <Text style={styles.text}>Grupo al que perteneces</Text>
             </Titulo>
             <Img>
+            {
+              !user.grupo ? 
+              <Text style={styles.titulo}>Aún no tienes asignado un grupo</Text> :
               <Text style={styles.titulo}>G - {`${user.grupo}`}</Text>
+            }
               <Imagen source={card2} />
             </Img>
           </Tarjeta>        
@@ -112,8 +122,15 @@ console.log(estudiantes);
               <Text style={styles.text}>Instructor del Cohorte</Text>
             </Titulo>
             <Img>
+            {
+              !user.instructor ? 
+              <Text style={styles.instructor}>Sin instructor aún</Text> :
               <Text style={styles.instructor}>{`${user.instructor}`}</Text>
-              <User source={userImg} />
+            }
+            {
+              !user.instructor ? '' : 
+            <User source={userImg} />
+            }
             </Img>
           </Tarjeta>
         </GroupCard>
@@ -228,6 +245,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 15,
     fontWeight: '700',
+    textAlign: 'center'
   },
   instructor: {
     fontSize: 12,
