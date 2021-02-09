@@ -120,7 +120,7 @@ function SignIn({addUser}) {
     }
     else {
       var found = users.find((user) => user.email === state.email);
-      addUser(found)
+      /* addUser(found) */
       if (found) {
         firebase.firebase
           .auth()
@@ -219,14 +219,6 @@ function SignIn({addUser}) {
         alert(error);
       });
   };
-
-  {/* <div>
-    <div>
-      <h2>Nuevo aqui?</h2>
-      <p>Se re ha enviado un correo, para ser parte de la familia Henry Admin, registrate con el coreo al que te llego el mensaje para continuar</p>
-      <button><Link to='/register'>Registrarse</Link></button>
-    </div>
-  </div> */}
   return (
         <FormularioLog className='form-login' onSubmit={(e)=>e.preventDefault()}>
           <Title >Iniciar Sesión</Title>
