@@ -12,8 +12,11 @@ import {
   ContSocialMedia
 } from '../PrincipalScreen/StyledPrincipal';
 
-function SignIn() {
-
+function SignIn({addUser}) {
+  const [noInvited,setNoInvited] = useState(false)
+  const [student,setStudent] = useState(false)
+  const [register,setRegister] = useState(false)
+ 
   const initalState = {
     password: '',
     email: ''
@@ -32,6 +35,27 @@ function SignIn() {
     state,
     setState
   ] = useState(initalState);
+  useEffect(() => {
+    if (noInvited) {
+      alert('El email no se encuentra en la base de datos de estudiantes invitados :(')
+      setNoInvited(false)
+    }
+    if (student) {
+      alert('Eres estudiante por favor dirijete a la app :(')
+      setStudent(false)
+    } 
+    if(register){
+      alert('No te has registrado aún :(')
+      setRegister(false)
+    }
+  
+  }, [noInvited, student, register])
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('user'))) {
+      window.location.href = 'http://localhost:3000/vistaprincipal';
+    }
+  })
 
   useEffect(() => {
     firebase.db.collection('invited instructor').onSnapshot((snap) => {
@@ -96,18 +120,21 @@ function SignIn() {
     }
     else {
       var found = users.find((user) => user.email === state.email);
+      addUser(found)
       if (found) {
         firebase.firebase
           .auth()
           .signInWithEmailAndPassword(state.email, state.password)
           .then((result) => {
             console.log(result)
+            localStorage.setItem('user', JSON.stringify(found))
             if (found.rol === 'admin' || found.rol === 'instructor') {
               console.log('admin')
-              window.location.href = 'http://localhost:3000/henrystudent';
+              window.location.href = 'http://localhost:3000/vistaprincipal';
             }
             else {
               // alert('Eres estudiante por favor dirijite a la app')
+              setStudent(true) 
             }
           })
           .catch((error) => {
@@ -115,7 +142,8 @@ function SignIn() {
           });
       }
       else {
-        alert('El usuario no se ha registrado aún o no ha sido invitado');
+        // alert('El usuario no se ha registrado aún o no ha sido invitado');
+        setRegister(true)
       }
     }
   };
@@ -126,28 +154,30 @@ function SignIn() {
     console.log('se ejecuta la funcionLoginGoogle');
     firebase.firebase
     	.auth()
-    	.signInWithPopup(new firebase.firebase.auth.GoogleAuthProvider())
+      .signInWithPopup( await new firebase.firebase.auth.GoogleAuthProvider())
     	.then((result) => {
- ;
     		var found = invitedUsers.find((user) => user.email === result.user.email);
     		var found2 = users.find((user) => user.email === result.user.email);
-        console.log("found2",found2)
+     
     		if(!found){
-    			throw 'El email no se encuentra en la base de datos de estudiantes invitados :(';
+    			// throw 'El email no se encuentra en la base de datos de estudiantes invitados :(';
+          setNoInvited(true) 
     		}
-    		if(!found2){
-          console.log('registrese ')
-          window.location.href = 'http://localhost:3000/register';
-        
-
+    		if(!found2 && found){
+          // console.log('registrese ')
+          setRegister(true)
+          // window.location.href = 'http://localhost:3000';
     		}
     		if (found2) {
-    			if (found2.rol === 'admin') {
+          if (found2.rol === 'admin') {
+           
+            localStorage.setItem('user',JSON.stringify(found2))
             console.log('admin ')
-            window.location.href = 'http://localhost:3000/henrystudent';
+            window.location.href = 'http://localhost:3000/vistaprincipal';
     			}
     			else {
-            throw 'Eres estudiante por favor dirijite a la app'
+            // throw 'Eres estudiante por favor dirijite a la app'
+            setStudent(true) 
     			}
     		}
     	})
@@ -160,23 +190,28 @@ function SignIn() {
     console.log('se ejecuta la funcionLoginGithub');
     firebase.firebase
       .auth()
-      .signInWithPopup(new firebase.firebase.auth.GithubAuthProvider())
-      .then((result) => {
+      .signInWithPopup( await new firebase.firebase.auth.GithubAuthProvider())
+      .then( async (result) => {
         var found = invitedUsers.find((user) => user.email === result.user.providerData[0].email);
         var found2 = users.find((user) => user.email === result.user.providerData[0].email);
         if (!found) {
-          throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          // throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          setNoInvited(true) 
         }
-        if (!found2) {
-          window.location.href = 'http://localhost:3000/register';
+        if (!found2 && found) {
+          // window.location.href = 'http://localhost:3000';
+          setRegister(true)
         }
         if (found2) {
           if (found2.rol === 'admin') {
+            
+            localStorage.setItem('user', JSON.stringify(found2))
             console.log('admin') 
-            window.location.href = 'http://localhost:3000/henrystudent';
+            window.location.href = 'http://localhost:3000/vistaprincipal';
           }
           else {
-            throw 'Eres estudiante por favor dirijite a la app'
+            // throw 'Eres estudiante por favor dirijite a la app'
+            setStudent(true) 
           }
         }
       })
@@ -225,11 +260,13 @@ function SignIn() {
               <i className="fab fa-google"></i>
             </a>
             <a onClick={loginGithub}>
-              <i className="fab fa-google"></i>
+              <i className="fab fa-github"></i>
             </a>
           </ContSocialMedia>
         </FormularioLog>
   );
 }
+
+
 
 export default SignIn;

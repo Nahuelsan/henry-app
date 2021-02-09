@@ -13,6 +13,9 @@ import {
 } from '../StyledPrincipal';
 
 function Register() {
+  const [noInvited, setNoInvited] = useState(false)
+  const [student, setStudent] = useState(false)
+  const [register, setRegister] = useState(false)
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -27,6 +30,23 @@ function Register() {
     invitedUsers,
     setInvitedUsers
   ] = useState([]);
+
+  useEffect(() => {
+    if (noInvited) {
+      alert('El email no se encuentra en la base de datos de estudiantes invitados :(')
+      setNoInvited(false)
+    }
+    if (student) {
+      alert('Eres estudiante por favor dirijete a la app :(')
+      setStudent(false)
+    }
+    if (register) {
+      alert('No te has registrado aún :(')
+      setRegister(false)
+    }
+
+  }, [noInvited, student, register])
+
   useEffect(() => {
     firebase.db.collection('invited instructor').onSnapshot((snap) => {
       const invitados = [];
@@ -38,8 +58,8 @@ function Register() {
         });
       });
       setInvitedUsers(invitados);
-
     });
+
     firebase.db.collection('users').onSnapshot((snap) => {
       const estudiantes = [];
       snap.docs.forEach((doc) => {
@@ -70,7 +90,7 @@ function Register() {
       ...state,
       [e.target.name]: e.target.value
     });
-    console.log(state)
+  
   }
 
   const saveNewUser = async () => {
@@ -91,7 +111,8 @@ function Register() {
         let snapshot = await firebase.db.collection('invited users').where("email", "==", state.email).get()
         if (!snapshot.empty) {
           // firebase.firebase.auth().createUserWithEmailAndPassword(state.email, state.password)
-          alert("Eres estudiante por favor registarte en la aplicación movil")
+          // alert("Eres estudiante por favor registarte en la aplicación movil")
+          setStudent(true)
         } else {
           let newSnapshot = await firebase.db.collection('invited instructor').where("email", "==", state.email).get()
           if (!newSnapshot.empty) {
@@ -103,11 +124,13 @@ function Register() {
               phone: 'default',
               dni: 'default',
               nacionalidad: 'default',
-              github: 'dafiult',
+              github: 'default',
               rol: 'admin',
               photo: 'default',
             });
             window.location.href = 'http://localhost:3000/';
+          }else{
+            setNoInvited(true)
           }
         }
       } catch (error) {
@@ -131,7 +154,8 @@ function Register() {
         console.log(result)
         var found = invitedUsers.find((user) => result.user.email === user.email);
         if (!found) {
-          throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          // throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          setNoInvited(true)
         }else{
           await firebase.db.collection('users').add({
             first_name: result.additionalUserInfo.profile.given_name,
@@ -140,7 +164,7 @@ function Register() {
             phone: 'default',
             dni: 'default',
             nacionalidad: 'default',
-            github: 'dafiult',
+            github: 'default',
             rol: 'admin',
             photo: result.additionalUserInfo.profile.picture,
           });
@@ -163,7 +187,8 @@ function Register() {
         var found = invitedUsers.find((user) => user.email === result.user.providerData[0].email);
         console.log(found)
         if (!found) {
-          throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          // throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
+          setNoInvited(true)
         }
          else {
           await firebase.db.collection('users').add({
@@ -173,7 +198,7 @@ function Register() {
             phone: 'default',
             dni: 'default',
             nacionalidad: 'default',
-            github: 'dafiult',
+            github: 'dafault',
             rol: 'admin',
             photo: 'default',
           });
@@ -239,7 +264,7 @@ function Register() {
               <i className="fab fa-google"></i>
             </a>
             <a onClick={loginGithub}>
-              <i className="fab fa-google"></i>
+              <i className="fab fa-github"></i>
             </a>
           </ContSocialMedia>
         </FormularioRegister>
