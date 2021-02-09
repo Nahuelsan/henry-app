@@ -7,10 +7,14 @@ import {
 
 
 function SideNavBar() {
+  const signOut =()=> {
+    localStorage.setItem('user', null)
+    window.location.href = 'http://localhost:3000';
+  }
   return (
     <ContenedorSideBar>
       <div>
-        <Link><i class="fas fa-sign-out-alt"></i></Link>
+        <Link><i class="fas fa-sign-out-alt" onClick={signOut}></i></Link>
         <Link><i class="far fa-address-book"></i></Link>
         <Link><i class="fas fa-book"></i></Link>
         <Link><i class="fas fa-graduation-cap"></i></Link>
