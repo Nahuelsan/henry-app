@@ -1,9 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { useSelector } from 'react-redux'
 
 
-const UserHeader = ({info, navigation}) => {
+const UserHeader = ({navigation}) => {
+	const info = useSelector(state => state)
+
 	return (
 		<View style={styles.container}>
 			<View>

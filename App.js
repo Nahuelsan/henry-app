@@ -41,6 +41,7 @@ import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 import PairPrograming from './screens/pairPrograming';
+import Calendario from './screens/Calendario'
 
 const Stack = createStackNavigator();
 
@@ -109,6 +110,7 @@ export default function App() {
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
+				<Stack.Screen name='Calendario' component={Calendario} />
 				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
