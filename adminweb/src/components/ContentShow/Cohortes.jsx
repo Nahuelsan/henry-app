@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../../database/database'
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios';
 /* Estilos */
 import {
@@ -124,8 +125,8 @@ function Cohortes() {
   //Botones Full Time - Part Time
   const [index, setIndex] = useState(1)
   const buttons = ['Full Time', 'Part Time']
-  const updateIndex = (index) => {
-    setIndex(index)
+  const updateIndex = (value) => {
+    setIndex(value)
     handleChangeText(buttons[index], 'modalidad')
   }
 
@@ -169,27 +170,27 @@ function Cohortes() {
         <h2>Panel Cohortes Henry</h2>
         <DetalleUser >
           <h4>Selecciona un Cohorte</h4>
-          {!cohorte 
+          {!cohorte
             ? <InfoSelect>
-                <h3> Porfavor Selecciona una Chorote para conocer sus detalles</h3>
-                <div className='img-user'>
-                  <img src={ImgEmpty} alt='avatar' />
-                </div>
-              </InfoSelect>
+              <h3> Porfavor Selecciona una Chorote para conocer sus detalles</h3>
+              <div className='img-user'>
+                <img src={ImgEmpty} alt='avatar' />
+              </div>
+            </InfoSelect>
             : <ContCohorteSelect>
-                <ContenedorImagen>
-                  <div>
-                    <img src={ImgHenry} alt='avatar' with='50px' height='50px' />
-                  </div>
-                  <h3>HENRY WORLD</h3>
-                </ContenedorImagen>
-                <h3>Chorte {cohorte.nombre}</h3>
-                <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
-                <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label>
-                <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
-                <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
-                <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
-              </ContCohorteSelect>}
+              <ContenedorImagen>
+                <div>
+                  <img src={ImgHenry} alt='avatar' with='50px' height='50px' />
+                </div>
+                <h3>HENRY WORLD</h3>
+              </ContenedorImagen>
+              <h3>Chorte {cohorte.nombre}</h3>
+              <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
+              <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label>
+              <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
+              <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
+              <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
+            </ContCohorteSelect>}
         </DetalleUser>
         <InvitarUsuario >
           <h4>Crea una nueva Cohorte</h4>
@@ -241,10 +242,10 @@ function Cohortes() {
                   </BtnForm>
                 </InputForm>
                 <InputForm>
-                  <label>Fecha de inicio:</label>
+                  <label>Fecha de inicio:</label><br />
                   <CalendarTimer>
-                    <label>{state.fecha_de_inicio}</label>
                     <DatePicker
+                      dateFormat="dd/MM/yyyy"
                       selected={startDate}
                       onChange={date => setStartDate(date)}
                     />
@@ -254,10 +255,10 @@ function Cohortes() {
               </div>
               <div className="cont-form">
                 <InputForm>
-                  <label>Fecha de finalizacion:</label>
+                  <label>Fecha de finalizacion:</label><br />
                   <CalendarTimer>
-                    <label>{state.fecha_de_finalizacion}</label>
                     <DatePicker
+                      dateFormat="dd/MM/yyyy"
                       selected={endDate}
                       onChange={date => setEndtDate(date)}
                     />
@@ -276,12 +277,12 @@ function Cohortes() {
                   </datalist>
                 </InputForm>
                 <CheckBox>
-                  <input name="checkeado" type="checkbox" checked={state.checkeado} onChange={handleChangeText} />
+                  <input name="checkeado" type="checkbox" onChange={handleChangeText} />
                   <label>
                     Seguro que desea crear la Chorte?
                   </label>
                 </CheckBox>
-                
+
                 <button className='btn-email' onClick={() => saveNewCohorte}>
                   CREAR COHORTE
                 </button>
