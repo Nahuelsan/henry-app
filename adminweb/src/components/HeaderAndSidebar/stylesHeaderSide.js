@@ -1,6 +1,4 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components'
-import ImgLog from "../../assets/Img/henry_logo.jpg";
+import styled, { keyframes } from 'styled-components';
 
 export const Contenedor = styled.div`
   position: relative;
@@ -52,6 +50,8 @@ export const ContenedorUser = styled.div`
   max-width: 240px;
   min-width: 240px;
   & > .text{
+    overflow: hidden;
+    margin-left: auto;
     text-align: end;
     & > h5{
       font-size: 20px;
@@ -61,6 +61,7 @@ export const ContenedorUser = styled.div`
     }
   }
   & > .img-user{
+    margin-left: 10px;
     width: 70px;
     height: 70px;
     max-width: 70px;
@@ -96,7 +97,7 @@ export const ContenedorSideBar = styled.div`
     display: inline-block;
     padding: 2px;
     border-bottom: 3px none black;
-    transition: 2s ease-in-out;
+    transition: 0.2s ease-in-out;
   }
   & > div > a > i{
     font-size: 40px;
@@ -116,6 +117,7 @@ export const ContenedirInfoSelect = styled.div`
   padding: 15px 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   & > div{
     width: 100%;
     height: 100%;
