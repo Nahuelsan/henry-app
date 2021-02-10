@@ -31,7 +31,7 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 
 const ModificarClases = (props) => {
-    const { nombre } = /* props.route.params */{ nombre: "11" }
+    const { nombre } = props.route.params
     const [clas, setClas] = useState()
     const [docId, setDocId] = useState()
     const [loading, setLoading] = useState(true)
