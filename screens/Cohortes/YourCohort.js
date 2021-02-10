@@ -38,7 +38,7 @@ let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
 
-const YourCohort = (props) => {
+const YourCohort = (props, {navigation}) => {
   const  checkpoint4  = 5;
   //Asignamos lo que tenemos en el store a la constante info 
   const info = useSelector(state => state)
@@ -91,7 +91,7 @@ console.log(estudiantes);
             !user.cohorte ? 
             <TituloCard>Aún no tienes asignado Cohorte</TituloCard>
             :
-            <TituloCard>Tu Cohorte es {user.cohorte}</TituloCard>
+            <TituloCard>Tu Cohorte es el N°{user.cohorte}</TituloCard>
           }
           <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
         </ContText>
@@ -142,13 +142,10 @@ console.log(estudiantes);
               <Text style={styles.text}>Tus PM's</Text>
             </TituloPm>
             <Img style={{ flexDirection: 'row' }}>
-          
-        {users.map((student, i) => (
-                  <View style={styles.usuario}>
-                <Text style={styles.instructor} key={i}>{student.pm}</Text>
+                <View style={styles.usuario}>
+                <Text style={styles.instructor}>{user.pm}</Text>
                 <User source={userImg} />
-                </View>
-        ))}          
+                </View>          
             </Img>
           </TarjetaPm>
         </Pm>
@@ -232,7 +229,7 @@ console.log(estudiantes);
         </Progreso>
       </ContGeneral>
       </ScrollView>
-      <Footer />
+      <Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };
@@ -241,11 +238,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     fontWeight: '700',
+    marginBottom: 12
   },
   titulo: {
     fontSize: 15,
     fontWeight: '700',
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingTop: 15
   },
   instructor: {
     fontSize: 12,

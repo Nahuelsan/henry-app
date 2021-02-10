@@ -33,7 +33,7 @@ const Footer = (props) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
+						onPress={() => props.navigation.navigate('Menu Usuario')}
 					/>
 					<Icon
 						name="ghost"
