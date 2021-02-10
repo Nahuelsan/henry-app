@@ -31,7 +31,7 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 
 const ModificarClases = (props) => {
-    const { nombre } = /* props.route.params */{ nombre: "11" }
+    const { nombre } = props.route.params
     const [clas, setClas] = useState()
     const [docId, setDocId] = useState()
     const [loading, setLoading] = useState(true)
@@ -80,17 +80,31 @@ const ModificarClases = (props) => {
     }
 
     const handleConfirm = () => {
-        console.log("modifico la base de datos")
+        dbRef.doc(docId).collection('clases').doc(modify.id).set({
+            link: modify.link,
+            clase: modify.clase,
+            tema: modify.tema
+        })
+        clases(docId)
+        setModify({view: false})
     }
 
     const addClass = () => {
-        console.log("lo agrego a la base de datos")
+        if(!modify.tema) return alert('Elige un tema para la clase')
+        if(!modify.link) return alert('Proporciona un link para poder acceder a la clase')
+        dbRef.doc(docId).collection('clases').add({
+            link: modify.link,
+            clase: modify.clase,
+            tema: modify.tema
+        })
+        clases(docId)
+        setModify({view: false})
     }
 
     return loading ? <ActivityIndicator size="large" style={{ flex: 1, alignContent: "center", justifyContent: "center" }} /> : (
         <Contenedor>
             <Encabezado >
-                <ConTitle onPress={() => props.navigation.onBack()}>
+                <ConTitle onPress={() => props.navigation.goBack()}>
                     <Icon
                         solid={true}
                         name="chevron-left"
@@ -111,7 +125,7 @@ const ModificarClases = (props) => {
             <ContGeneral>
                 <ContListGen>
                     <ContPirnTable style={s.container}>
-                        {clas.map(c => (
+                        {clas.sort((a, b) => parseInt(a.clase) - parseInt(b.clase)).map(c => (
                             <View key={c.id} style={s.line}>
                                 <TextContTable style={{padding: 5}}>Clase {c.clase}: {c.tema}</TextContTable>
                                 <BotonLog
@@ -172,8 +186,10 @@ const ModificarClases = (props) => {
                                 style={s.input}
                             />
                         </View>
-                        {modify.modify && <BotonLog><TextButton>Borrar classe</TextButton></BotonLog>}
-                        <BotonLog onPress={modify.moodify ? handleConfirm : addClass}><TextButton>Confirmar cambios</TextButton></BotonLog>
+                        <View style={s.container_btn}>
+                        {modify.modify && <BotonLog><TextButton>Borrar clase</TextButton></BotonLog>}
+                        <BotonLog onPress={modify.modify ? handleConfirm : addClass}><TextButton>Confirmar cambios</TextButton></BotonLog>
+                        </View>
                     </View>
                 </View>
             }
@@ -225,12 +241,18 @@ const s = StyleSheet.create({
     container_input: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
     },
     input: {
         width: "50%",
         maxHeight: 20,
         borderBottomColor: "gray",
         borderBottomWidth: 1
+    },
+    container_btn: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: "100%",
     },
 })
