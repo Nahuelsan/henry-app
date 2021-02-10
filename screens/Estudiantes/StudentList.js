@@ -59,7 +59,7 @@ const StudentList = ({ navigation }) => {
 		<Contenedor >
       <Encabezado >
 			  <ConTitle
-          onPress={() => navigation.navigate('Henry Admin')}
+          onPress={() => navigation.goBack()}
         >
           <Icon
 						solid={true}
