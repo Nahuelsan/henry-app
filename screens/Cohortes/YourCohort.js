@@ -38,7 +38,7 @@ let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
 
-const YourCohort = (props) => {
+const YourCohort = (props, {navigation}) => {
   const  checkpoint4  = 5;
   //Asignamos lo que tenemos en el store a la constante info 
   const info = useSelector(state => state)
@@ -46,7 +46,7 @@ const YourCohort = (props) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-		firebase.db.collection('users').onSnapshot((snap) => {
+		firebase.db.collection('users', 'cohorte').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
         const { cohorte, rol, grupo, pm, instructor, progreso } = doc.data();
@@ -66,6 +66,7 @@ console.log(estudiantes);
 			setUsers(estudiantes);
 		});
 	}, []);
+  
   return (
     <Contenedor>
       <Encabezado>
@@ -86,7 +87,12 @@ console.log(estudiantes);
           <ImgSize source={card3} />
         </BackImg>
         <ContText>
-          <TituloCard>Tu Cohorte es {user.cohorte}</TituloCard>
+          {
+            !user.cohorte ? 
+            <TituloCard>Aún no tienes asignado Cohorte</TituloCard>
+            :
+            <TituloCard>Tu Cohorte es el N°{user.cohorte}</TituloCard>
+          }
           <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
         </ContText>
       </Options>
@@ -101,7 +107,11 @@ console.log(estudiantes);
               <Text style={styles.text}>Grupo al que perteneces</Text>
             </Titulo>
             <Img>
+            {
+              !user.grupo ? 
+              <Text style={styles.titulo}>Aún no tienes asignado un grupo</Text> :
               <Text style={styles.titulo}>G - {`${user.grupo}`}</Text>
+            }
               <Imagen source={card2} />
             </Img>
           </Tarjeta>        
@@ -112,8 +122,15 @@ console.log(estudiantes);
               <Text style={styles.text}>Instructor del Cohorte</Text>
             </Titulo>
             <Img>
+            {
+              !user.instructor ? 
+              <Text style={styles.instructor}>Sin instructor aún</Text> :
               <Text style={styles.instructor}>{`${user.instructor}`}</Text>
-              <User source={userImg} />
+            }
+            {
+              !user.instructor ? '' : 
+            <User source={userImg} />
+            }
             </Img>
           </Tarjeta>
         </GroupCard>
@@ -125,13 +142,10 @@ console.log(estudiantes);
               <Text style={styles.text}>Tus PM's</Text>
             </TituloPm>
             <Img style={{ flexDirection: 'row' }}>
-          
-        {users.map((student, i) => (
-                  <View style={styles.usuario}>
-                <Text style={styles.instructor} key={i}>{student.pm}</Text>
+                <View style={styles.usuario}>
+                <Text style={styles.instructor}>{user.pm}</Text>
                 <User source={userImg} />
-                </View>
-        ))}          
+                </View>          
             </Img>
           </TarjetaPm>
         </Pm>
@@ -215,7 +229,7 @@ console.log(estudiantes);
         </Progreso>
       </ContGeneral>
       </ScrollView>
-      <Footer />
+      <Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };
@@ -224,10 +238,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     fontWeight: '700',
+    marginBottom: 12
   },
   titulo: {
     fontSize: 15,
     fontWeight: '700',
+    textAlign: 'center',
+    paddingTop: 15
   },
   instructor: {
     fontSize: 12,

@@ -42,6 +42,10 @@ import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 import PairPrograming from './screens/pairPrograming';
 import CrearGrupos from './screens/Cohortes/CrearGrupo';
+import Calendario from './screens/Calendario';
+import ModificarClases from './screens/Cohortes/Clases';
+
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -90,6 +94,7 @@ export default function App() {
 				<Stack.Screen name="Iniciar Sesion" component={Login} />
 				<Stack.Screen name="SelectTime" component={SelectTime} />
 				<Stack.Screen name="Menu Usuario" component={UserView} />
+				<Stack.Screen name='Calendario' component={Calendario} />
 				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
@@ -98,20 +103,21 @@ export default function App() {
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
+				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
 				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
 				<Stack.Screen name="Mensaje Registro" component={MsgRegistro} />
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
 				<Stack.Screen name="Lista de Cohortes" component={CohorteList} />
-				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
+				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Mensaje Cohorte" component={MsgNuevoCohorte} />
 				<Stack.Screen name="Lista de Estudiantes" component={StudentList} />
 				<Stack.Screen name="Formulario Datos" component={FormularioDatos} />
 				<Stack.Screen name="Mensaje NuevoEstudiante" component={MsgNuevoHenry} />
 				<Stack.Screen name="Listado de Instructores" component={InstructoresList} />
 				<Stack.Screen name="Lista de EstudiantesCohorte" component={Studentcohortes} />
+				<Stack.Screen name='Modificar Clases' component={ModificarClases} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
-				<Stack.Screen name='Pair Programing' component={PairPrograming} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
 			</Stack.Navigator>
 		);

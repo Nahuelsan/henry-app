@@ -5,6 +5,10 @@ import axios from 'axios';
 import {
   ContenedorPanel,
   DetalleUser,
+  InfoSelect,
+  FormAlumno,
+  AlumnoInfo,
+  AlumnoInfoExtra,
   InvitarUsuario,
   ContInCard,
   InputCont,
@@ -12,9 +16,11 @@ import {
   ListaEstudiantes,
   Table,
   Thead,
-  Tbody
+  Tbody,
+  ContenedorImagen
 } from './StyledContents';
 /* Import imagen */
+import ImgEmpty from "../../assets/Img/empty.svg";
 import ImgErr from "../../assets/Img/ErrorImg.jpg";
 import ImgUser from "../../assets/Img/imgUser.png";
 //google docs funcion
@@ -108,7 +114,7 @@ function HenryStudent() {
   }
 
   //Seleccionar Alumno
-  const [alumno, setAlumno] = useState({})
+  const [alumno, setAlumno] = useState(false)
   const handleEdit = (user) => {
     setAlumno(user)
     console.log('Alumno', user)
@@ -117,13 +123,11 @@ function HenryStudent() {
   //Cambiar Rol de alumno seleccionado
   const [rol, setRol] = useState({})
   const handleSelectedRol = (e) => {
-    console.log('ROLLL', e.target.value)
     setRol(e.target.value);
   }
 
   const handleSubmitRol = async (e) => {
     e.preventDefault();
-    console.log('SUBMIT', rol)
     try {
       await firebase.db.collection('users').doc(alumno.id).set(
         {
@@ -154,28 +158,54 @@ function HenryStudent() {
         <h2>Panel Estudiantes Henry</h2>
         <DetalleUser >
           <h4>Selecciona un Estudiante</h4>
-          {alumno.first_name &&
-            <form onSubmit={handleSubmitRol}>
-              <image src={alumno.photo} alt='avatar' with='50px' height='50px' /><br />
-              <label>{alumno.first_name}</label><br />
-              <label>{alumno.last_name}</label><br />
-              <label>{alumno.nacionalidad}</label><br />
-              <label>{alumno.dni}</label><br />
-              <label>{alumno.phone}</label><br />
-              <label>{alumno.cohorte}</label><br />
-              <label>{alumno.grupo}</label><br />
-              <label>{alumno.email}</label><br />
-              <label>{alumno.email}</label><br />
-              <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
-              <datalist id="rol">
-                <option value="student" />
-                <option value="pm" />
-                <option value="instructor" />
-                <option value="admin" />
-              </datalist>
-              <input type="submit" value="Confirmar" />
-            </form>
-          }
+          {!alumno 
+            ? <InfoSelect>
+                <h3> Porfavor Selecciona un estudiante para conocer sus detalles</h3>
+                <div className='img-user'>
+                  <img src={ImgEmpty} alt='avatar' />
+                </div>
+              </InfoSelect>
+
+            :<FormAlumno onSubmit={handleSubmitRol}>
+                <AlumnoInfo className="info-user-card">
+                  <ContenedorImagen>
+                      <img src={alumno.photo} alt='avatar' with='50px' height='50px'/>
+                  </ContenedorImagen>
+                  <h3>{alumno.first_name} {alumno.last_name}</h3>
+                  <label>{alumno.email}</label><br/>
+                  <h4>CAMBIAR ROL</h4>
+                  <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
+                  <datalist id="rol">
+                    <option value="student" />
+                    <option value="pm" />
+                    <option value="instructor" />
+                    <option value="admin" />
+                  </datalist>
+                  <input className='btn-confirm' type="submit" value="Confirmar" />
+                </AlumnoInfo>
+                <AlumnoInfoExtra className="extra-info-alum">
+                  <div>
+                    <h3>DNI/Cedula</h3>
+                    <label>{alumno.dni}</label>
+                  </div>
+                  <div>
+                    <h3>Nacionalidad</h3>
+                    <label>{alumno.nacionalidad}</label>
+                  </div>
+                  <div>
+                    <h3>Telefono</h3>
+                    <label>{alumno.phone}</label>
+                  </div>
+                  <div>
+                    <h3>Chorote</h3>
+                    <label>{alumno.cohorte}</label>
+                  </div>
+                  <div>
+                    <h3>Grupo de Cohorte</h3>
+                    <label>{alumno.grupo}</label>
+                  </div>
+                </AlumnoInfoExtra>
+              </FormAlumno>}
         </DetalleUser>
         <InvitarUsuario >
           <h4>Invitar a un nuevo Henry</h4>
@@ -184,7 +214,7 @@ function HenryStudent() {
               <h4>Puedes invitar a 1 o mas Henry Students</h4>
               <p>Para invitar a un Henry tiene que escribir el correo al cual va a llegar la invitación, en caso de invitar varios Henry Students lo pude hacer importando una Planilla Excel desde su ordenador</p>
             </div>
-            <form className='enviar-un-mail' onSubmit={handleSubmit}>
+            <form className='child2' onSubmit={handleSubmit}>
               <InputCont >
                 <input 
                   type='email' 
@@ -202,7 +232,7 @@ function HenryStudent() {
               </CheckBox>
               <input className='btn-email' type="submit" value="Enviar Mail" />
             </form>
-            <div className='enviar-excel'>
+            <div className='child3'>
               <h4>Sube un Excel desde tu PC</h4>
               <div className='img-user'>
                 <img src={ImgErr} alt='avatar' />
@@ -223,8 +253,8 @@ function HenryStudent() {
               <th>Correo</th>
               <th>Nacionalidad</th>
               <th>Rol</th>
-              <th><button>Filtrar</button></th>
-              <th><button>Limpiar</button></th>
+              <th></th>
+              <th></th>
             </tr>
           </Thead>
           <Tbody>
@@ -236,7 +266,7 @@ function HenryStudent() {
                         : <img src={ImgUser} alt='user-avatar' with='30px' height='30px' />}
                   {user.first_name}{' '}{user.last_name}
                   </div> 
-                  </td>
+                </td>
                 <td>{user.github}</td>
                 <td>{user.email}</td>
                 <td>{user.nacionalidad}</td>

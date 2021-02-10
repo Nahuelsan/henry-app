@@ -24,23 +24,22 @@ import {
 let card1 = require('../src/assets/img/imgCard1.png');
 
 
-const PairPrograming = () => {
+const PairPrograming = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
     const [group, setGroup] = useState([])
     const [feedbacks, setFeedbacks] = useState([])
-    const [editFeed, setEditFeed] = useState({see: false})
-    const user_id = /* useSelector(state => state.id) */"0RzKSFCK9KInmm7cKbF5"
-    const user_name = /* useSelector(state => state.first_name) */"Nahuel"
+    const [editFeed, setEditFeed] = useState({ see: false })
+    const user_id = useSelector(state => state.id)
+    const user_name = useSelector(state => state.first_name)
 
     const dbRef = firebase.db.collection('pair programing')
 
     useEffect(() => {
         dbRef.onSnapshot(snap => {
             snap.docs.forEach(doc => {
-                console.log(doc.data())
-                const {user} = doc.data()
+                const { user } = doc.data()
                 user.map(obj => {
-                    if(obj.id === user_id){
+                    if (obj.id === user_id) {
                         setGroup({
                             data: doc.data(),
                             id: doc.id
@@ -58,7 +57,7 @@ const PairPrograming = () => {
         dbRef.doc(id).collection('feedbacks').where("from_id", "==", user_id).onSnapshot(snap => {
             let feeds = []
             snap.docs.forEach(doc => {
-                const {to_id, to_name, data} = doc.data()
+                const { to_id, to_name, data } = doc.data()
                 feeds.push({
                     to_name,
                     to_id,
@@ -71,8 +70,8 @@ const PairPrograming = () => {
     }
 
     const seeFeed = (user) => {
-        const {first_name, id} = user
-        const myFeed = feedbacks.filter(feed => feed.to_name === first_name)[0] || {to_name: first_name, data: "", to_id: id}
+        const { first_name, id } = user
+        const myFeed = feedbacks.filter(feed => feed.to_name === first_name)[0] || { to_name: first_name, data: "", to_id: id }
         setEditFeed({
             see: true,
             value: myFeed.data,
@@ -102,7 +101,7 @@ const PairPrograming = () => {
             })
         )
         seetFeed(group.id)
-        setEditFeed({see: false})
+        setEditFeed({ see: false })
     }
 
     return loading ? (
@@ -110,12 +109,12 @@ const PairPrograming = () => {
             flex: 1,
             alignContent: "center",
             justifyContent: "center"
-            }}>
-            <ActivityIndicator size="large"/>
+        }}>
+            <ActivityIndicator size="large" />
         </View>) : (
         <Contenedor>
             <Encabezado>
-                <ConTitle onPress={() => this.props.navigation.goBack()}>          
+                <ConTitle onPress={() => navigation.goBack()}>
                     <Icon
                         solid={true}
                         name="chevron-left"
@@ -126,29 +125,30 @@ const PairPrograming = () => {
             </Encabezado>
             <Options>
                 <BackImg>
-                    <ImgSise source={card1}/>
+                    <ImgSise source={card1} />
                 </BackImg>
-                    <ContText>
-                        <TituloCard>Grupo de PP</TituloCard>
-                        <Text>Conoce a tu grupo de Pair Programing</Text>
+                <ContText>
+                    <TituloCard>Grupo de PP</TituloCard>
+                    <Text>Conoce a tu grupo de Pair Programing</Text>
                 </ContText>
             </Options>
             <ContGeneral>
                 <ContListGen>
                     <ScrollView>
-                    {group.data ? group.data.user.filter(user => user.id !== user_id).map(user => (
-                        <ItemList
-                        user={user}
-                        feed={feedbacks.map(feed => feed.to_id === user.id).includes(true)}
-                        cb={seeFeed}
-                        key={user.id}
-                        />
-                    )) : (
-                        <View>
-                            <TextTitle>Parece que todavia no tienes un grupo de Pair Programing</TextTitle>
-                            <TextTitle>No te preocupes, te lo estamos preparando</TextTitle>
-                        </View>
-                    )}
+                        {group.data ? group.data.user.filter(user => user.id !== user_id).map(user => (
+                            <View key={user.id}>
+                                <ItemList
+                                    user={user}
+                                    feed={feedbacks.map(feed => feed.to_id === user.id).includes(true)}
+                                    cb={seeFeed}
+                                />
+                            </View>
+                        )) : (
+                            <View style={s.margin}>
+                                <TextTitle>Parece que todavia no tienes un grupo de Pair Programing</TextTitle>
+                                <TextTitle>No te preocupes, te lo estamos preparando</TextTitle>
+                            </View>
+                        )}
                     </ScrollView>
                 </ContListGen>
             </ContGeneral>
@@ -158,14 +158,14 @@ const PairPrograming = () => {
                         Cuentanos como es {editFeed.user} como compañero
                     </Text>
                     <TextInput
-                    style={s.input}
-                    multiline={true}
-                    numberOfLines={5}
-                    onChangeText={val => setEditFeed({...editFeed, value: val})}
-                    value={editFeed.value}
+                        style={s.input}
+                        multiline={true}
+                        numberOfLines={5}
+                        onChangeText={val => setEditFeed({ ...editFeed, value: val })}
+                        value={editFeed.value}
                     />
                     <View style={s.container_btns}>
-                        <BotonLog onPress={() => setEditFeed({see:false})}><TextButton>Cancelar</TextButton></BotonLog>
+                        <BotonLog onPress={() => setEditFeed({ see: false })}><TextButton>Cancelar</TextButton></BotonLog>
                         <BotonLog onPress={addFeedback}><TextButton>Enviar</TextButton></BotonLog>
                     </View>
                 </View>
@@ -228,4 +228,7 @@ const s = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
     },
+    margin: {
+        paddingTop: 30
+    }
 })
