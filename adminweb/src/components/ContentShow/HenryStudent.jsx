@@ -37,7 +37,8 @@ function HenryStudent() {
   useEffect(() => {
     firebase.db.collection('users').onSnapshot((snap) => {
       const estudiantes = [];
-      snap.docs.forEach((doc) => {
+
+      snap.forEach((doc) => {
         const { email, rol, first_name, last_name, nacionalidad, photo, dni, github, phone, cohorte, grupo, id } = doc.data();
         if (rol === 'student') {
           estudiantes.push({
@@ -52,13 +53,23 @@ function HenryStudent() {
             dni,
             github,
             phone,
-            id
+            id           : doc.id
           });
         }
       });
       setUsers(estudiantes);
     });
   }, []);
+
+  //Eliminar usuario
+  const handleDelete = async id =>{
+    if(window.confirm('¿ Esta seguro que desea eliminar este usuario ?')){
+      console.log(id);
+      await firebase.db.collection('users').doc(id).delete();
+      alert('uduario eliminado correctamente ')
+    }
+    
+  }
   console.log(users)
 
   //Envio de mail a servidor hosteado
@@ -237,7 +248,9 @@ function HenryStudent() {
               <div className='img-user'>
                 <img src={ImgErr} alt='avatar' />
               </div>
-              <button onClick={() => setExcel(true)}>Enviar Excel</button>
+              <button onClick={() => setExcel(true)}>
+                <h3>Enviar Excel</h3> 
+              </button>
             </div>
           </ContInCard>
         </InvitarUsuario>
@@ -261,18 +274,18 @@ function HenryStudent() {
             {users && users.map((user, index) => (
               <tr key={index}>
                 <td>
-                  <div>
+                  <div className='div-table-img'>
                   {user.photo ? <img src={user.photo} alt='user-avatar' with='30px' height='30px' /> 
                         : <img src={ImgUser} alt='user-avatar' with='30px' height='30px' />}
-                  {user.first_name}{' '}{user.last_name}
+                  <p>{user.first_name}{' '}{user.last_name} </p>                  
                   </div> 
                 </td>
                 <td>{user.github}</td>
                 <td>{user.email}</td>
                 <td>{user.nacionalidad}</td>
                 <td>{user.rol}</td>
-                <td><button onClick={() => { handleEdit(user) }} >Edit</button></td>
-                <td><button>Delete</button></td>
+                <td><div onClick={() => { handleEdit(user) }} ><i class="fas fa-edit"></i></div></td>
+                <td><div onClick={() => { handleDelete(user.id) }}><i class="far fa-minus-square"></i></div></td>
               </tr>
             ))}
           </Tbody>

@@ -36,7 +36,7 @@ function Cohortes() {
   useEffect(() => {
     firebase.db.collection('cohorte').onSnapshot((snap) => {
       const allCohortes = [];
-      snap.docs.forEach((doc) => {
+      snap.forEach((doc) => {
         const { comienzo, fin, modalidad, instructor, nombre, id } = doc.data();
         allCohortes.push({
           comienzo,
@@ -44,13 +44,23 @@ function Cohortes() {
           modalidad,
           instructor,
           nombre,
-          id
+          id           : doc.id
         });
       });
       setCohortes(allCohortes);
     });
   }, []);
   console.log(cohortes)
+
+  //Eliminar usuario
+  const handleDelete = async id =>{
+    if(window.confirm('¿ Esta seguro que desea eliminar esta Cohorte ?')){
+      console.log(id);
+      await firebase.db.collection('cohorte').doc(id).delete();
+      alert('Cohorte eliminada correctamente ')
+    }
+    
+  }
 
   //Estado Inicial de Crear Cohorte 
   const initalState = {
@@ -205,7 +215,7 @@ function Cohortes() {
             <form className="child4">
               <div className="cont-form">
                 <InputForm >
-                  <label>Cohorte N°:</label>
+                  <h3>Cohorte N°:</h3>
                   <input type="text"
                     list="nombre"
                     name="nombre"
@@ -229,7 +239,7 @@ function Cohortes() {
                   </datalist>
                 </InputForm>
                 <InputForm>
-                  <label>Modalidad:</label>
+                  <h3>Modalidad:</h3>
                   <BtnForm>
                     <button
                       onClick={() => updateIndex(0)}>
@@ -242,7 +252,7 @@ function Cohortes() {
                   </BtnForm>
                 </InputForm>
                 <InputForm>
-                  <label>Fecha de inicio:</label><br />
+                  <h3>Fecha de inicio:</h3>
                   <CalendarTimer>
                     <DatePicker
                       dateFormat="dd/MM/yyyy"
@@ -255,7 +265,7 @@ function Cohortes() {
               </div>
               <div className="cont-form">
                 <InputForm>
-                  <label>Fecha de finalizacion:</label><br />
+                  <h3>Fecha de finalizacion:</h3>
                   <CalendarTimer>
                     <DatePicker
                       dateFormat="dd/MM/yyyy"
@@ -266,7 +276,7 @@ function Cohortes() {
                   </CalendarTimer>
                 </InputForm>
                 <InputForm >
-                  <label>Instructor:</label>
+                  <h3>Instructor:</h3>
                   <input type="text"
                     list="instructor"
                     name="instructor"
@@ -284,7 +294,7 @@ function Cohortes() {
                 </CheckBox>
 
                 <button className='btn-email' onClick={() => saveNewCohorte}>
-                  CREAR COHORTE
+                  <h3>CREAR COHORTE</h3> 
                 </button>
               </div>
             </form>
@@ -319,8 +329,8 @@ function Cohortes() {
                 <td>{item.comienzo}</td>
                 <td>{item.fin}</td>
                 <td>{item.instructor}</td>
-                <td><button onClick={() => { handleEdit(item) }} >Edit</button></td>
-                <td><button>Delete</button></td>
+                <td><div onClick={() => { handleEdit(item) }} ><i class="fas fa-edit"></i></div></td>
+                <td><div onClick={() => { handleDelete(item.id) }}><i class="far fa-minus-square"></i></div></td>
               </tr>
             ))}
           </Tbody>

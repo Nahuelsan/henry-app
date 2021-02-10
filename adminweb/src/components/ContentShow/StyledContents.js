@@ -215,9 +215,10 @@ export const InputForm = styled.div`
   margin: 10px 0;
   padding: 0 .4rem;
   text-align: start;
-  & > label {
+  & > h3 {
     display: flex;
     align-items: center;
+    padding: 0 5px;
   }
   & > .div-cont-in{
     display: flex;
@@ -234,10 +235,19 @@ export const InputForm = styled.div`
     border-bottom: 1px solid black;
     color: #666;
   }
-  & > div{
+  & .react-datepicker-wrapper{
+    margin-left: auto;
+    max-width: 90% !important;
+
+  }
+  & input[type=text]{
+    max-width: 90% !important;
   }
 `
 export const CalendarTimer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 `
 export const BtnForm = styled.div`
@@ -293,5 +303,12 @@ export const Tbody = styled.tbody`
   background-color: white;
   & > tr > td{
     padding: 10px;
+  }
+  & i{
+    cursor: pointer;
+    font-size: 30px;
+  }
+  & .div-table-img{
+    display: flex;
   }
 `
