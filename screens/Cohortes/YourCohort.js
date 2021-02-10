@@ -215,7 +215,7 @@ console.log(estudiantes);
         </Progreso>
       </ContGeneral>
       </ScrollView>
-      <Footer />
+      <Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };
