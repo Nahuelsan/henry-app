@@ -52,8 +52,8 @@ const VerCohorte = (props) => {
           <ImgSise source={card1} />
         </BackImg>
         <ContText>
-          <TituloCard>Detales de Chorte</TituloCard>
-          <Text>Detalle completo de Cohorte seleccionada</Text>
+          <TituloCard>Detales de Cohorte</TituloCard>
+          <Text>Detalle completo del Cohorte {nombre}</Text>
         </ContText>
       </Options>
       <ContGeneral>
@@ -77,12 +77,19 @@ const VerCohorte = (props) => {
           <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
             <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
           </BotonLog>
+
+          <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
+            <TextButton>Clases</TextButton>
+          </BotonLog>
+
           <BotonLog onPress={() => console.log('works')}>
             <TextButton onPress={() => console.log('works')}>Crear Nuevo Grupo</TextButton>
           </BotonLog>
+
           <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
             <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUd de PP</TextButton>
           </BotonLog>
+
         </ContListGen>
 
         <ContMinf>
