@@ -41,8 +41,10 @@ import MsgNuevoCohorte from './screens/Cohortes/MsgNuevoCohorte';
 import FormularioDatos from './screens/Register/formulariodatos';
 import InstructoresList from './screens/Instructorres/InstructoresList';
 import PairPrograming from './screens/pairPrograming';
-import Calendario from './screens/Calendario'
-import ModificarClases from './screens/Cohortes/Clases'
+import CrearGrupos from './screens/Cohortes/CrearGrupo';
+import Calendario from './screens/Calendario';
+import ModificarClases from './screens/Cohortes/Clases';
+
 
 const Stack = createStackNavigator();
 
@@ -84,6 +86,7 @@ export default function App() {
 					}
 				}}
 				>
+
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
 				<Stack.Screen name="Grupos PP" component={CrearPp} />
@@ -95,6 +98,7 @@ export default function App() {
 				<Stack.Screen name="Ver Cohorte" component={VerCohorte} />
 				<Stack.Screen name="Henry Admin" component={HenryAdmin} />
 				<Stack.Screen name="Nuevo Henry" component={NuevoHenry} />
+				<Stack.Screen name="Crear Grupos" component={CrearGrupos} />
 				<Stack.Screen name="RegisterUser" component={RegisterUser} />
 				<Stack.Screen name="Menu Cohortes" component={CohorteMenu} />
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
