@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 /* Estilos */
 import {
   ContenedorUser
-} from '../Header&sidebar';
+} from '../stylesHeaderSide';
 /* Import imagen */
 import ImgUser from "../../../assets/Img/imgUser.png";
 
@@ -15,16 +15,22 @@ function LogedIn() {
     setIsOpen(true)
   }
 
+  useEffect(() => {
+    const userLog = JSON.parse(localStorage.getItem("user"))
+    setUser(userLog);
+  }, [])
+
+  console.log(user);
   return (
     <ContenedorUser onClick={handleClick}>
       {user ?
         <>
           <div className={'text'}>
-            <h5>{user.nombre}</h5>
+            <h5>{user.first_name}</h5>
             <p>{user.rol}</p>
           </div>
           <div className={'img-user'}>
-            <img src={user.avatar} alt='avatar'  with='60px' height='60px' />
+            <img src={user.photo} alt='avatar'  with='60px' height='60px' />
           </div>
         </>
         :
