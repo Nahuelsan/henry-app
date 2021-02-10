@@ -126,8 +126,8 @@ export const Img = styled.View `
 `
 
 export const Imagen = styled.Image `
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
 `
 
 export const User = styled.Image `

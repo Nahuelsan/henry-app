@@ -20,8 +20,9 @@ import UserNavBar from './UserNavBar';
 import firebase from '../database/database';
 
 //Redux importamos funciones y hooks
-import { useDispatch } from 'react-redux';
-import { logout } from '../src/action';
+import {useDispatch} from 'react-redux';
+import {logout} from '../src/action';
+import Footer from './Footer';
 
 let logFont = require('../src/assets/img/henry_logo.jpg');
 
@@ -70,39 +71,7 @@ const HenryUser = ({ navigation }) => {
 				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
-			<ContMinf>
-				<IconContent>
-					<Icon
-						name="home"
-						type="font-awesome"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						name="ghost"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<ImgMinf>
-						<LogoSise source={logFont} />
-					</ImgMinf>
-					<Icon
-						solid={true}
-						name="comment-dots"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						solid={true}
-						name="user"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => Logout()}
-					/>
-				</IconContent>
-			</ContMinf>
+			<Footer  navigation={navigation}/>
 		</Contenedor>
 	)
 }

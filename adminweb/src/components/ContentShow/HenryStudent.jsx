@@ -123,13 +123,11 @@ function HenryStudent() {
   //Cambiar Rol de alumno seleccionado
   const [rol, setRol] = useState({})
   const handleSelectedRol = (e) => {
-    console.log('ROLLL', e.target.value)
     setRol(e.target.value);
   }
 
   const handleSubmitRol = async (e) => {
     e.preventDefault();
-    console.log('SUBMIT', rol)
     try {
       await firebase.db.collection('users').doc(alumno.id).set(
         {
@@ -174,7 +172,8 @@ function HenryStudent() {
                       <img src={alumno.photo} alt='avatar' with='50px' height='50px'/>
                   </ContenedorImagen>
                   <h3>{alumno.first_name} {alumno.last_name}</h3>
-                  <label>{alumno.email}</label>
+                  <label>{alumno.email}</label><br/>
+                  <h4>CAMBIAR ROL</h4>
                   <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
                   <datalist id="rol">
                     <option value="student" />
