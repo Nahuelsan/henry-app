@@ -136,6 +136,13 @@ const ListaPms = (props) =>{
                     }
                 </ContListGen>
             </ContGeneral>
+            {
+                pms.length === 0 && <ContBtnOut >
+                <BotonLog onPress={() => console.log(pms)}>
+                  <TextButton>Agregar PM</TextButton>
+                </BotonLog>
+              </ContBtnOut>
+            }
             <View>
             </View>
         </Contenedor>
