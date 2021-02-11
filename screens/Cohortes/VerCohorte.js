@@ -31,8 +31,8 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const VerCohorte = (props) => {
-  const { comienzo, descripcion, fin, modalidad, nombre, instructor } = props.route.params.cohorte;
-
+  const { comienzo, descripcion, fin, modalidad, nombre, instructor, id } = props.route.params.cohorte;
+console.log(props.route.params.cohorte)
   return (
     <Contenedor>
       <Encabezado >
@@ -52,8 +52,8 @@ const VerCohorte = (props) => {
           <ImgSise source={card1} />
         </BackImg>
         <ContText>
-          <TituloCard>Detales de Chorte</TituloCard>
-          <Text>Detalle completo de Cohorte seleccionada</Text>
+          <TituloCard>Detales de Cohorte</TituloCard>
+          <Text>Detalle completo del Cohorte {nombre}</Text>
         </ContText>
       </Options>
       <ContGeneral>
@@ -77,12 +77,21 @@ const VerCohorte = (props) => {
           <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
             <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
           </BotonLog>
-          <BotonLog onPress={() => console.log('works')}>
-            <TextButton onPress={() => console.log('works')}>Crear Nuevo Grupo</TextButton>
+
+          <BotonLog onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>
+            <TextButton onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>Crear Nuevo Grupo</TextButton>
+
+
+          <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
+            <TextButton>Clases</TextButton>
           </BotonLog>
+
+          </BotonLog>
+
           <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUd de PP</TextButton>
+            <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
           </BotonLog>
+
         </ContListGen>
 
         <ContMinf>

@@ -4,7 +4,7 @@ import LogedIn from './LogedIn';
 import {
   ContenedorHeader,
   ContenedorImagen
-} from '../Header&sidebar';
+} from '../stylesHeaderSide';
 /* Import imagen */
 import ImgLog from "../../../assets/Img/henry_logo.jpg";
 

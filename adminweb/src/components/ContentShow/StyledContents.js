@@ -14,8 +14,9 @@ export const ContenedorPanel = styled.div`
 export const DetalleUser = styled.div`
   width: 38%;
   min-height: 400px;
+  max-height: 400px;
   background-color: white;
-  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.35);
   & > h4{
     height: 65px;
     line-height: 65px;
@@ -23,11 +24,69 @@ export const DetalleUser = styled.div`
     border-bottom: 2px solid #707070;
   }
 `
+export const FormAlumno = styled.form`
+  width: 100%;
+  height: 84%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+`
+export const AlumnoInfo = styled.div`
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  & > input[type=submit]{
+    width: 85%;
+    border: none;
+    background-color: #FFFF01;
+    padding: 7px;
+    border-radius: 10px;
+  }
+`
+export const AlumnoInfoExtra = styled.div`
+  background-color: #FFFF01;
+  border-radius: 40px; 
+  padding: 20px 30px;
+  display: grid;
+  grid-template-rows: 25%; 
+`
+export const ContCohorteSelect = styled.div`
+  width: 100%;
+  height: 84%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+`
+export const ContenedorImagen = styled.div`
+  & > img{
+    width: 130px;
+    height: 130px;
+  }
+`
+export const InfoSelect = styled.div`
+  text-align: center;
+  padding: 20px 20px;
+  & > h3{
+    margin-bottom: 20px;
+  }
+  & > div{
+    width: 100%;
+    height: 60%;
+    & > img{
+      width: 50%;
+      max-height: 100%;
+    }
+  }
+`
 export const InvitarUsuario = styled.div`
   width: 60%;
   min-height: 400px;
+  max-height: 400px;
   background-color: white;
-  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.35);
   & > h4{
     height: 65px;
     line-height: 65px;
@@ -58,7 +117,7 @@ export const ContInCard = styled.div`
       font-size: 19px;
     }
   }
-  & > .enviar-un-mail{
+  & > .child2{
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -72,7 +131,7 @@ export const ContInCard = styled.div`
       border-radius: 10px;
     }
   }
-  & > .enviar-excel{
+  & > .child3{
     width: 30%;
     height: 70%;
     margin: auto 0;
@@ -95,6 +154,24 @@ export const ContInCard = styled.div`
       background-color: #FFFF01;
       padding: 7px;
       border-radius: 10px;
+    }
+  }
+  & > .child4{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    & > .cont-form{
+      max-width: 48%;
+      text-align: center;
+      & > .btn-email{
+      width: 85%;
+      border: none;
+      background-color: #FFFF01;
+      padding: 7px;
+      border-radius: 10px;
+    }
     }
   }
 `
@@ -127,6 +204,53 @@ export const InputCont = styled.div`
     color: #AFAFAF;
     font-weight: 500;
     font-size: 14px;
+  }
+`
+export const InputForm = styled.div`
+  max-width: 380px;
+  width: 100%;
+  height: 55px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  margin: 10px 0;
+  padding: 0 .4rem;
+  text-align: start;
+  & > label {
+    display: flex;
+    align-items: center;
+  }
+  & > .div-cont-in{
+    display: flex;
+    justify-content: space-around;
+  }
+  & > input[list]{
+    margin: 0 auto;
+    min-width: 60px;
+    max-width: 90%;
+    min-height: 40px;
+    max-height: 40px;
+    padding: 20px 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    color: #666;
+  }
+  & > div{
+  }
+`
+export const CalendarTimer = styled.div`
+
+`
+export const BtnForm = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  & > button{
+    width: 75px;
+    border: none;
+    background-color: #FFFF01;
+    padding: 7px;
+    border-radius: 10px;
   }
 `
 export const CheckBox = styled.div`
