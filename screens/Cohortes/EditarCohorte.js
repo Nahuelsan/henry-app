@@ -35,7 +35,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const EditarCohorte = (props) => {
-  const { id, comienzo, fin, modalidad, nombre, instructor } = props.route.params;
+  const { id, comienzo, fin, modalidad, nombre, instructor } = props.route.params.cohorte;
 
   //Botones Full Time - Part Time
   const [index, setIndex] = useState(1)

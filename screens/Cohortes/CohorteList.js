@@ -96,7 +96,7 @@ const CohorteList = ({ navigation }) => {
                     <BotonLog onPress={() => navigation.navigate("Ver Cohorte", {cohorte: l})}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={onPressEdit} >
+                    <BotonLog onPress={() => navigation.navigate("Editar Cohorte", { cohorte: l })} >
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>
