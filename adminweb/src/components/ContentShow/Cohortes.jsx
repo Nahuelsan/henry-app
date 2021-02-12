@@ -167,14 +167,8 @@ function Cohortes() {
   }
   //===========SELECCIONA COHORTE===========//
   const [cohorte, setCohorte] = useState(false)
-
   const handleEdit = async (item) => {
-
-
-
-
-    //===========GRUPO DENTRO DE COHORTE===========//
-
+    //===========MOSTRAR GRUPOS DENTRO DE COHORTE===========//
     await firebase.db.collection('cohorte').doc(item.id).collection('grupos').onSnapshot((snap) => {
       const grupos = [];
       snap.docs.forEach((doc) => {
@@ -190,7 +184,102 @@ function Cohortes() {
     console.log('Cohorte', cohorte)
   }
 
+  //===========CREAR GRUPOS DENTRO DE COHORTE===========//
+  const [panelGrupos, setPanelGrupos] = useState(false)
+  const estadoInicial = {
+    alumnos: [],
+    pms: {},
+  };
+  const [dropdown, setDropdown] = useState(false)
+  const [grupos, setGrupos] = useState([])
+  const [PMs, setPMS] = useState([])
+  const [alumnos, setAlumnos] = useState([])
+  const alumnosInsertados = []
+  const numero = cohorte.nombre
 
+  useEffect(() => {
+    firebase.db.collection('cohorte').doc(cohorte.id).collection('grupos').onSnapshot((snap) => {
+      const grupo = [];
+      snap.docs.forEach((doc, i) => {
+        const { alumnos, pms } = doc.data()
+        if (alumnos === undefined && pms === undefined) {
+          setGrupos(grupo)
+        } else {
+          grupo.push({
+            alumnos,
+            pms
+          })
+        }
+      });
+      setGrupos(grupo)
+    });
+    firebase.db.collection('users').where('rol', '==', 'pm').onSnapshot((snap) => {
+      const pms = [];
+      snap.docs.forEach((doc) => {
+        const { last_name, first_name } = doc.data()
+        pms.push({
+          last_name,
+          first_name,
+          id: doc.id
+        })
+      });
+      setPMS(pms)
+    });
+    firebase.db.collection('users').where('rol', '==', 'student').onSnapshot((snap) => {
+      const students = [];
+      snap.docs.forEach((doc) => {
+        const { last_name, first_name, cohorte, grupo } = doc.data()
+        if (cohorte === numero && grupo === undefined) {
+          students.push({
+            last_name,
+            first_name,
+            idAlumn: doc.id
+          })
+        }
+
+      });
+      setAlumnos(students)
+    });
+  }, [panelGrupos])
+
+  /////////////////////////////////////////////////////////
+  const [estado, setEstado] = useState(estadoInicial);
+  const handleChangeGroup = (value, name) => {
+    setEstado({ ...estado, [name]: value });
+    console.log('estado', estado)
+  };
+
+  const crearGrupos = async () => {
+    for (var i = 0; estado.length < i; i++) {
+      console.log(estado[i]);
+    }
+    if (estado.numero === '') {
+      alert('Ingrese numero');
+    }
+    if (estado.alumnos === '') {
+      alert('Ingrese alumnos');
+    }
+    if (estado.pms === '') {
+      alert('Ingrese PMs');
+    }
+    else {
+      try {
+        firebase.db.collection('cohorte').doc(cohorte.id).collection('grupos').add({
+          numero: grupos.length + 1,
+          pms: estado.pms,
+          alumnos: alumnosInsertados,
+        })
+        estado.alumnos.forEach((al, i) => {
+          firebase.db.collection('users').doc(al.alumn.idAlumn).update({
+            grupo: grupos.length
+          })
+        });
+        alert(`Grupo creado con exito!`);
+      } catch (error) {
+        alert('Hubo un error al crear el Grupo!');
+      }
+    }
+  };
 
   return (
     <div>
@@ -217,98 +306,162 @@ function Cohortes() {
               <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
               <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
               <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
-              <label><strong>Grupos:</strong><br/>{cohorte.grupos.length  ? cohorte.grupos.map((i) => <><button>{i.numero}</button></>) : <label>No Asignado</label>}</label>
+              <label><strong>Grupos:</strong>{cohorte.grupos.length ? cohorte.grupos.map((i) => <><br /><button>{i.numero}</button></>) : <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>}</label>
             </ContCohorteSelect>}
         </DetalleUser>
-        <InvitarUsuario >
-          <h4>Crea una nueva Cohorte</h4>
-          <ContInCard>
-            <div className='info'>
-              <h4>Un nuevo comienzo para futuros Henry's</h4>
-              <p>Crea una Cohorte donde nuevos estudiantes
-              de henry inician un cambio en su vida
-              profesional, ayudando con su formación y aprendizaje.
+        {panelGrupos ?
+          <InvitarUsuario >
+            <h4>Crear Grupos</h4>
+            <ContInCard>
+              <div className='info'>
+                <h4>Un espacio intimo para el aprendizaje</h4>
+                <p>Crea un nuevo Grupo dentro del Cohorte,
+                asigna alumnos  a los mismos para que puedan
+                compartir y despejar dudas que surjan
+                acompañados de sus PMs a lo largo de su carrera
               </p>
-            </div>
+              </div>
+              <div className="cont-form">
+                <InputForm>
+                  <label>Numero de Grupo:</label>
+                  <label>{grupos.length + 1}</label>
+                </InputForm>
 
-            <div className="cont-form">
-              <InputForm >
-                <label>Cohorte N°:</label><br />
-                <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
-                  <option value="01" >01</option>
-                  <option value="02" >02</option>
-                  <option value="03" >03</option>
-                  <option value="04" >04</option>
-                  <option value="05" >05</option>
-                  <option value="07" >07</option>
-                  <option value="08" >08</option>
-                  <option value="09" >09</option>
-                  <option value="10" >10</option>
-                  <option value="11" >11</option>
-                  <option value="12" >12</option>
-                  {state.numero_de_cohorte}
-                </select>
-              </InputForm>
-              <InputForm>
-                <label>Modalidad:</label>
-                <BtnForm>
-                  <button
-                    onClick={() => updateIndex(0)}
-                    style={{ border: index === 0 ? '1px solid black' : 'none' }}>
-                    Full Time
-                    </button>
-                  <button
-                    onClick={() => updateIndex(1)}
-                    style={{ border: index === 1 ? '1px solid black' : 'none' }} >
-                    Part Time
-                    </button>
-                </BtnForm>
-              </InputForm><br />
-              <InputForm>
-                <label>Fecha de inicio:</label><br />
-                <CalendarTimer>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                  />
-                  <i className="calendar-alt"></i>
-                </CalendarTimer>
-              </InputForm>
-            </div>
-            <div className="cont-form">
-              <InputForm>
-                <label>Fecha de finalizacion:</label><br />
-                <CalendarTimer>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={endDate}
-                    onChange={date => setEndtDate(date)}
-                  />
-                  <i className="calendar-alt"></i>
-                </CalendarTimer>
-              </InputForm>
-              <InputForm >
-                <label>Instructor</label><br />
-                <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
-                  <option value="Franco Etcheverry" >Franco Etcheverry</option>
-                  <option value="Toni Tralice" >Toni Tralice</option>
-                  {state.instructor}
-                </select>
-              </InputForm>
-              <CheckBox>
-                <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
-                <label>
-                  Seguro que desea crear un nuevo Cohorte?
-                  </label>
-              </CheckBox>
-              <button className='btn-email' onClick={saveNewCohorte}>
-                CREAR COHORTE
+                <InputForm>
+                  <label>Asignar Alumnos:</label>
+                  <button onClick={() => setDropdown(!dropdown)}>Alumnos</button>
+                  {dropdown &&
+                    <div>
+                      <ol>Alumnos
+                    {alumnos.map((al, i) => (
+                        <li key={i} value={`${al.last_name} ${al.first_name}`}>{`${al.last_name} ${al.first_name}`}<button onClick={() => alumnosInsertados.push({ al })}>ADD</button></li>
+                      ))}
+                      </ol>
+                    </div>
+                  }
+                </InputForm>
+
+                <InputForm>
+                  <label>Asignar PMs:</label>
+                  <button onClick={() => setDropdown(!dropdown)}>PMs</button>
+                  {dropdown &&
+                  <div style={{border:'1px solid black',backgroundColor:'grey',zIndex:'10', width:'200px'}}>
+                    <ul><strong>Alumnos</strong>
+                    {
+                      PMs.map((pm, i) => (
+                        <li key={i} value={`${pm.last_name} ${pm.first_name}`}>{`${pm.last_name} ${pm.first_name}`}<button onClick={() => setState({
+                          ...estado,
+                          pms: {
+                              last_name: pm.last_name,
+                              first_name : pm.first_name,
+                              id : pm.id,
+                          }
+                      })}>ADD</button></li>
+                      ))
+                    }
+                    </ul>
+                  </div>
+                  }
+                </InputForm>
+                <button className='btn-email' onClick={() => crearGrupos}>
+                  CREAR GRUPO
+                </button><br />
+                <button className='btn-email' onClick={() => setPanelGrupos(false)}>
+                  ATRAS
                 </button>
-            </div>
+              </div>
+            </ContInCard>
+          </InvitarUsuario>
+          :
+          <InvitarUsuario >
+            <h4>Crea una nueva Cohorte</h4>
+            <ContInCard>
+              <div className='info'>
+                <h4>Un nuevo comienzo para futuros Henry's</h4>
+                <p>Crea una Cohorte donde nuevos estudiantes
+                de henry inician un cambio en su vida
+                profesional, ayudando con su formación y aprendizaje.
+              </p>
+              </div>
 
-          </ContInCard>
-        </InvitarUsuario>
+              <div className="cont-form">
+                <InputForm >
+                  <label>Cohorte N°:</label><br />
+                  <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
+                    <option value="01" >01</option>
+                    <option value="02" >02</option>
+                    <option value="03" >03</option>
+                    <option value="04" >04</option>
+                    <option value="05" >05</option>
+                    <option value="07" >07</option>
+                    <option value="08" >08</option>
+                    <option value="09" >09</option>
+                    <option value="10" >10</option>
+                    <option value="11" >11</option>
+                    <option value="12" >12</option>
+                    {state.numero_de_cohorte}
+                  </select>
+                </InputForm>
+                <InputForm>
+                  <label>Modalidad:</label>
+                  <BtnForm>
+                    <button
+                      onClick={() => updateIndex(0)}
+                      style={{ border: index === 0 ? '1px solid black' : 'none' }}>
+                      Full Time
+                    </button>
+                    <button
+                      onClick={() => updateIndex(1)}
+                      style={{ border: index === 1 ? '1px solid black' : 'none' }} >
+                      Part Time
+                    </button>
+                  </BtnForm>
+                </InputForm><br />
+                <InputForm>
+                  <label>Fecha de inicio:</label><br />
+                  <CalendarTimer>
+                    <DatePicker
+                      dateFormat="dd/MM/yyyy"
+                      selected={startDate}
+                      onChange={date => setStartDate(date)}
+                    />
+                    <i className="calendar-alt"></i>
+                  </CalendarTimer>
+                </InputForm>
+              </div>
+              <div className="cont-form">
+                <InputForm>
+                  <label>Fecha de finalizacion:</label><br />
+                  <CalendarTimer>
+                    <DatePicker
+                      dateFormat="dd/MM/yyyy"
+                      selected={endDate}
+                      onChange={date => setEndtDate(date)}
+                    />
+                    <i className="calendar-alt"></i>
+                  </CalendarTimer>
+                </InputForm>
+                <InputForm >
+                  <label>Instructor</label><br />
+                  <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
+                    <option value="Franco Etcheverry" >Franco Etcheverry</option>
+                    <option value="Toni Tralice" >Toni Tralice</option>
+                    {state.instructor}
+                  </select>
+                </InputForm>
+                <CheckBox>
+                  <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
+                  <label>
+                    Seguro que desea crear un nuevo Cohorte?
+                  </label>
+                </CheckBox>
+                <button className='btn-email' onClick={saveNewCohorte}>
+                  CREAR COHORTE
+                </button>
+              </div>
+            </ContInCard>
+          </InvitarUsuario>
+        }
       </ContenedorPanel>
 
       <ListaEstudiantes>
