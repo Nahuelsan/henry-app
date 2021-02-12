@@ -27,7 +27,7 @@ import ImgErr from "../../assets/Img/ErrorImg.jpg";
 import ImgHenry from "../../assets/Img/henry_logo.jpg";
 
 function Cohortes() {
-  //Traer usuarios de la base de datos
+  //===========COHORTES DE BASE DE DATOS===========//
   const [
     cohortes,
     setCohortes
@@ -37,20 +37,64 @@ function Cohortes() {
     firebase.db.collection('cohorte').onSnapshot((snap) => {
       const allCohortes = [];
       snap.docs.forEach((doc) => {
-        const { comienzo, fin, modalidad, instructor, nombre, id } = doc.data();
+        const { comienzo, fin, modalidad, instructor, nombre } = doc.data();
         allCohortes.push({
+          nombre,
+          id:doc.id,
           comienzo,
           fin,
           modalidad,
           instructor,
-          nombre,
-          id
         });
       });
       setCohortes(allCohortes);
     });
   }, []);
-  // console.log(cohortes)
+
+  //===========CREAR COHORTE===========//
+
+  //Botones Full Time - Part Time
+  const [index, setIndex] = useState('')
+  const buttons = ['Full Time', 'Part Time']
+  const updateIndex = (i) => {
+    setIndex(i)
+    console.log('MODALIDAD:', (buttons[index]))
+    handleChangeText(buttons[i], 'modalidad')
+  }
+
+  //DatePicker
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndtDate] = useState(new Date());
+
+  const handleDatePickedStart = (date) => {
+    let newDate = date && date.toString().split(" ")
+    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
+    handleChangeText(returnDate.join("/"), 'fecha_de_inicio')
+  }
+  const handleDatePickedEnd = (date) => {
+    let newDate = date && date.toString().split(" ")
+    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
+    handleChangeText(returnDate.join("/"), 'fecha_de_finalizacion')
+  };
+
+  const getMonthOfDate = name => {
+    return ("JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(name) / 3 + 1)
+  }
+
+  useEffect(() => {
+    handleDatePickedStart(startDate)
+  }, [startDate])
+
+  useEffect(() => {
+    handleDatePickedEnd(endDate)
+  }, [endDate])
+
+  //Numero de Cohorte List
+  const [check, setCheck] = useState('')
+  const handleCheckBox = (e) => {
+    setCheck(e.target.value);
+    handleChangeText(check, 'checkeado')
+  }
 
   //Estado Inicial de Crear Cohorte 
   const initalState = {
@@ -63,16 +107,13 @@ function Cohortes() {
   };
 
   const [state, setState] = useState(initalState);
-
   const handleChangeText = (value, name) => {
     setState({ ...state, [name]: value });
     console.log('state', state)
   };
 
-
-  //Creacion de Cohorte en firebase
+  //===========CREAR COHORTE EN FIREBASE===========//
   const saveNewCohorte = async () => {
-    console.log('Works!!!')
     for (var i = 0; state.length < i; i++) {
       console.log(state[i]);
     }
@@ -107,74 +148,32 @@ function Cohortes() {
     }
   };
 
-  //Selecciona una cohorte
+  //===========SELECCIONA COHORTE===========//
   const [cohorte, setCohorte] = useState(false)
   const handleEdit = (item) => {
     setCohorte(item)
     console.log('Cohorte', cohorte)
   }
 
-  //CREAR COHORTE
+  //===========ELIMINA COHORTE===========//
 
-  //Numero de Cohorte List
-  const [numero, setNumero] = useState('')
-  const handleSelectedNumero = (e) => {
-    console.log('NUMERO:', e.target.value)
-    setNumero(e.target.value);
-    handleChangeText(numero, 'numero_de_cohorte')
+  const eliminarCohorte = async (id) => {
+    console.log(id)
+    let r = window.confirm("Esta seguto de eliminar el Cohorte seleccionado?");
+    try {
+      if (r) {
+        const algo=await firebase.db.collection('cohorte').doc(id).delete()
+        console.log(algo)
+        alert('Cohorte Eliminado!')
+      } else {
+        console.log('Nothing to delete')
+      }
+    } catch (err) {
+      alert(err)
+    }
   }
 
 
-  //Botones Full Time - Part Time
-  const [index, setIndex] = useState('')
-  const buttons = ['Full Time', 'Part Time']
-  const updateIndex = (i) => {
-    setIndex(i)
-    console.log('MODALIDAD:', (buttons[index]))
-    handleChangeText(buttons[index], 'modalidad')
-  }
-
-  //DatePicker
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndtDate] = useState(new Date());
-
-  const handleDatePickedStart = (date) => {
-    let newDate = date && date.toString().split(" ")
-    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
-    handleChangeText(returnDate.join("/"), 'fecha_de_inicio')
-  }
-  const handleDatePickedEnd = (date) => {
-    let newDate = date && date.toString().split(" ")
-    let returnDate = [newDate[2], getMonthOfDate(newDate[1]), newDate[3]]
-    handleChangeText(returnDate.join("/"), 'fecha_de_finalizacion')
-  };
-
-  const getMonthOfDate = name => {
-    return ("JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(name) / 3 + 1)
-  }
-
-  useEffect(() => {
-    handleDatePickedStart(startDate)
-  }, [startDate])
-
-  useEffect(() => {
-    handleDatePickedEnd(endDate)
-  }, [endDate])
-
-
-  //Instructores List
-  const [instructor, setInstructor] = useState('')
-  const handleSelectedInstructor = (e) => {
-    setInstructor(e.target.value);
-    handleChangeText(instructor, 'instructor')
-  }
-
-  //Numero de Cohorte List
-  const [check, setCheck] = useState('')
-  const handleCheckBox = (e) => {
-    setCheck(e.target.value);
-    handleChangeText(check, 'checkeado')
-  }
 
   return (
     <div>
@@ -184,7 +183,7 @@ function Cohortes() {
           <h4>Selecciona un Cohorte</h4>
           {!cohorte
             ? <InfoSelect>
-              <h3> Porfavor Selecciona una Chorote para conocer sus detalles</h3>
+              <h3> Seleccione una Cohorte para conocer sus detalles</h3>
               <div className='img-user'>
                 <img src={ImgEmpty} alt='avatar' />
               </div>
@@ -217,43 +216,37 @@ function Cohortes() {
 
             <div className="cont-form">
               <InputForm >
-                <label>Cohorte N°:</label>
-                <input type="text"
-                  list="nombre"
-                  name="numero_de_cohorte"
-                  selected="01"
-                  onChange={handleSelectedNumero} />
-                <datalist id="nombre">
-                  <option value="01" />
-                  <option value="02" />
-                  <option value="03" />
-                  <option value="04" />
-                  <option value="05" />
-                  <option value="06" />
-                  <option value="07" />
-                  <option value="08" />
-                  <option value="09" />
-                  <option value="10" />
-                  <option value="11" />
-                  <option value="12" />
-                  <option value="13" />
-                  <option value="14" />
-                  <option value="15" />
-                </datalist>
+                <label>Cohorte N°:</label><br />
+                <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
+                  <option value="01" >01</option>
+                  <option value="02" >02</option>
+                  <option value="03" >03</option>
+                  <option value="04" >04</option>
+                  <option value="05" >05</option>
+                  <option value="07" >07</option>
+                  <option value="08" >08</option>
+                  <option value="09" >09</option>
+                  <option value="10" >10</option>
+                  <option value="11" >11</option>
+                  <option value="12" >12</option>
+                  {state.numero_de_cohorte}
+                </select>
               </InputForm>
               <InputForm>
                 <label>Modalidad:</label>
                 <BtnForm>
                   <button
-                    onClick={() => updateIndex(0)}>
+                    onClick={() => updateIndex(0)}
+                    style={{ border: index === 0 ? '1px solid black' : 'none' }}>
                     Full Time
                     </button>
                   <button
-                    onClick={() => updateIndex(1)}>
+                    onClick={() => updateIndex(1)}
+                    style={{ border: index === 1 ? '1px solid black' : 'none' }} >
                     Part Time
                     </button>
                 </BtnForm>
-              </InputForm>
+              </InputForm><br />
               <InputForm>
                 <label>Fecha de inicio:</label><br />
                 <CalendarTimer>
@@ -279,21 +272,17 @@ function Cohortes() {
                 </CalendarTimer>
               </InputForm>
               <InputForm >
-                <label>Instructor:</label>
-                <input type="text"
-                  list="instructor"
-                  name="instructor"
-                  selected="Franco Etcheverry"
-                  onChange={handleSelectedInstructor} />
-                <datalist id="instructor">
-                  <option value="Franco Etcheverry" />
-                  <option value="Toni Tralice" />
-                </datalist>
+                <label>Instructor</label><br />
+                <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
+                  <option value="Franco Etcheverry" >Franco Etcheverry</option>
+                  <option value="Toni Tralice" >Toni Tralice</option>
+                  {state.instructor}
+                </select>
               </InputForm>
               <CheckBox>
-                <input name="checkeado" type="checkbox" onChange={handleCheckBox} />
+                <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
                 <label>
-                  Seguro que desea crear la Chorte?
+                  Seguro que desea crear un nuevo Cohorte?
                   </label>
               </CheckBox>
               <button className='btn-email' onClick={saveNewCohorte}>
@@ -325,7 +314,7 @@ function Cohortes() {
                 <td>
                   <div>
                     <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
-                    {' '}{item.nombre}
+                    {' '}<strong>{item.nombre}</strong>
                   </div>
                 </td>
                 <td>{item.modalidad}</td>
@@ -333,7 +322,7 @@ function Cohortes() {
                 <td>{item.fin}</td>
                 <td>{item.instructor}</td>
                 <td><button onClick={() => { handleEdit(item) }} >Edit</button></td>
-                <td><button>Delete</button></td>
+                <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
               </tr>
             ))}
           </Tbody>
