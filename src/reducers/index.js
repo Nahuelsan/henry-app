@@ -24,7 +24,7 @@ export default function(state = initializeState, action){
                 cohorte      : action.payload.cohorte,
                 email        : action.payload.email,
                 dni          : action.payload.dni,
-                grupo        : action.payload.grupo,
+                grupo        : action.payload.grupo ? action.payload.grupo  : '',
                 photo        : action.payload.photo,
                 github       : action.payload.github,
                 nacionalidad : action.payload.nacionalidad,
