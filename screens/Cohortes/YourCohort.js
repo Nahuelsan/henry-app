@@ -97,7 +97,7 @@ console.log(estudiantes);
         </ContText>
       </Options>
       </View>
-
+          <Text>Hola</Text>
       <ScrollView>
       <ContGeneral>         
         {/* GRUPO AL QUE PERTENECES */}
