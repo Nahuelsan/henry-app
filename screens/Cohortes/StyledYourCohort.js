@@ -3,14 +3,18 @@ import styled from 'styled-components/native';
 export const Contenedor = styled.View `
   flex: 1;
   justify-content: space-between;
-  background-color:white;
+  background-color: white;  
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 `
 
 export const Encabezado = styled.View `
   width: 100%;
-  height: 25%;
+  height: 30%;
   padding: 50px 30px;
-  background-color: #FFFF94;  
+  background-color: #FFFF94;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
@@ -69,9 +73,9 @@ export const TituloCard = styled.Text `
 
 export const ContGeneral = styled.View `
   position: absolute;
-  top: 20%;
+  top: 10%;
   width: 100%;
-  height: 80%;
+  height: 100%;
   z-index: 2;
   align-items: center;
   border-top-left-radius: 40px;
@@ -133,24 +137,24 @@ export const Imagen = styled.Image `
 export const User = styled.Image `
   width: 30px;
   height: 30px;
-  margin-top: 10px;
+  margin-bottom: 10px;
 `
 
 export const Pm = styled.View `
-  width: 70%;
-  height: 25%;
+  width: 75%;
+  height: 5px;
   position: absolute;
   padding: 50px 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 240px;
+  top: 300px;
   z-index: 5;
 `
 
 export const TarjetaPm = styled.View `
   width: 150%;
-  height: 15%;
+  height: 5%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -158,14 +162,14 @@ export const TarjetaPm = styled.View `
 `
 
 export const Progreso = styled.View `
-  width: 70%;
+  width: 75%;
   height: 25%;
   position: absolute;
   padding: 50px 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 370px;
+  top: 390px;
   z-index: 5; 
 `
 
