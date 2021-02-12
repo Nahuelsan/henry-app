@@ -40,7 +40,7 @@ function Cohortes() {
         const { comienzo, fin, modalidad, instructor, nombre } = doc.data();
         allCohortes.push({
           nombre,
-          id:doc.id,
+          id: doc.id,
           comienzo,
           fin,
           modalidad,
@@ -148,13 +148,6 @@ function Cohortes() {
     }
   };
 
-  //===========SELECCIONA COHORTE===========//
-  const [cohorte, setCohorte] = useState(false)
-  const handleEdit = (item) => {
-    setCohorte(item)
-    console.log('Cohorte', cohorte)
-  }
-
   //===========ELIMINA COHORTE===========//
 
   const eliminarCohorte = async (id) => {
@@ -162,7 +155,7 @@ function Cohortes() {
     let r = window.confirm("Esta seguto de eliminar el Cohorte seleccionado?");
     try {
       if (r) {
-        const algo=await firebase.db.collection('cohorte').doc(id).delete()
+        const algo = await firebase.db.collection('cohorte').doc(id).delete()
         console.log(algo)
         alert('Cohorte Eliminado!')
       } else {
@@ -171,6 +164,30 @@ function Cohortes() {
     } catch (err) {
       alert(err)
     }
+  }
+  //===========SELECCIONA COHORTE===========//
+  const [cohorte, setCohorte] = useState(false)
+
+  const handleEdit = async (item) => {
+
+
+
+
+    //===========GRUPO DENTRO DE COHORTE===========//
+
+    await firebase.db.collection('cohorte').doc(item.id).collection('grupos').onSnapshot((snap) => {
+      const grupos = [];
+      snap.docs.forEach((doc) => {
+        const { alumnos, numero, pms } = doc.data();
+        grupos.push({
+          alumnos,
+          numero,
+          pms
+        })
+      })
+      setCohorte({ ...item, grupos: grupos })
+    })
+    console.log('Cohorte', cohorte)
   }
 
 
@@ -197,10 +214,10 @@ function Cohortes() {
               </ContenedorImagen>
               <h3>Chorte {cohorte.nombre}</h3>
               <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
-              <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label>
               <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
               <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
               <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
+              <label><strong>Grupos:</strong><br/>{cohorte.grupos.length  ? cohorte.grupos.map((i) => <><button>{i.numero}</button></>) : <label>No Asignado</label>}</label>
             </ContCohorteSelect>}
         </DetalleUser>
         <InvitarUsuario >
@@ -302,7 +319,7 @@ function Cohortes() {
               <th>Cohorte</th>
               <th>Modalidad</th>
               <th>Fecha de Inicio</th>
-              <th>Decha de Finalizacion</th>
+              <th>Fecha de Finalizacion</th>
               <th>Instructor</th>
               <th></th>
               <th></th>
@@ -321,7 +338,7 @@ function Cohortes() {
                 <td>{item.comienzo}</td>
                 <td>{item.fin}</td>
                 <td>{item.instructor}</td>
-                <td><button onClick={() => { handleEdit(item) }} >Edit</button></td>
+                <td><button onClick={() => { handleEdit(item) }} >Ver</button></td>
                 <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
               </tr>
             ))}
