@@ -48,7 +48,7 @@ const HenryAdmin = (props) => {
 				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
-			<Footer />
+			<Footer navigation={props.navigation}/>
 		</Contenedor>
 	);
 };

@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../../database/database'
 import DatePicker from 'react-datepicker'
-import axios from 'axios';
+import 'react-datepicker/dist/react-datepicker.css'
+
 /* Estilos */
 import {
   ContenedorPanel,
   DetalleUser,
+  InfoSelect,
+  ContCohorteSelect,
+  ContenedorImagen,
   InvitarUsuario,
   ContInCard,
-  InputCont,
+  InputForm,
+  BtnForm,
+  CalendarTimer,
   CheckBox,
   ListaEstudiantes,
   Table,
@@ -16,6 +22,7 @@ import {
   Tbody
 } from './StyledContents';
 /* Import imagen */
+import ImgEmpty from "../../assets/Img/empty.svg";
 import ImgErr from "../../assets/Img/ErrorImg.jpg";
 import ImgHenry from "../../assets/Img/henry_logo.jpg";
 
@@ -43,7 +50,7 @@ function Cohortes() {
       setCohortes(allCohortes);
     });
   }, []);
-  console.log(cohortes)
+  // console.log(cohortes)
 
   //Estado Inicial de Crear Cohorte 
   const initalState = {
@@ -65,6 +72,7 @@ function Cohortes() {
 
   //Creacion de Cohorte en firebase
   const saveNewCohorte = async () => {
+    console.log('Works!!!')
     for (var i = 0; state.length < i; i++) {
       console.log(state[i]);
     }
@@ -75,7 +83,7 @@ function Cohortes() {
       alert('Ingrese fecha de inicio');
     }
     if (state.fecha_de_finalizacion === '') {
-      alert('Ingrese fecha de finalizacio');
+      alert('Ingrese fecha de finalizacion');
     }
     if (state.instructor === '') {
       alert('Ingrese un instructor');
@@ -92,7 +100,7 @@ function Cohortes() {
           fin: state.fecha_de_finalizacion,
           instructor: state.instructor,
         });
-        alert(`Cohorte N°: ${state.nombre} creada con exito!`);
+        alert(`Cohorte N°: ${state.numero_de_cohorte} creada con exito!`);
       } catch (error) {
         alert('Hubo un error al crear la Cohorte!');
       }
@@ -100,7 +108,7 @@ function Cohortes() {
   };
 
   //Selecciona una cohorte
-  const [cohorte, setCohorte] = useState({})
+  const [cohorte, setCohorte] = useState(false)
   const handleEdit = (item) => {
     setCohorte(item)
     console.log('Cohorte', cohorte)
@@ -109,17 +117,20 @@ function Cohortes() {
   //CREAR COHORTE
 
   //Numero de Cohorte List
-  const [numero, setNumero] = useState(state.numero_de_cohorte || {})
+  const [numero, setNumero] = useState('')
   const handleSelectedNumero = (e) => {
+    console.log('NUMERO:', e.target.value)
     setNumero(e.target.value);
     handleChangeText(numero, 'numero_de_cohorte')
   }
 
+
   //Botones Full Time - Part Time
-  const [index, setIndex] = useState(1)
+  const [index, setIndex] = useState('')
   const buttons = ['Full Time', 'Part Time']
-  const updateIndex = (index) => {
-    setIndex(index)
+  const updateIndex = (i) => {
+    setIndex(i)
+    console.log('MODALIDAD:', (buttons[index]))
     handleChangeText(buttons[index], 'modalidad')
   }
 
@@ -150,11 +161,19 @@ function Cohortes() {
     handleDatePickedEnd(endDate)
   }, [endDate])
 
+
   //Instructores List
-  const [instructor, setInstructor] = useState(state.instructor || {})
+  const [instructor, setInstructor] = useState('')
   const handleSelectedInstructor = (e) => {
     setInstructor(e.target.value);
     handleChangeText(instructor, 'instructor')
+  }
+
+  //Numero de Cohorte List
+  const [check, setCheck] = useState('')
+  const handleCheckBox = (e) => {
+    setCheck(e.target.value);
+    handleChangeText(check, 'checkeado')
   }
 
   return (
@@ -163,16 +182,27 @@ function Cohortes() {
         <h2>Panel Cohortes Henry</h2>
         <DetalleUser >
           <h4>Selecciona un Cohorte</h4>
-          {cohorte.nombre &&
-            <div>
-              <image src={ImgHenry} alt='avatar' with='50px' height='50px' /><br />
-              <h3>Chorte {cohorte.nombre}</h3><br />
-              <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label><br />
-              <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label><br />
-              <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label><br />
-              <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label><br />
-              <label><strong>Modalidad:</strong>{cohorte.modalidad}</label><br />
-            </div>}
+          {!cohorte
+            ? <InfoSelect>
+              <h3> Porfavor Selecciona una Chorote para conocer sus detalles</h3>
+              <div className='img-user'>
+                <img src={ImgEmpty} alt='avatar' />
+              </div>
+            </InfoSelect>
+            : <ContCohorteSelect>
+              <ContenedorImagen>
+                <div>
+                  <img src={ImgHenry} alt='avatar' with='50px' height='50px' />
+                </div>
+                <h3>HENRY WORLD</h3>
+              </ContenedorImagen>
+              <h3>Chorte {cohorte.nombre}</h3>
+              <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
+              <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label>
+              <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
+              <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
+              <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
+            </ContCohorteSelect>}
         </DetalleUser>
         <InvitarUsuario >
           <h4>Crea una nueva Cohorte</h4>
@@ -185,90 +215,91 @@ function Cohortes() {
               </p>
             </div>
 
-
-            <InputCont >
-              <label>Cohorte N°:</label>
-              <input type="text"
-                list="nombre"
-                name="nombre"
-                onChange={handleSelectedNumero} />
-              <datalist id="nombre">
-                <option value="01" />
-                <option value="02" />
-                <option value="03" />
-                <option value="04" />
-                <option value="05" />
-                <option value="06" />
-                <option value="07" />
-                <option value="08" />
-                <option value="09" />
-                <option value="10" />
-                <option value="11" />
-                <option value="12" />
-                <option value="13" />
-                <option value="14" />
-                <option value="15" />
-              </datalist>
-            </InputCont>
-
-            <InputCont>
-              <label>Modalidad:</label>
-              <button
-                onClick={() => updateIndex(0)}>
-                Full Time
-            </button>
-              <button
-                onClick={() => updateIndex(1)}>
-                Part Time
-            </button>
-            </InputCont>
-
-            
-              <label>Fecha de inicio:</label>
-              <label>{state.fecha_de_inicio}</label>
-              <DatePicker
-                selected={startDate}
-                onChange={date => setStartDate(date)}
-              />
-              <i className="calendar-alt"></i>
-            
-
-           
-              <label>Fecha de finalizacion:</label>
-              <label>{state.fecha_de_finalizacion}</label>
-              <DatePicker
-                selected={endDate}
-                onChange={date => setEndtDate(date)}
-              />
-              <i className="calendar-alt"></i>
-           
-
-            <InputCont >
-              <label>Instructor:</label>
-              <input type="text"
-                list="instructor"
-                name="instructor"
-                onChange={handleSelectedInstructor} />
-              <datalist id="instructor">
-                <option value="Franco Etcheverry" />
-                <option value="Toni Tralice" />
-              </datalist>
-            </InputCont>
-
-            <button onClick={() => saveNewCohorte}>
-              CREAR COHORTE
-          </button>
-
-            <CheckBox>
-              <input name="checkeado" type="checkbox" checked={state.checkeado} onChange={handleChangeText} />
-              <label>
-                Seguro que desea crear la Chorte?
-                </label>
-            </CheckBox>
-
-
-
-
+            <div className="cont-form">
+              <InputForm >
+                <label>Cohorte N°:</label>
+                <input type="text"
+                  list="nombre"
+                  name="numero_de_cohorte"
+                  selected="01"
+                  onChange={handleSelectedNumero} />
+                <datalist id="nombre">
+                  <option value="01" />
+                  <option value="02" />
+                  <option value="03" />
+                  <option value="04" />
+                  <option value="05" />
+                  <option value="06" />
+                  <option value="07" />
+                  <option value="08" />
+                  <option value="09" />
+                  <option value="10" />
+                  <option value="11" />
+                  <option value="12" />
+                  <option value="13" />
+                  <option value="14" />
+                  <option value="15" />
+                </datalist>
+              </InputForm>
+              <InputForm>
+                <label>Modalidad:</label>
+                <BtnForm>
+                  <button
+                    onClick={() => updateIndex(0)}>
+                    Full Time
+                    </button>
+                  <button
+                    onClick={() => updateIndex(1)}>
+                    Part Time
+                    </button>
+                </BtnForm>
+              </InputForm>
+              <InputForm>
+                <label>Fecha de inicio:</label><br />
+                <CalendarTimer>
+                  <DatePicker
+                    dateFormat="dd/MM/yyyy"
+                    selected={startDate}
+                    onChange={date => setStartDate(date)}
+                  />
+                  <i className="calendar-alt"></i>
+                </CalendarTimer>
+              </InputForm>
+            </div>
+            <div className="cont-form">
+              <InputForm>
+                <label>Fecha de finalizacion:</label><br />
+                <CalendarTimer>
+                  <DatePicker
+                    dateFormat="dd/MM/yyyy"
+                    selected={endDate}
+                    onChange={date => setEndtDate(date)}
+                  />
+                  <i className="calendar-alt"></i>
+                </CalendarTimer>
+              </InputForm>
+              <InputForm >
+                <label>Instructor:</label>
+                <input type="text"
+                  list="instructor"
+                  name="instructor"
+                  selected="Franco Etcheverry"
+                  onChange={handleSelectedInstructor} />
+                <datalist id="instructor">
+                  <option value="Franco Etcheverry" />
+                  <option value="Toni Tralice" />
+                </datalist>
+              </InputForm>
+              <CheckBox>
+                <input name="checkeado" type="checkbox" onChange={handleCheckBox} />
+                <label>
+                  Seguro que desea crear la Chorte?
+                  </label>
+              </CheckBox>
+              <button className='btn-email' onClick={saveNewCohorte}>
+                CREAR COHORTE
+                </button>
+            </div>
 
           </ContInCard>
         </InvitarUsuario>
@@ -284,8 +315,8 @@ function Cohortes() {
               <th>Fecha de Inicio</th>
               <th>Decha de Finalizacion</th>
               <th>Instructor</th>
-              <th><button>Filtrar</button></th>
-              <th><button>Limpiar</button></th>
+              <th></th>
+              <th></th>
             </tr>
           </Thead>
           <Tbody>

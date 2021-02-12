@@ -2,18 +2,19 @@ import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import { 
-  BackImg, 
-  Contenedor, 
-  ContStudents, 
-  ContText, 
-  ImgSise, 
-  Options, 
-  TituloCard, 
-  ContMinf,
-  IconContent,
-  ImgMinf,
-  LogoSise } from './OptionAdmin/styledAdmin';
+import {
+	BackImg,
+	Contenedor,
+	ContStudents,
+	ContText,
+	ImgSise,
+	Options,
+	TituloCard,
+	ContMinf,
+	IconContent,
+	ImgMinf,
+	LogoSise
+} from './OptionAdmin/styledAdmin';
 import UserHeader from './UserHeader';
 import UserNavBar from './UserNavBar';
 import firebase from '../database/database';
@@ -27,19 +28,19 @@ let logFont = require('../src/assets/img/henry_logo.jpg');
 let pairProgramming = require('../src/assets/img/pairProgramming.png');
 let standUp = require('../src/assets/img/standUp.png');
 
-const HenryUser = ({navigation}) => {
-  const dispatch = useDispatch();
-  
-  const Logout =()=> {
-	  dispatch(logout())
-	  firebase.firebase
-		  .auth().signOut().then(()=>console.log('sign out'))
-	  props.navigation.navigate('Iniciar Sesion')
-  }
-  return (
-    <Contenedor>
-      <UserHeader navigation={navigation}/>
-      <UserNavBar navigation={navigation}/>
+const HenryUser = ({ navigation }) => {
+	const dispatch = useDispatch();
+
+	const Logout = () => {
+		dispatch(logout())
+		firebase.firebase
+			.auth().signOut().then(() => console.log('sign out'))
+		navigation.navigate('Iniciar Sesion')
+	}
+	return (
+		<Contenedor>
+			<UserHeader navigation={navigation} />
+			<UserNavBar navigation={navigation} />
 			<ContStudents>
 				<Options onPress={() => navigation.navigate('Cohorte de Alumno')}>
 					<BackImg>
@@ -53,6 +54,7 @@ const HenryUser = ({navigation}) => {
 
 				<Options onPress={() => navigation.navigate('Pair Programing')}>
 					<BackImg>
+
 						<ImgSise  source={pairProgramming} style={{width: 140, height: 140}}/>
 					</BackImg>
 					<ContText>
@@ -61,7 +63,7 @@ const HenryUser = ({navigation}) => {
 					</ContText>
 				</Options>
 
-        <Options onPress={() => props.navigation.navigate('Lista de Estudiantes')}>
+				<Options onPress={() => navigation.navigate('Lista de Estudiantes')}>
 					<BackImg>
 						<ImgSise  source={standUp} style={{width: 130, height: 130}}/>
 					</BackImg>
@@ -74,7 +76,7 @@ const HenryUser = ({navigation}) => {
 			{/* Menu inferior General */}
 			<Footer  navigation={navigation}/>
 		</Contenedor>
-  )
+	)
 }
 
 export default HenryUser;

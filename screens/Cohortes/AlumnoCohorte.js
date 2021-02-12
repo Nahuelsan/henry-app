@@ -72,6 +72,7 @@ class AlumnosCohorte extends Component {
                  filterActive : false, 
             })
         }
+
     }
     render(){
     return(
