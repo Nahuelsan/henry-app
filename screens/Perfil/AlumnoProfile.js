@@ -108,6 +108,7 @@ const AlumnoProfile = (props) => {
       </Encabezado>
       <ContGeneral >
         <ContAvatarPrin >
+          <View>
           <Avatar
             source={{
               uri : user.photo
@@ -115,7 +116,14 @@ const AlumnoProfile = (props) => {
                 : 'https://www.mendozapost.com/files/image/7/7142/54b6f4c45797b.jpg'
             }}
             size="large"
+            style = {styles.avatar}
           />
+          <Icon 
+          name = 'pencil-alt'
+          type = 'font-awesome-5'
+          style = {styles.pencil}
+        />
+        </View>
           <View >
             <Text style={styles.title}>{`${user.first_name} ${user.last_name}`}</Text>
             <Text style={styles.subtitle}>{user.email}</Text>
@@ -203,7 +211,26 @@ const styles = StyleSheet.create({
 	attribute          : {
 		color     : 'gray',
 		marginTop : 7
-	}
+	},
+  pencil: {
+    width: 35,
+    height: 35,
+    zIndex: 100,
+    marginTop: 60,
+    marginLeft: 60,
+    backgroundColor: 'yellow',
+    borderRadius: 50,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  avatar: {
+    position: 'absolute',
+    height: 80,
+    width: 80
+  }
 });
 
 export default AlumnoProfile;

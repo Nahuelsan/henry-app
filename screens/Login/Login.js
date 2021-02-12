@@ -222,9 +222,9 @@ const Login = ({ navigation }) => {
 			<Encabezado>
 				{/* <FontAwesomeIcon icon={faArrowLeft} size={18} /> */}
         <Icon 
-          name = 'arrow-left'
+          name = 'chevron-left'
           type = 'font-awesome-5'
-          size = {18}
+          onPress={() => navigation.navigate('Home')}
         />
 				<Back onPress={() => navigation.navigate('Home')}>Regresar</Back>
 			</Encabezado>

@@ -15,7 +15,7 @@ const UserNavBar = ({ navigation }) => {
 						onPress={() => navigation.navigate('Menu Usuario')}
 					/>
 				</OptionCard>
-				<OptionText>Tu progreso</OptionText>
+				<OptionText style={{textAlign: 'center'}}>Tu progreso</OptionText>
 			</Card>
 			<Card>
 				<OptionCard>

@@ -39,10 +39,11 @@ export const TituloPrin = styled.Text`
   margin-top: 10%;
   font-family: 'gadugib';
   font-size: 27px;
+  text-align: center;
 `
 
 export const ContInputs = styled.View`
-  height: 100px;
+  height: 90px;
   margin-top: 18%;
   margin-bottom: 50px;
   justify-content: space-between;
@@ -56,7 +57,7 @@ export const BorderBotInput = styled.View`
 export const InpText = styled.TextInput`
   font-family: 'gadugi';
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `
 
 export const BotonLog = styled.TouchableOpacity`
@@ -79,7 +80,6 @@ export const TextButton = styled.Text`
 
 export const IconSocialRed = styled.View`
   margin-top:20px;
-  margin-left: 30px;
   width: 25%;
   flex-direction: row;
   justify-content: space-between;
