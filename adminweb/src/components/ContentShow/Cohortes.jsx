@@ -23,7 +23,7 @@ import {
 } from './StyledContents';
 /* Import imagen */
 import ImgEmpty from "../../assets/Img/empty.svg";
-import ImgErr from "../../assets/Img/ErrorImg.jpg";
+import ImgUser from "../../assets/Img/imgUser.png";
 import ImgHenry from "../../assets/Img/henry_logo.jpg";
 
 function Cohortes() {
@@ -186,10 +186,7 @@ function Cohortes() {
 
   //===========CREAR GRUPOS DENTRO DE COHORTE===========//
   const [panelGrupos, setPanelGrupos] = useState(false)
-  const estadoInicial = {
-    alumnos: [],
-    pms: {},
-  };
+  const [alumnosList, setAlumnosList] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   const [grupos, setGrupos] = useState([])
   const [PMs, setPMS] = useState([])
@@ -239,22 +236,37 @@ function Cohortes() {
 
       });
       setAlumnos(students)
+      console.log('ALUMNOSS', students)
     });
   }, [panelGrupos])
 
   /////////////////////////////////////////////////////////
-  const [estado, setEstado] = useState(estadoInicial);
-  const handleChangeGroup = (value, name) => {
-    setEstado({ ...estado, [name]: value });
-    console.log('estado', estado)
+  const estadoInicial = {
+    alumnos: [],
+    pms: {},
   };
+  const [estado, setEstado] = useState(estadoInicial);
+  const handleInsertAlumno = (al) => {
+    alumnosInsertados.push({ al })
+    setEstado({ ...estado, alumnos: alumnosInsertados });
+    console.log('estado', estado)
+  }
+  const handlePMs = (pm) => {
+    setState({
+      ...estado,
+      pms: {
+        last_name: pm.last_name,
+        first_name: pm.first_name,
+        id: pm.id,
+      }
+    })
+    console.log('estado', estado)
+  }
 
   const crearGrupos = async () => {
+    console.log('Entre')
     for (var i = 0; estado.length < i; i++) {
       console.log(estado[i]);
-    }
-    if (estado.numero === '') {
-      alert('Ingrese numero');
     }
     if (estado.alumnos === '') {
       alert('Ingrese alumnos');
@@ -267,19 +279,26 @@ function Cohortes() {
         firebase.db.collection('cohorte').doc(cohorte.id).collection('grupos').add({
           numero: grupos.length + 1,
           pms: estado.pms,
-          alumnos: alumnosInsertados,
+          alumnos: estado.alumnos,
         })
         estado.alumnos.forEach((al, i) => {
-          firebase.db.collection('users').doc(al.alumn.idAlumn).update({
+          firebase.db.collection('users').doc(al.idAlumn).update({
             grupo: grupos.length
           })
         });
         alert(`Grupo creado con exito!`);
       } catch (error) {
-        alert('Hubo un error al crear el Grupo!');
+        alert(error);
       }
     }
   };
+
+  ///////////////////////
+  const [grupo, setGrupo] = useState('')
+  const handleGroup = (group) => {
+    console.log(group)
+    setGrupo(group)
+  }
 
   return (
     <div>
@@ -306,7 +325,13 @@ function Cohortes() {
               <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
               <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
               <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
-              <label><strong>Grupos:</strong>{cohorte.grupos.length ? cohorte.grupos.map((i) => <><br /><button>{i.numero}</button></>) : <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>}</label>
+              <label><strong>Grupos:</strong>{cohorte.grupos.length && cohorte.grupos.map((i) => <><br /><button onClick={() => handleGroup(i)}>{i.numero}</button></>)}</label>
+              {grupo && <>
+                <label>Numero de Grupo:<strong>{grupo.numero}</strong></label>
+                <label>PM Asignado:<strong>{grupo.pms.first_name || 'No Asignado'}</strong></label> 
+                <label>Alumnos:<strong>{grupo.alumnos.length}</strong></label>
+              </>}
+              <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>
             </ContCohorteSelect>}
         </DetalleUser>
         {panelGrupos ?
@@ -329,41 +354,25 @@ function Cohortes() {
 
                 <InputForm>
                   <label>Asignar Alumnos:</label>
-                  <button onClick={() => setDropdown(!dropdown)}>Alumnos</button>
-                  {dropdown &&
-                    <div>
-                      <ol>Alumnos
-                    {alumnos.map((al, i) => (
-                        <li key={i} value={`${al.last_name} ${al.first_name}`}>{`${al.last_name} ${al.first_name}`}<button onClick={() => alumnosInsertados.push({ al })}>ADD</button></li>
-                      ))}
-                      </ol>
-                    </div>
-                  }
+                  <button onClick={() => setAlumnosList(!alumnosList)}>Alumnos</button>
                 </InputForm>
 
                 <InputForm>
                   <label>Asignar PMs:</label>
                   <button onClick={() => setDropdown(!dropdown)}>PMs</button>
                   {dropdown &&
-                  <div style={{border:'1px solid black',backgroundColor:'grey',zIndex:'10', width:'200px'}}>
-                    <ul><strong>Alumnos</strong>
-                    {
-                      PMs.map((pm, i) => (
-                        <li key={i} value={`${pm.last_name} ${pm.first_name}`}>{`${pm.last_name} ${pm.first_name}`}<button onClick={() => setState({
-                          ...estado,
-                          pms: {
-                              last_name: pm.last_name,
-                              first_name : pm.first_name,
-                              id : pm.id,
-                          }
-                      })}>ADD</button></li>
-                      ))
-                    }
-                    </ul>
-                  </div>
+                    <div style={{ border: '1px solid black', backgroundColor: 'grey', zIndex: '10', width: '200px' }}>
+                      <ul><strong>PMs</strong>
+                        {
+                          PMs.map((pm, i) => (
+                            <li key={i} value={`${pm.last_name} ${pm.first_name}`}>{`${pm.last_name} ${pm.first_name}`}<button onClick={() => handlePMs(pm)}>ADD</button></li>
+                          ))
+                        }
+                      </ul>
+                    </div>
                   }
                 </InputForm>
-                <button className='btn-email' onClick={() => crearGrupos}>
+                <button className='btn-email' onClick={crearGrupos}>
                   CREAR GRUPO
                 </button><br />
                 <button className='btn-email' onClick={() => setPanelGrupos(false)}>
@@ -464,41 +473,66 @@ function Cohortes() {
         }
       </ContenedorPanel>
 
-      <ListaEstudiantes>
-        <h2>Lista de Cohortes de Henry</h2>
-        <Table>
-          <Thead>
-            <tr>
-              <th>Cohorte</th>
-              <th>Modalidad</th>
-              <th>Fecha de Inicio</th>
-              <th>Fecha de Finalizacion</th>
-              <th>Instructor</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </Thead>
-          <Tbody>
-            {cohortes && cohortes.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <div>
-                    <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
-                    {' '}<strong>{item.nombre}</strong>
-                  </div>
-                </td>
-                <td>{item.modalidad}</td>
-                <td>{item.comienzo}</td>
-                <td>{item.fin}</td>
-                <td>{item.instructor}</td>
-                <td><button onClick={() => { handleEdit(item) }} >Ver</button></td>
-                <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
+      {alumnosList ?
+        <ListaEstudiantes>
+          <h2>Lista de estudiantes de Henry</h2>
+          <Table>
+            <Thead>
+              <tr>
+                <th></th>
+                <th>Nombre y Apellido</th>
+                <th>Asignar a Grupo</th>
               </tr>
-            ))}
-          </Tbody>
-        </Table>
-      </ListaEstudiantes>
-    </div>
+            </Thead>
+            <Tbody>
+              {alumnos && alumnos.map((al, index) => (
+                <tr key={index}>
+                  <td><img src={ImgUser} alt='user-avatar' with='30px' height='30px' /></td>
+                  <td>{al.first_name}{' '}{al.last_name}</td>
+                  <td><button onClick={() => { handleInsertAlumno(al) }} >Asignar</button></td>
+                </tr>
+              ))}
+            </Tbody>
+          </Table>
+        </ListaEstudiantes>
+        :
+        <ListaEstudiantes>
+          <h2>Lista de Cohortes de Henry</h2>
+          <Table>
+            <Thead>
+              <tr>
+                <th>Cohorte</th>
+                <th>Modalidad</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Finalizacion</th>
+                <th>Instructor</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </Thead>
+            <Tbody>
+              {cohortes && cohortes.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <div>
+                      <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
+                      {' '}<strong>{item.nombre}</strong>
+                    </div>
+                  </td>
+                  <td>{item.modalidad}</td>
+                  <td>{item.comienzo}</td>
+                  <td>{item.fin}</td>
+                  <td>{item.instructor}</td>
+                  <td><button onClick={() => { handleEdit(item) }} >Ver</button></td>
+                  <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
+                </tr>
+              ))}
+            </Tbody>
+          </Table>
+        </ListaEstudiantes>
+      }
+
+    </div >
   );
 }
 
