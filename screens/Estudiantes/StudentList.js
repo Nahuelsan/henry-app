@@ -21,7 +21,7 @@ import {
   ImgSize,
   LogoSise,
 } from './StyledEstudents';
-import Footer from '../Footer';
+import Footer from '../FooterUser';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
