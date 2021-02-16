@@ -31,14 +31,15 @@ import {
   TarjetaProgreso
 } from './StyledYourCohort';
 
-import Footer from '../Footer';
+import { ContMinf } from '../OptionAdmin/styledAdmin'
+import Footer from '../FooterUser';
 import { ScrollView } from 'react-native';
 
 let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
 
-const YourCohort = (props, {navigation}) => {
+const YourCohort = (props) => {
   const  checkpoint4  = 5;
   //Asignamos lo que tenemos en el store a la constante info 
   const info = useSelector(state => state)
@@ -229,7 +230,9 @@ console.log(estudiantes);
         </Progreso>
       </ContGeneral>
       </ScrollView>
-      <Footer navigation={props.navigation}/>
+      <ContMinf>
+        <Footer navigation={props.navigation} />
+      </ContMinf>
     </Contenedor>
   )
 };
