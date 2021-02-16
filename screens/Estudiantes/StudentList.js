@@ -21,6 +21,8 @@ import {
   ImgSize,
   LogoSise,
 } from './StyledEstudents';
+import Footer from '../Footer';
+
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 let imgRemplazo = require('../../src/assets/img/imgUser.jpg');
@@ -113,37 +115,7 @@ const StudentList = ({ navigation }) => {
           </View>
         </ContListGen>
         <ContMinf>
-            <IconContent>
-              <Icon
-                name="home"
-                type="font-awesome"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                name="ghost"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <ImgMinf>
-                <LogoSise source={logFont} />
-              </ImgMinf>
-              <Icon
-                solid={true}
-                name="comment-dots"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                solid={true}
-                name="user"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => props.navigation.navigate('Henry Admin')}
-              />
-            </IconContent>
+          <Footer navigation={navigation} />
           </ContMinf>
       </ContGeneral>
 			
