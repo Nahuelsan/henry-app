@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Contenedor = styled.View`
   flex: 1;
   padding-bottom: 30px;
+  background-color: white;
  ` 
 
 export const Encabezado = styled.View`

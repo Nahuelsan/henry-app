@@ -1,106 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Text, StyleSheet, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { Text, StyleSheet, Image, View, SafeAreaView, StatusBar, ScrollView } from 'react-native';
+import CohorteHeader from './CohorteHeader';
+import CohorteNavBar from './CohorteNavBar';
+import { useSelector } from 'react-redux';
 import firebase from '../../database/database';
 
-//Redux importamos funciones y hooks
-import {useSelector} from 'react-redux';
-
-/* Estilos */
 import {
   Contenedor,
-  Encabezado,
-  Home,
-  TextTitle,
-  Options,
-  BackImg,
-  ImgSize,
-  ContText,
-  TituloCard,
-  ContGeneral,
-  GroupCard,
-  Titulo,
+  ContGeneral, 
+  GroupCard, 
   Img,
-  Imagen,
+  Imagen, 
+  Pm, 
+  Progreso, 
+  Tarjeta, 
+  TarjetaPm, 
+  TarjetaProgreso, 
+  Titulo, 
+  TituloPm, 
   User,
-  Pm,
-  TituloPm,
-  Tarjeta,
-  TarjetaPm,
-  Progreso,
-  TarjetaProgreso
-} from './StyledYourCohort';
+  ContStudents } from './StyledYourCohort';
+  
+import Footer from '../Footer';
 
-import { ContMinf } from '../OptionAdmin/styledAdmin'
-import Footer from '../FooterUser';
-import { ScrollView } from 'react-native';
-
-let card3 = require('../../src/assets/img/imgCard3.png');
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
 
-const YourCohort = (props) => {
-  const  checkpoint4  = 5;
-  //Asignamos lo que tenemos en el store a la constante info 
-  const info = useSelector(state => state)
+const YourCohort = ({ navigation }) => {
+  const checkpoint4 = 5;
+  const info = useSelector(state => state);
   const [user, setUser] = useState(info);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-		firebase.db.collection('users').onSnapshot((snap) => {
-			const estudiantes = [];
-			snap.docs.forEach((doc) => {
+    firebase.db.collection('users').onSnapshot((snap) => {
+      const estudiantes = [];
+      snap.docs.forEach((doc) => {
         const { cohorte, rol, grupo, pm, instructor, progreso } = doc.data();
         console.log(grupo)
-				if (rol === 'student') {
-					estudiantes.push({
+        if(rol === 'student') {
+          estudiantes.push({
             cohorte,
             grupo,
             pm,
             instructor,
             progreso,
-						id : doc.id
-					});
-				}
-			});
-console.log(estudiantes);
-			setUsers(estudiantes);
-		});
-	}, []);
-  
+            id: doc.id
+          });
+        }
+      });
+      console.log(estudiantes);
+        setUsers(estudiantes);
+    });
+  }, []);
   return (
     <Contenedor>
-      <Encabezado>
-        <Home
-          onPress={() => props.navigation.navigate('Menu Usuario')}
-        >
-          <Icon
-            solid={true}
-            name='chevron-left'
-            type='font-awesome-5'
-          />
-          <TextTitle>Home</TextTitle>
-        </Home>
-      </Encabezado>
-      <View style = {{alignItems: 'center', bottom: '10%', zIndex:100}}>
-      <Options>
-        <BackImg>
-          <ImgSize source={card3} />
-        </BackImg>
-        <ContText>
-          {
-            !user.cohorte ? 
-            <TituloCard>Aún no tienes asignado Cohorte</TituloCard>
-            :
-            <TituloCard>Tu Cohorte es el N°{user.cohorte}</TituloCard>
-          }
-          <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
-        </ContText>
-      </Options>
-      </View>
-
-      <ScrollView>
-      <ContGeneral>         
+      <CohorteHeader navigation={navigation} />
+      <CohorteNavBar />
+      <ContGeneral>
         {/* GRUPO AL QUE PERTENECES */}
         <GroupCard>
           <Tarjeta >
@@ -143,16 +100,15 @@ console.log(estudiantes);
               <Text style={styles.text}>Tus PM's</Text>
             </TituloPm>
             <Img style={{ flexDirection: 'row' }}>
+            <ScrollView>
                 <View style={styles.usuario}>
                 <Text style={styles.instructor}>{user.pm}</Text>
                 <User source={userImg} />
-                </View>          
+                </View> 
+            </ScrollView>       
             </Img>
           </TarjetaPm>
         </Pm>
-  
-
-
         {/* TU PROGRESO */}
         <Progreso>
           <TarjetaProgreso>
@@ -229,56 +185,59 @@ console.log(estudiantes);
           </TarjetaProgreso>
         </Progreso>
       </ContGeneral>
-      </ScrollView>
-      <ContMinf>
-        <Footer navigation={props.navigation} />
-      </ContMinf>
+      <Footer navigation = {navigation}/>
     </Contenedor>
   )
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
   text: {
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: '700',
-    marginBottom: 12
+    marginBottom: 12,
+    justifyContent: 'space-between',
+    textAlign: 'center'
   },
   titulo: {
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: '700',
     textAlign: 'center',
-    paddingTop: 15
+    paddingTop: 1
   },
   instructor: {
     fontSize: 12,
     fontWeight: '700',
-    marginBottom: 25
+    marginBottom: 25,
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   usuario: {
     paddingLeft: 12,
     paddingRight: 12,
-    paddingTop: 15,
-    justifyContent: 'space-evenly',
-    alignItems: 'flex-start',
+    paddingTop: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   progreso: {
     fontSize: 12,
     fontWeight: '700',
     marginTop: 20,
-    // paddingLeft: 2,
-    // paddingRight: 2,
     justifyContent: 'center',
     alignItems: 'center'
   },
   habilitado: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     opacity: 0.3
   },
-  desahabilitado: {
-    width: 50,
-    height: 50,
+  desahibilitado: {
+    width: 45,
+    height: 45,
   }
-})
+});
 
 export default YourCohort;
