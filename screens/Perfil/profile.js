@@ -17,7 +17,13 @@ import {
   TextButton
 } from './StyledPerfil';
 
+//Redux
+import {useSelector} from 'react-redux';
+import {useDispatch } from 'react-redux';
+import {login} from '../../src/action';
+
 const Profile = (props) => {
+	const dispatch = useDispatch()
 	const { info } = props.route.params;
 	const { navigation } = props;
 	const [
@@ -64,6 +70,7 @@ const Profile = (props) => {
 					{ text: 'Aceptar' }
 				])
 			: await dbRef.set(user);
+			dispatch(login(user))
   };
   
   const eliminar = async () => {

@@ -5,6 +5,8 @@ import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
 //Redux
 import {useSelector} from 'react-redux';
+import {useDispatch } from 'react-redux';
+import {login} from '../../src/action';
 
 /* Estilos */
 import {
@@ -20,8 +22,11 @@ import {
 } from './StyledPerfil';
 
 const AlumnoProfile = (props) => {
+	const dispatch = useDispatch()
+
 	const info  = useSelector(state => state)
-	console.lgo
+	const dbRef = firebase.db.collection('users').doc(info.id)
+	console.log(info)
 	const { navigation } = props;
 	const [
 		user,
@@ -58,9 +63,10 @@ const AlumnoProfile = (props) => {
 					{ text: 'Aceptar' }
 				])
 			: await dbRef.set(user);
-  };
+			dispatch(login(user))
+  	};
   
-  const eliminar = async () => {
+  	const eliminar = async () => {
 		if (confirm('Esta seguro de querer eliminar este Usuario')) {
 			await dbRef.delete();
 			alert('Usuario Eiminado');

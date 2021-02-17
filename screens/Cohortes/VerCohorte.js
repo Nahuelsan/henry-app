@@ -26,6 +26,8 @@ import {
   BotonLog,
   TextButton
 } from './StyledCohorteList';
+import Footer from '../Footer';
+
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
@@ -95,37 +97,8 @@ console.log(props.route.params.cohorte)
         </ContListGen>
 
         <ContMinf>
-          <IconContent>
-            <Icon
-              name="home"
-              type="font-awesome"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              name="ghost"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <ImgMinf>
-              <LogoSise source={logFont} />
-            </ImgMinf>
-            <Icon
-              solid={true}
-              name="comment-dots"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              solid={true}
-              name="user"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-          </IconContent>
+          <Footer navigation={props.navigation} />
+
         </ContMinf>
       </ContGeneral>
     </Contenedor>
