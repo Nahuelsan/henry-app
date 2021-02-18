@@ -154,7 +154,7 @@ function Cohortes() {
           instructor: state.instructor,
         });
         alert(`Cohorte creada con exito!`);
-      } catch (error) {git 
+      } catch (error) { 
         alert('Hubo un error al crear la Cohorte!');
       }
     }
