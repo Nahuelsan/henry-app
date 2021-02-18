@@ -15,10 +15,8 @@ import {
 	IconContent,
 	ImgMinf
 } from './styledAdmin';
-import Footer from '../Footer';
-let card1 = require('../../src/assets/img/imgCard1.png');
-//Redux importamos funciones y hooks
 import Footer from '../Footer/Footer';
+let card1 = require('../../src/assets/img/imgCard1.png');
 
 const HenryAdmin = (props) => {
 

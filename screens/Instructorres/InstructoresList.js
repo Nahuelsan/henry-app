@@ -23,7 +23,6 @@ import {
   LogoSise,
   Btn
 } from './StyledInstructores';
-import Footer from '../Footer';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');

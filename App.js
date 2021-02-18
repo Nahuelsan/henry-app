@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 //Redux
-import {Provider} from 'react-redux';
-import configureStore  from './configureStore'
+import { Provider } from 'react-redux';
+import configureStore from './configureStore'
 let store = configureStore()
 
 //Navigation
@@ -86,7 +86,7 @@ export default function App() {
 						fontWeight: 'bold'
 					}
 				}}
-				>
+			>
 
 				<Stack.Screen name="Home" component={Home} />
 				<Stack.Screen name="Perfil" component={Profile} />
@@ -105,7 +105,7 @@ export default function App() {
 				<Stack.Screen name="Crear Cohorte" component={CrearCohorte} />
 				<Stack.Screen name="Perfil Alumno" component={AlumnoProfile} />
 				<Stack.Screen name="Editar Cohorte" component={EditarCohorte} />
-				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte}/>
+				<Stack.Screen name="Alumno Cohorte" component={AlumnosCohorte} />
 				<Stack.Screen name="Mensaje Registro" component={MsgRegistro} />
 				<Stack.Screen name="Importar Henrys" component={ImportHenrys} />
 				<Stack.Screen name='Cohorte de Alumno' component={YourCohort} />
@@ -120,7 +120,7 @@ export default function App() {
 				<Stack.Screen name='Modificar Clases' component={ModificarClases} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
-        <Stack.Screen name='Job Preps' component={JobPreps}/>
+				<Stack.Screen name='Job Preps' component={JobPreps} />
 			</Stack.Navigator>
 		);
 	}
