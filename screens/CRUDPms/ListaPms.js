@@ -12,15 +12,12 @@ import {
     BackImg,
     ContText,
     TituloCard,
-    ContMinf,
     ContBtnOut,
-    IconContent,
     TextPrin,
     ImgSise,
     TextButtonOp2,
     ContPirnTable,
     TextContTable,
-    LogoSise,
     BotonLog,
     TextButton,
     BodyUnitItem
@@ -28,33 +25,41 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 import firebase from '../../database/database';
 
+import Footer from '../Footer';
+
+  
 
 const ListaPms = (props) =>{
+    var bar_pm = []
 
-    const [pms, setPms] = useState([])
     useEffect(() => {
-        firebase.db.collection('users').where('rol', '==', 'pm').onSnapshot((snap) => {
-            const PMs = [];
+        firebase.db.collection('cohorte').where("nombre", "==", props.route.params.cohorte).onSnapshot((snap) => {
+            let coh = [];
             snap.docs.forEach((doc) => {
-                const {last_name, first_name, cohorte, email} = doc.data()
-                if(props.route.params.cohorte === cohorte){
-                    PMs.push({
-                        last_name,
-                        first_name,
-                        cohorte,
-                        email,
-                        id: doc.id,
-                    })
-                    pms.push({
-                        last_name,
-                        first_name,
-                        cohorte,
-                        email,
-                        id: doc.id,
-                    })
-                }
+                const {comienzo, fin, instructor, modalidad, nombre} = doc.data()
+                coh.push({
+                    comienzo, 
+                    fin, 
+                    instructor, 
+                    modalidad, 
+                    nombre,
+                    id: doc.id
+                })
             });
-            setPms(PMs)
+            firebase.db.collection('cohorte').doc(coh[0].id).collection('grupos')
+            .get()
+            .then(querySnapshot=>{
+                querySnapshot.forEach(doc => {
+                    const {pms} = doc.data()
+                    const {first_name, id, last_name} = pms
+                    bar_pm.push(
+                        first_name,
+                        last_name,
+                        id
+                    ) 
+                })
+            })
+
         });
     }, []);
     const eliminar = async (pm) =>{
@@ -90,9 +95,8 @@ const ListaPms = (props) =>{
                 { cancelable: false }
             ); 
     }
-
     return (
-        <Contenedor style={styles.container}>
+        <Contenedor >
             <Encabezado >
                 <ConTitle
                 onPress={() => props.navigation.goBack()}
@@ -102,7 +106,7 @@ const ListaPms = (props) =>{
                     name="chevron-left"
                     type="font-awesome-5"
                 />
-                <TextTitle>Grupos PP</TextTitle>
+                <TextTitle>Lista de PM</TextTitle>
                 </ConTitle>
             </Encabezado>
             <Options>
@@ -116,63 +120,18 @@ const ListaPms = (props) =>{
             </Options>
             <ContGeneral>
                 <ContListGen>
-                    {
-                        pms.map((pm, i) => (
-                            <ListItem key={i} style={{ width: '100%', }}>
-                            <BodyUnitItem >
-                              <ContText>
-                                  {console.log(pm)}
-                                  <Text>Hola</Text>
-                                <TextPrin>{`${pm.last_name} ${pm.first_name}`}</TextPrin>
-                              </ContText>
-                              <ContBtnOut >
-                                  <BotonLog onPress={() => eliminar(pm)}>
-                                    <TextButton>Eliminar de este cohorte</TextButton>
-                                  </BotonLog>
-                                </ContBtnOut>
-                            </BodyUnitItem>
-                          </ListItem>
-                        ))
-                    }
+                    <View>
+                    {bar_pm[0].last_name}
+                    </View>
+                    <ContBtnOut >
+                        <BotonLog onPress={() => console.log(bar_pm)}>
+                            <TextButton>Agregar PM</TextButton>
+                        </BotonLog>
+                    </ContBtnOut>
                 </ContListGen>
+                <Footer navigation={props.navigation}/>
             </ContGeneral>
-            {
-                pms.length === 0 && <ContBtnOut >
-                <BotonLog onPress={() => console.log(pms)}>
-                  <TextButton>Agregar PM</TextButton>
-                </BotonLog>
-              </ContBtnOut>
-            }
-            <View>
-            </View>
         </Contenedor>
     );
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    header: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#e5e500'
-    },
-    marco: {
-        backgroundColor: '#e5e500',
-        textAlign: 'center'
-    },
-    text: {
-        fontSize: 30
-    },
-    avatar: {
-        width: 100,
-        height: 100
-    },
-    pm: {
-        /* fontWeight : 700, */
-        fontSize: 20
-    }
-});
-
 export default ListaPms;
