@@ -79,7 +79,7 @@ export const ContGeneral = styled.View`
   position: absolute;
   top: 20%;
   width: 100%;
-  height: 65%;
+  height: 70%;
   z-index: 2; 
   background-color: white;
   align-items: center;
@@ -175,7 +175,7 @@ export const ImgMinf = styled.View`
 `
 
 export const ContBtnLog = styled.View`
-  margin-top: 20px;
+  margin: 20px;
   height: 200px;
   display: flex;
   flex-direction: column;

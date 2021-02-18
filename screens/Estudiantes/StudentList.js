@@ -81,7 +81,6 @@ const StudentList = ({ navigation }) => {
       </Options> 
       <ContGeneral>
         <ContListGen>
-          <View>
             {users.map((student, i) => (
               <ListItem key={i} bottomDivider>
                 {!student.photo ? (
@@ -111,7 +110,6 @@ const StudentList = ({ navigation }) => {
                 </ListItem.Content>
               </ListItem>
             ))}
-          </View>
         </ContListGen>
       </ContGeneral>
 			{/* Menu inferior General */}

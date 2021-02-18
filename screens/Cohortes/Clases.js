@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ActivityIndicator, StyleSheet, TextInput } from 'react-native';
-import { Icon } from 'react-native-elements'
-import firebase from '../../database/database'
+import { Icon } from 'react-native-elements';
+import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -193,6 +194,7 @@ const ModificarClases = (props) => {
                     </View>
                 </View>
             }
+            <Footer navigation={props.navigation}/>
         </Contenedor>
     )
 }
