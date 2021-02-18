@@ -31,7 +31,6 @@ import {
   BotonLog,
   TextButton
 } from './StyledCohorteList';
-
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 

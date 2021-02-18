@@ -3,11 +3,10 @@ import { Icon } from 'react-native-elements';
 
 import { Contenedor, Encabezado, Home, TextTitle } from './StyledYourCohort';
 
-const CohorteHeader = (props) => {
+const CohorteHeader = ({navigation}) => {
   return (
-    <Contenedor>
-      <Encabezado>
-        <Home onPress = {() => props.navigation.navigate('Menu Usuario')}>
+      <Encabezado >
+        <Home onPress = {() => navigation.navigate('Menu Usuario')}>
           <Icon 
             solid = {true}
             name = 'chevron-left'
@@ -16,7 +15,6 @@ const CohorteHeader = (props) => {
           <TextTitle>Home</TextTitle>
         </Home>
       </Encabezado>
-    </Contenedor>
   )
 };
 

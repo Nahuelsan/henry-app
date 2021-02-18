@@ -18,7 +18,9 @@ import {
   ContAvatarPrin,
   ContDatos,
   BotonLog,
-  TextButton
+  TextButton,
+  ContTextAvatar,
+  TitleAvatar
 } from './StyledPerfil';
 
 const AlumnoProfile = (props) => {
@@ -114,7 +116,6 @@ const AlumnoProfile = (props) => {
       </Encabezado>
       <ContGeneral >
         <ContAvatarPrin >
-          <View>
           <Avatar
             source={{
               uri : user.photo
@@ -122,19 +123,12 @@ const AlumnoProfile = (props) => {
                 : 'https://www.mendozapost.com/files/image/7/7142/54b6f4c45797b.jpg'
             }}
             size="large"
-            style = {styles.avatar}
           />
-          <Icon 
-          name = 'pencil-alt'
-          type = 'font-awesome-5'
-          style = {styles.pencil}
-        />
-        </View>
-          <View >
-            <Text style={styles.title}>{`${user.first_name} ${user.last_name}`}</Text>
+          <ContTextAvatar >
+            <TitleAvatar >{`${user.first_name} ${user.last_name}`}</TitleAvatar>
             <Text style={styles.subtitle}>{user.email}</Text>
             <Text style={styles.subtitle}>Perfil: {user.rol}</Text>
-          </View>
+          </ContTextAvatar>
         </ContAvatarPrin>
         <ContDatos style={styles.datos}>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Datos</Text>

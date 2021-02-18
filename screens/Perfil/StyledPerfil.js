@@ -79,7 +79,7 @@ export const ContGeneral = styled.View`
   position: absolute;
   top: 20%;
   width: 100%;
-  height: 65%;
+  height: 80%;
   z-index: 2; 
   background-color: white;
   align-items: center;
@@ -96,12 +96,20 @@ export const ContAvatarPrin = styled.View`
   width: 80%;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+`
+export const ContTextAvatar = styled.View`
+  width: 70%;
 `
 
 export const ContDatos = styled.ScrollView`
   width: 80%;
 `
 
+export const TitleAvatar = styled.Text`
+  font-size: 25px;
+  max-width: 88%;
+`
 
 /* Boddy Listas */
 

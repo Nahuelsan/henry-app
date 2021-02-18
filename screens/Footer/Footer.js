@@ -47,9 +47,6 @@ const Footer = ({ navigation}) => {
 						size={40}
 						onPress={() => Logout()}
 					/>
-          <ImgMinf>
-						<LogoSise source={logFont} />
-					</ImgMinf>
 				</IconContent>
 			</ContMinf>
   )
