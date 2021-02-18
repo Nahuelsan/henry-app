@@ -16,11 +16,7 @@ import {
   ImgSise,
   LogoSise
 } from './styledAdmin';
-<<<<<<< HEAD
 import Footer from '../Footer/Footer';
-=======
-import Footer from '../Footer';
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 let card1 = require('../../src/assets/img/imgCard2.png');
 let card2 = require('../../src/assets/img/imgCard3.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
@@ -52,16 +48,8 @@ const CohorteMenu = ({ navigation }) => {
 					</ContText>
 				</Options>
 			</ContStudents>
-<<<<<<< HEAD
       {/* Menu inferior General */}
 			<Footer navigation={navigation}/>
-=======
-
-			{/* Menu inferior General */}
-			<ContMinf>
-				<Footer navigation={navigation} />
-			</ContMinf>
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 		</Contenedor>
 	);
 };
