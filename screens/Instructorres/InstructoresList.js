@@ -4,7 +4,7 @@ import { Avatar, ListItem, Icon } from 'react-native-elements';
 import firebase from '../../database/database.js';
 import AdminHeader from '../OptionAdmin/AdminHeader';
 import AdminNavBar from '../OptionAdmin/AdminNavBar';
-
+import Footer from '../Footer/Footer';
 import {
   Contenedor,
   Encabezado,
@@ -27,6 +27,7 @@ import Footer from '../Footer';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
+
 
 const InstructoresList = ({ navigation }) => {
 	const [
@@ -108,11 +109,16 @@ const InstructoresList = ({ navigation }) => {
             ))}
           </View>
         </ContListGen>
+<<<<<<< HEAD
+=======
         <ContMinf>
           <Footer navigation={navigation} />
 
           </ContMinf>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
       </ContGeneral>
+      {/* Menu inferior General */}
+      <Footer navigation={navigation}/>
 	  </Contenedor>
 	);
 };

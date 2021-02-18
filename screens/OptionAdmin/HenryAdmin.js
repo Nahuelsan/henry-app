@@ -18,6 +18,10 @@ import {
 import Footer from '../Footer';
 let card1 = require('../../src/assets/img/imgCard1.png');
 //Redux importamos funciones y hooks
+<<<<<<< HEAD
+import Footer from '../Footer/Footer';
+=======
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 
 const HenryAdmin = (props) => {
 

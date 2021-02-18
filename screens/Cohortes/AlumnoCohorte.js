@@ -1,6 +1,7 @@
 import React, {useEffect, Component} from 'react';
 import {Text, ScrollView, Image} from 'react-native';
 import { Icon, ListItem} from 'react-native-elements';
+import Footer from '../Footer/Footer';
 import {
     Contenedor,
     Encabezado,
@@ -100,55 +101,55 @@ class AlumnosCohorte extends Component {
             </Options>
 
             <ContGeneral>
-        <ContListGen>
-        <ConTitle
-            onPress={() => this.filtrado("Todos")}
-        > 
-            <TextTitle>Todos</TextTitle>
-        </ConTitle>
-        {
-            this.state.grupos.map((l,i) => (
+              <ContListGen>
                 <ConTitle
-                    key={i}
-                    onPress={() => this.filtrado(l)}
+                    onPress={() => this.filtrado("Todos")}
                 > 
-                    <TextTitle>Grupo {l}</TextTitle>
+                    <TextTitle>Todos</TextTitle>
                 </ConTitle>
-            ))
-        }
+              {
+                  this.state.grupos.map((l,i) => (
+                      <ConTitle
+                          key={i}
+                          onPress={() => this.filtrado(l)}
+                      > 
+                          <TextTitle>Grupo {l}</TextTitle>
+                      </ConTitle>
+                  ))
+              }
 
-        {
-        this.state.filterActive === false && 
-        this.state.alumnos.map((l, i) => (
-            <ListItem key={i} style={{ width: '100%', }}>
-              <BodyUnitItem >
-                  <ImgListUn source={l.photo} />
-                <ContText>
-                  <TextPrin>{`${l.last_name} ${l.first_name}`}</TextPrin>
-                  <Text>{`${l.email}`}</Text>
-                </ContText>
-              </BodyUnitItem>
-            </ListItem>
-          ))
-        }
-        {
-            this.state.filterActive === true &&
-            this.state.alumnosFiltrados.map((l, i) => (
-                <ListItem key={i} style={{ width: '100%', }}>
-                  <BodyUnitItem >
-                      <ImgListUn source={l.photo} />
-                    <ContText>
-                      <TextPrin>{`${l.last_name} ${l.first_name}`}</TextPrin>
-                      <Text>{`${l.email}`}</Text>
-                    </ContText>
-                  </BodyUnitItem>
-                </ListItem>
-              ))
-        }
-        </ContListGen>
+              {
+              this.state.filterActive === false && 
+              this.state.alumnos.map((l, i) => (
+                  <ListItem key={i} style={{ width: '100%', }}>
+                    <BodyUnitItem >
+                        <ImgListUn source={l.photo} />
+                      <ContText>
+                        <TextPrin>{`${l.last_name} ${l.first_name}`}</TextPrin>
+                        <Text>{`${l.email}`}</Text>
+                      </ContText>
+                    </BodyUnitItem>
+                  </ListItem>
+                ))
+              }
+              {
+                  this.state.filterActive === true &&
+                  this.state.alumnosFiltrados.map((l, i) => (
+                      <ListItem key={i} style={{ width: '100%', }}>
+                        <BodyUnitItem >
+                            <ImgListUn source={l.photo} />
+                          <ContText>
+                            <TextPrin>{`${l.last_name} ${l.first_name}`}</TextPrin>
+                            <Text>{`${l.email}`}</Text>
+                          </ContText>
+                        </BodyUnitItem>
+                      </ListItem>
+                    ))
+              }
+              </ContListGen>            
+            </ContGeneral>
             {/* Menu inferior General */}
-            
-        </ContGeneral>
+			      <Footer navigation={null}/>
         </Contenedor>
     )}
 }

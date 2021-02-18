@@ -21,7 +21,11 @@ import {
   ImgSise,
   LogoSise
 } from './styledNueHenry';
+<<<<<<< HEAD
+import Footer from '../Footer/Footer';
+=======
 import Footer from '../Footer';
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg'); 
 
@@ -132,9 +136,13 @@ const NuevoHenry = ({ navigation, route }) => {
 					<TextButton>Enviar email</TextButton>
 				</BotonLog>
       </BodyCont>
-			
+			{/* Menu inferior General */}
+			<Footer navigation={navigation}/>
 			<ContMinf>
+<<<<<<< HEAD
+=======
         <Footer navigation={navigation} />
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 			</ContMinf>
     </Contenedor>
   )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { StyleSheet, View, Button, Alert } from 'react-native';
 import { Icon, ListItem, Text } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 import {
     Contenedor,
     Encabezado,
@@ -143,8 +144,8 @@ const ListaPms = (props) =>{
                 </BotonLog>
               </ContBtnOut>
             }
-            <View>
-            </View>
+            {/* Menu inferior General */}
+			      <Footer navigation={props.navigation}/>
         </Contenedor>
     );
 }

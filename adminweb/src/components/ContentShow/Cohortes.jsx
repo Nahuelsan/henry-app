@@ -36,8 +36,8 @@ function Cohortes() {
   useEffect(() => {
     firebase.db.collection('cohorte').onSnapshot((snap) => {
       const allCohortes = [];
-      snap.docs.forEach((doc) => {
-        const { comienzo, fin, modalidad, instructor, nombre } = doc.data();
+      snap.forEach((doc) => {
+        const { comienzo, fin, modalidad, instructor, nombre, id } = doc.data();
         allCohortes.push({
           nombre,
           id: doc.id,
@@ -45,6 +45,8 @@ function Cohortes() {
           fin,
           modalidad,
           instructor,
+          nombre,
+          id           : doc.id
         });
       });
       setCohortes(allCohortes);
@@ -96,6 +98,16 @@ function Cohortes() {
     handleChangeText(check, 'checkeado')
   }
 
+  //Eliminar usuario
+  const handleDelete = async id =>{
+    if(window.confirm('¿ Esta seguro que desea eliminar esta Cohorte ?')){
+      console.log(id);
+      await firebase.db.collection('cohorte').doc(id).delete();
+      alert('Cohorte eliminada correctamente ')
+    }
+    
+  }
+
   //Estado Inicial de Crear Cohorte 
   const initalState = {
     numero_de_cohorte: '',
@@ -141,8 +153,8 @@ function Cohortes() {
           fin: state.fecha_de_finalizacion,
           instructor: state.instructor,
         });
-        alert(`Cohorte N°: ${state.numero_de_cohorte} creada con exito!`);
-      } catch (error) {
+        alert(`Cohorte creada con exito!`);
+      } catch (error) {git 
         alert('Hubo un error al crear la Cohorte!');
       }
     }
@@ -474,6 +486,37 @@ function Cohortes() {
         }
       </ContenedorPanel>
 
+<<<<<<< HEAD
+      <ListaEstudiantes>
+        <h2>Lista de Cohortes de Henry</h2>
+        <Table>
+          <Thead>
+            <tr>
+              <th>Cohorte</th>
+              <th>Modalidad</th>
+              <th>Fecha de Inicio</th>
+              <th>Decha de Finalizacion</th>
+              <th>Instructor</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </Thead>
+          <Tbody>
+            {cohortes && cohortes.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <div>
+                    <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
+                    {' '}<strong>{item.nombre}</strong>
+                  </div>
+                </td>
+                <td>{item.modalidad}</td>
+                <td>{item.comienzo}</td>
+                <td>{item.fin}</td>
+                <td>{item.instructor}</td>
+                <td><div onClick={() => { handleEdit(item) }} ><i class="fas fa-edit"></i></div></td>
+                <td><div onClick={() => { handleDelete(item.id) }}><i class="far fa-minus-square"></i></div></td>
+=======
       {alumnosList ?
         <ListaEstudiantes>
           <h2>Lista de estudiantes de Henry</h2>
@@ -483,6 +526,7 @@ function Cohortes() {
                 <th></th>
                 <th>Nombre y Apellido</th>
                 <th>Asignar a Grupo</th>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
               </tr>
             </Thead>
             <Tbody>

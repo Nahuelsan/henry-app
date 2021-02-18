@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert  } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
 import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -212,6 +213,8 @@ const Profile = (props) => {
           </View>
         </ContDatos>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
 	);
 };

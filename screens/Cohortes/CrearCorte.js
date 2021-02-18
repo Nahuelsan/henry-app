@@ -5,6 +5,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import firebase from '../../database/database'
 //import DateTimePicker from '@react-native-community/datetimepicker'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -249,10 +250,15 @@ const CrearCohorte = (props) => {
             <TextButton onPress={saveNewCohorte}>CREAR COHORTE</TextButton>
           </BotonLog>
         </ContListGen>
+<<<<<<< HEAD
+=======
         <ContMinf>
           <Footer navigation={props.navigation} />
         </ContMinf>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };
