@@ -54,6 +54,8 @@ const Calendario = ({ navigation }) => {
         })
     }
 
+    const sorted = React.useMemo(()=> calendar.slice().sort((a,b) => a.clase - b.clase), [calendar]);
+
     const OpenURLButton = ({ url, title, link }) => {
         const handlePress = async () => {
             const supported = await Linking.canOpenURL(url)
@@ -64,7 +66,8 @@ const Calendario = ({ navigation }) => {
             }
         }
         return (<TouchableOpacity onPress={handlePress} style={s.containerLink}>
-            <Text>clase {title}:<Text style={s.link}>{link}</Text></Text>
+            <Text style = {s.titulo}>clase {title}:</Text>            
+            <Text style={s.link}>{link}</Text>
         </TouchableOpacity>)
     }
 
@@ -101,7 +104,7 @@ const Calendario = ({ navigation }) => {
             <ContGeneral>
                 <ContListGen>
                     <ScrollView style={s.container}>
-                        {calendar.length ? calendar.map(clas => (
+                        {sorted.length ? sorted.map(clas => (
                             <View key={clas.clase}>
                                 <OpenURLButton url={clas.link} title={clas.clase} link={clas.tema} />
                             </View>
@@ -128,8 +131,27 @@ const s = StyleSheet.create({
     },
     containerLink: {
         padding: 15,
+        backgroundColor: '#ffff01',
+        marginTop: 5,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderStyle: 'solid',
+        borderColor: '#fff',
+        borderWidth: 5,
+        height: 100,
     },
     link: {
         color: "blue",
+        textAlign: 'center',
+        paddingTop: 5,
+        fontSize: 15
+    },
+    titulo: {
+      fontSize: 17,
+      fontWeight: '700',
+      textTransform: 'capitalize',
+      textAlign: 'center',
+      textDecorationColor: '#fff',
+      textDecorationLine: 'underline',
     }
 })
