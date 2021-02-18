@@ -31,7 +31,7 @@ import {
   TarjetaProgreso
 } from './StyledYourCohort';
 
-import Footer from '../Footer';
+import Footer from '../Footer/Footer';
 import { ScrollView } from 'react-native';
 
 let card3 = require('../../src/assets/img/imgCard3.png');
@@ -46,7 +46,7 @@ const YourCohort = (props, {navigation}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-		firebase.db.collection('users', 'cohorte').onSnapshot((snap) => {
+		firebase.db.collection('users').onSnapshot((snap) => {
 			const estudiantes = [];
 			snap.docs.forEach((doc) => {
         const { cohorte, rol, grupo, pm, instructor, progreso } = doc.data();
@@ -128,7 +128,7 @@ console.log(estudiantes);
               <Text style={styles.instructor}>{`${user.instructor}`}</Text>
             }
             {
-              !user.instructor ? '' : 
+              !user.instructor ? <Text>Sin imagen</Text> : 
             <User source={userImg} />
             }
             </Img>

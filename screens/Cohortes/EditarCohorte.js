@@ -5,6 +5,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import firebase from '../../database/database'
 //import DateTimePicker from '@react-native-community/datetimepicker'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -35,7 +36,7 @@ let logFont = require('../../src/assets/img/henry_logo.jpg');
 
 
 const EditarCohorte = (props) => {
-  const { id, comienzo, fin, modalidad, nombre, instructor } = props.route.params;
+  const { id, comienzo, fin, modalidad, nombre, instructor } = props.route.params.cohorte;
 
   //Botones Full Time - Part Time
   const [index, setIndex] = useState(1)
@@ -249,40 +250,9 @@ const EditarCohorte = (props) => {
             <TextButton onPress={updateNewCohorte}>MODIFICAR</TextButton>
           </BotonLog>
         </ContListGen>
-        <ContMinf>
-          <IconContent>
-            <Icon
-              name="home"
-              type="font-awesome"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              name="ghost"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <ImgMinf>
-              <LogoSise source={logFont} />
-            </ImgMinf>
-            <Icon
-              solid={true}
-              name="comment-dots"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              solid={true}
-              name="user"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-          </IconContent>
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };

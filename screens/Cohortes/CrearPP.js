@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 //Componentes Estilizados
 import { Icon, ListItem, Text } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 import {
     Contenedor,
     Encabezado,
@@ -13,10 +14,10 @@ import {
     BackImg,
     ContText,
     TituloCard,
-    ContMinf,
+    ListAdd,
     ContBtnOut,
-    IconContent,
-    TextPrin,
+    ListText,
+    ContTextList,
     ImgSise,
     TextButtonOp2,
     ContPirnTable,
@@ -181,17 +182,17 @@ const CrearPp = (props) => {
             <ContListGen>
             {
                 alumnosSinPP.alumnos.map((alum, i) =>(
-                    <ListItem key={i} style={{ width: '100%', }}>
-                    <BodyUnitItem >
-                      <ContText>
-                        <TextPrin>{`${alum.last_name} ${alum.first_name}`}</TextPrin>
-                      </ContText>
+                  <ListItem key={i} style={{ width: '100%', }}>
+                    <ListAdd >
+                      <ContTextList>
+                        <ListText>{`${alum.last_name} ${alum.first_name}`}</ListText>
+                      </ContTextList>
                       <ContBtnOut >
                           <BotonLog onPress={() => mostrarView(alum)}>
                             <TextButton>Agregar a un grupo</TextButton>
                           </BotonLog>
                         </ContBtnOut>
-                    </BodyUnitItem>
+                    </ListAdd>
                   </ListItem>
                 ))
             }
@@ -202,17 +203,20 @@ const CrearPp = (props) => {
             </ContListGen>
             </ContGeneral>
             {   
-                alumnosSinPP.isVisible && <View style={s.feed}>
-                        <View style={s.container_feed}>
-                                <Button title='Grupo1' name="Grupo1" onPress={() => asignarGrupo("Grupo1")}/>
-                                <Button title='Grupo2' name="Grupo2" onPress={() => asignarGrupo("Grupo2")}/>
-                                <Button title='Grupo3' name="Grupo3" onPress={() => asignarGrupo("Grupo3")}/>
-                                <Button title='Grupo4' name="Grupo4" onPress={() => asignarGrupo("Grupo4")}/>
-                                <Button title='Grupo5' name="Grupo5" onPress={() => asignarGrupo("Grupo5")}/>
+              alumnosSinPP.isVisible && 
+              <View style={s.feed}>
+                <View style={s.container_feed}>
+                        <Button title='Grupo1' name="Grupo1" onPress={() => asignarGrupo("Grupo1")}/>
+                        <Button title='Grupo2' name="Grupo2" onPress={() => asignarGrupo("Grupo2")}/>
+                        <Button title='Grupo3' name="Grupo3" onPress={() => asignarGrupo("Grupo3")}/>
+                        <Button title='Grupo4' name="Grupo4" onPress={() => asignarGrupo("Grupo4")}/>
+                        <Button title='Grupo5' name="Grupo5" onPress={() => asignarGrupo("Grupo5")}/>
 
-                        </View>
                 </View>
+              </View>
             }
+            {/* Menu inferior General */}
+			      <Footer navigation={props.navigation}/>
         </Contenedor>
     )
 }

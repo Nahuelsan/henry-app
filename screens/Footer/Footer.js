@@ -3,17 +3,17 @@ import { Icon } from 'react-native-elements';
 
 //Redux importamos funciones y hooks
 import {useDispatch} from 'react-redux';
-import {logout} from '../src/action';
+import {logout} from '../../src/action';
 
 // Style
 import { 
   ContMinf,
   ImgMinf,
   IconContent,
-  LogoSise } from './OptionAdmin/styledAdmin';
+  LogoSise } from './styledFooter';
 
-let logFont = require('../src/assets/img/henry_logo.jpg');
-import firebase from '../database/database';
+let logFont = require('../../src/assets/img/henry_logo.jpg');
+import firebase from '../../database/database';
   
 const Footer = (props) => {
 
@@ -34,19 +34,10 @@ const Footer = (props) => {
 						type="font-awesome"
 						size={40}
 						onPress={() => props.navigation.navigate('Menu Usuario')}
-					/>
-					<Icon
-						name="ghost"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
-					/>
-					<ImgMinf>
-						<LogoSise source={logFont} />
-					</ImgMinf>
+					/>					
 					<Icon
 						solid={true}
-						name="comment-dots"
+						name="user"
 						type="font-awesome-5"
 						size={40}
 						onPress={() => props.navigation.navigate('Henry Admin')}
@@ -58,6 +49,9 @@ const Footer = (props) => {
 						size={40}
 						onPress={() => Logout()}
 					/>
+          <ImgMinf>
+						<LogoSise source={logFont} />
+					</ImgMinf>
 				</IconContent>
 			</ContMinf>
   )

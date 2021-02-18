@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Button, ScrollView } from 'react-native';
 //Componentes Estilizados
 import { Icon, ListItem, Text } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 import {
     Contenedor,
     Encabezado,
@@ -13,14 +14,14 @@ import {
     BackImg,
     ContText,
     TituloCard,
-    ContMinf,
+    BackInOut,
     ContBtnOut,
-    IconContent,
+    BackInIn,
     TextPrin,
     ImgSise,
-    TextButtonOp2,
-    ContPirnTable,
-    TextContTable,
+    ListAdd,
+    ListText,
+    ContTextList,
     LogoSise,
     BotonLog,
     TextButton,
@@ -42,7 +43,7 @@ const CrearGrupos = (props) => {
         alumnos: false,
         pm: false,
         datosFinales: false,
-        noHayGrupos: false
+        noHayGrupos: true
     })
     const [grupos, setGrupos] = useState([])
     const [PMs, setPMS] = useState([])
@@ -147,10 +148,10 @@ const CrearGrupos = (props) => {
                     {
                         isVisible.noHayGrupos &&  
                         <BodyUnitItem >
-                        <ContText>
-                            <TextPrin>Aun no hay grupos creados </TextPrin>
-                            <TextPrin>Cree el primer grupo </TextPrin>
-                        </ContText>
+                          <ContText>
+                              <TextPrin>Aun no hay grupos creados </TextPrin>
+                              <TextPrin>Cree el primer grupo </TextPrin>
+                          </ContText>
                         </BodyUnitItem>
                     }
                     <BotonLog onPress={() => setIsVisible({
@@ -158,117 +159,94 @@ const CrearGrupos = (props) => {
                         grupo: true
                     })}>
                         <TextButton onPress={() => setIsVisible({
-                        ...isVisible,
-                        grupo: true
-                    })}>Crear grupo</TextButton>
+                          ...isVisible,
+                          grupo: true
+                        })}>Crear grupo</TextButton>
                     </BotonLog>
                 </ContListGen>
             </ContGeneral>
             {   
-                isVisible.grupo && 
-                    <View style={s.feed}>
-                        <View style={s.container_feed}>
-                            <Text>Grupo numero {grupos.length + 1}</Text>
-                            <Text>Del cohorte {nombre}</Text>
-                            <Text>Asignar PM </Text>
-                            <ScrollView>
-                                {
-                                    PMs.map((pm, i) =>(
-                                        <ListItem key={i} style={{ width: '100%', }}>
-                                        <BodyUnitItem >
-                                          <ContText>
-                                            <TextPrin>{`${pm.last_name} ${pm.first_name}`}</TextPrin>
-                                          </ContText>
-                                          <ContBtnOut >
-                                              <BotonLog onPress={() => setState({
-                                                  ...state,
-                                                  pms: {
-                                                      last_name: pm.last_name,
-                                                      first_name : pm.first_name,
-                                                      id : pm.id,
-                                                  }
-                                              })}>
-                                                <TextButton onPress={() => setState({
-                                                  ...state,
-                                                  pms: {
-                                                      last_name: pm.last_name,
-                                                      first_name : pm.first_name,
-                                                      id : pm.id,
-                                                  }
-                                              })}>Agregar</TextButton>
-                                              </BotonLog>
-                                            </ContBtnOut>
-                                        </BodyUnitItem>
-                                      </ListItem>   
-                                    ))                                    
-                                }
-                                <Text>Asignar Alumnos </Text>
-                                {
-                                    alumnos.map((alumn, i) =>(
-                                        <ListItem key={i} style={{ width: '100%', }}>
-                                        <BodyUnitItem >
-                                          <ContText>
-                                            <TextPrin>{`${alumn.last_name} ${alumn.first_name}`}</TextPrin>
-                                          </ContText>
-                                          <ContBtnOut >
-                                              <BotonLog onPress={() => alumnosInsertados.push({
-                                                  alumn
-                                              })}>
-                                                <TextButton onPress={() => alumnosInsertados.push({
-                                                  alumn
-                                              })}>Agregar</TextButton>
-                                              </BotonLog>
-                                            </ContBtnOut>
-                                        </BodyUnitItem>
-                                      </ListItem>   
-                                    ))                                    
-                                }                                
-                            </ScrollView>
-                            <ContBtnOut>
-                                <BotonLog>
-                                    <TextButton onPress={() => CrearGrupos()}>Aceptar</TextButton>
-                                </BotonLog>
-                                <BotonLog>
-                                    <TextButton onPress={() => setIsVisible({
-                                        ...isVisible,
-                                        grupo: false
-                                    })}
-                                    >
-                                        Cancelar
-                                    </TextButton>
-                                </BotonLog>
-                            </ContBtnOut>
-                        </View>
-                </View>
+              isVisible.grupo && 
+              <BackInOut >
+                <BackInIn >
+                    <Text>Grupo numero {grupos.length + 1}</Text>
+                    <Text>Del cohorte {nombre}</Text>
+                    <Text>Asignar PM </Text>
+                    <ScrollView>
+                        {
+                            PMs.map((pm, i) =>(
+                                <ListItem key={i} style={{ width: '100%'}}>
+                                  <ListAdd >
+                                    <ContTextList>
+                                      <ListText>{`${pm.last_name} ${pm.first_name}`}</ListText>
+                                    </ContTextList>
+                                    <ContBtnOut >
+                                      <BotonLog onPress={() => setState({
+                                          ...state,
+                                          pms: {
+                                              last_name: pm.last_name,
+                                              first_name : pm.first_name,
+                                              id : pm.id,
+                                          }
+                                      })}>
+                                        <TextButton onPress={() => setState({
+                                          ...state,
+                                          pms: {
+                                              last_name: pm.last_name,
+                                              first_name : pm.first_name,
+                                              id : pm.id,
+                                          }
+                                        })}>Agregar</TextButton>
+                                      </BotonLog>
+                                    </ContBtnOut>
+                                  </ListAdd>
+                                </ListItem>   
+                            ))                                    
+                        }
+                        <Text>Asignar Alumnos </Text>
+                        {
+                            alumnos.map((alumn, i) =>(
+                                <ListItem key={i} style={{ width: '100%', }}>
+                                  <ListAdd >
+                                    <ContTextList>
+                                      <ListText>{`${alumn.last_name} ${alumn.first_name}`}</ListText>
+                                    </ContTextList>
+                                    <ContBtnOut >
+                                        <BotonLog onPress={() => alumnosInsertados.push({
+                                            alumn
+                                        })}>
+                                          <TextButton onPress={() => alumnosInsertados.push({
+                                            alumn
+                                        })}>Agregar</TextButton>
+                                        </BotonLog>
+                                      </ContBtnOut>
+                                  </ListAdd>
+                                </ListItem>   
+                            ))                                    
+                        }                                
+                    </ScrollView>
+                    <ContBtnOut>
+                        <BotonLog>
+                            <TextButton onPress={() => CrearGrupos()}>Aceptar</TextButton>
+                        </BotonLog>
+                        <BotonLog>
+                            <TextButton onPress={() => setIsVisible({
+                                ...isVisible,
+                                grupo: false
+                            })}
+                            >
+                                Cancelar
+                            </TextButton>
+                        </BotonLog>
+                    </ContBtnOut>
+                </BackInIn>
+              </BackInOut>
             }
-
+            {/* Menu inferior General */}
+			      <Footer navigation={props.navigation}/>
          </Contenedor>
 
      )
 }
 
 export default CrearGrupos;
-
-const s = StyleSheet.create({
-    feed: {
-        position: "absolute",
-        backgroundColor: "rgba(0, 0, 0, .2)",
-        width: "100%",
-        height: "100%",
-        flex: 1,
-        justifyContent: "space-evenly",
-        alignContent: "center",
-        zIndex: 1000
-    },
-    container_feed: {
-        width: "85%",
-        maxHeight: "70%",
-        backgroundColor: "white",
-        flex: 1,
-        justifyContent: "center",
-        alignContent: "center",
-        margin: "auto",
-        borderRadius: 8,
-        padding: 50,
-    },
-})

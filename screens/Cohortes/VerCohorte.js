@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -19,7 +20,7 @@ import {
   IconContent,
   ImgMinf,
   ImgSise,
-  TextButtonOp2,
+  ContBtnLog,
   ContPirnTable,
   TextContTable,
   LogoSise,
@@ -70,64 +71,33 @@ console.log(props.route.params.cohorte)
             </View>
           </ContPirnTable>
 
-          <BotonLog onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
-          </BotonLog>
+          <ContBtnLog>
+            <BotonLog onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
+            </BotonLog>
 
-          <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
-          </BotonLog>
+            <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
+            </BotonLog>
 
-          <BotonLog onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>
-            <TextButton onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>Crear Nuevo Grupo</TextButton>
+            <BotonLog onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>
+              <TextButton onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>Crear Nuevo Grupo</TextButton>
+            </BotonLog>
+            
+            <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
+              <TextButton>Clases</TextButton>
+            </BotonLog>
 
+            <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
+            </BotonLog>
+          </ContBtnLog>
 
-          <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
-            <TextButton>Clases</TextButton>
-          </BotonLog>
-
-          </BotonLog>
-
-          <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
-          </BotonLog>
 
         </ContListGen>
-
-        <ContMinf>
-          <IconContent>
-            <Icon
-              name="home"
-              type="font-awesome"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              name="ghost"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <ImgMinf>
-              <LogoSise source={logFont} />
-            </ImgMinf>
-            <Icon
-              solid={true}
-              name="comment-dots"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              solid={true}
-              name="user"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-          </IconContent>
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };

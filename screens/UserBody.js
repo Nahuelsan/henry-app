@@ -2,6 +2,8 @@ import React from 'react';
 import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+const pairProgramming = require('../src/assets/img/pairProgramming.svg');
+
 const UserBody = ({navigation}) => {
 
 

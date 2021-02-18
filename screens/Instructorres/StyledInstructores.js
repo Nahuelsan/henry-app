@@ -79,7 +79,7 @@ export const ContGeneral = styled.View`
   position: absolute;
   top: 20%;
   width: 100%;
-  height: 80%;
+  height: 50%;
   z-index: 2; 
   background-color: white;
   align-items: center;

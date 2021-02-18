@@ -16,6 +16,7 @@ import {
   ImgSise,
   LogoSise
 } from './styledAdmin';
+import Footer from '../Footer/Footer';
 let card1 = require('../../src/assets/img/imgCard2.png');
 let card2 = require('../../src/assets/img/imgCard3.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
@@ -47,41 +48,8 @@ const CohorteMenu = ({ navigation }) => {
 					</ContText>
 				</Options>
 			</ContStudents>
-
-			{/* Menu inferior General */}
-			<ContMinf>
-				<IconContent>
-					<Icon
-						name="home"
-						type="font-awesome"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						name="ghost"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<ImgMinf>
-						<LogoSise source={logFont} />
-					</ImgMinf>
-					<Icon
-						solid={true}
-						name="comment-dots"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						solid={true}
-						name="user"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-				</IconContent>
-			</ContMinf>
+      {/* Menu inferior General */}
+			<Footer navigation={navigation}/>
 		</Contenedor>
 	);
 };

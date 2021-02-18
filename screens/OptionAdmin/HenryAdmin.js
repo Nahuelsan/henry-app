@@ -18,7 +18,7 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 
 //Redux importamos funciones y hooks
-import Footer from '../Footer';
+import Footer from '../Footer/Footer';
 
 const HenryAdmin = (props) => {
 

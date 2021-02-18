@@ -112,7 +112,6 @@ export const TextButton = styled.Text`
 /* Menu inferior */
 export const ContMinf = styled.View`
   padding: 0 30px;  
-  margin: auto 0 30px 0;
   width: 100%;
 `
 

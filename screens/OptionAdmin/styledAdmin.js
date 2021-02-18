@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Contenedor = styled.View`
   flex: 1;
-  padding-bottom: 30px;
  ` 
 
 export const Encabezado = styled.View`
@@ -35,8 +34,8 @@ export const ImgSise = styled.Image`
 `
 
 export const LogoSise = styled.Image`
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
 `
 
 export const ContAvatar = styled.TouchableOpacity` 
@@ -85,9 +84,9 @@ export const OptionCard = styled.View`
   align-items: center;
 `
 export const OptionText = styled.Text`
-  margin-top: auto;
+  margin-top: 10px;
   font-family: 'gadugib';
-  font-size: 13px;
+  font-size: 12px;
 `
 
 export const ContStudents = styled.ScrollView `
@@ -137,8 +136,8 @@ export const IconContent = styled.View`
 `
 
 export const ImgMinf = styled.View`
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
   background-color: #FFFF01;
   border-top-left-radius: 35px;
   border-top-right-radius: 35px;

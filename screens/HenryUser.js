@@ -22,9 +22,11 @@ import firebase from '../database/database';
 //Redux importamos funciones y hooks
 import {useDispatch} from 'react-redux';
 import {logout} from '../src/action';
-import Footer from './Footer';
+import Footer from './Footer/Footer';
 
 let logFont = require('../src/assets/img/henry_logo.jpg');
+let pairProgramming = require('../src/assets/img/pairProgramming.png');
+let standUp = require('../src/assets/img/standUp.png');
 
 const HenryUser = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -42,7 +44,7 @@ const HenryUser = ({ navigation }) => {
 			<ContStudents>
 				<Options onPress={() => navigation.navigate('Cohorte de Alumno')}>
 					<BackImg>
-						<ImgSise source={{ uri: 'https://i.pinimg.com/originals/b5/bb/80/b5bb80994bc3ecdcd5b989250e6b7746.png' }} />
+						<ImgSise  source={{ uri: 'https://i.pinimg.com/originals/b5/bb/80/b5bb80994bc3ecdcd5b989250e6b7746.png' }} style={{width: 140, height: 140}}/>
 					</BackImg>
 					<ContText>
 						<TituloCard>Tu Cohorte</TituloCard>
@@ -52,7 +54,8 @@ const HenryUser = ({ navigation }) => {
 
 				<Options onPress={() => navigation.navigate('Pair Programing')}>
 					<BackImg>
-						<ImgSise source={{ uri: 'https://raw.githubusercontent.com/DXHeroes/knowledge-base-content/master/files/pair-programming.svg?sanitize=true' }} />
+
+						<ImgSise  source={pairProgramming} style={{width: 140, height: 140}}/>
 					</BackImg>
 					<ContText>
 						<TituloCard>Pair Programming</TituloCard>
@@ -62,7 +65,7 @@ const HenryUser = ({ navigation }) => {
 
 				<Options onPress={() => navigation.navigate('Lista de Estudiantes')}>
 					<BackImg>
-						<ImgSise source={{ uri: 'https://banner2.cleanpng.com/20181126/xuv/kisspng-software-developer-software-development-vector-gra-5bfc3520b9c404.2614930415432553287609.jpg' }} />
+						<ImgSise  source={standUp} style={{width: 130, height: 130}}/>
 					</BackImg>
 					<ContText>
 						<TituloCard>Stand Up</TituloCard>

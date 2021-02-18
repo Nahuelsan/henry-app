@@ -4,7 +4,7 @@ import { Avatar, ListItem, Icon } from 'react-native-elements';
 import firebase from '../../database/database.js';
 import AdminHeader from '../OptionAdmin/AdminHeader';
 import AdminNavBar from '../OptionAdmin/AdminNavBar';
-
+import Footer from '../Footer/Footer';
 import {
   Contenedor,
   Encabezado,
@@ -25,6 +25,7 @@ import {
 } from './StyledInstructores';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
+
 
 const InstructoresList = ({ navigation }) => {
 	const [
@@ -106,40 +107,9 @@ const InstructoresList = ({ navigation }) => {
             ))}
           </View>
         </ContListGen>
-        <ContMinf>
-            <IconContent>
-              <Icon
-                name="home"
-                type="font-awesome"
-                size={40}
-                onPress={() => navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                name="ghost"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => navigation.navigate('Henry Admin')}
-              />
-              <ImgMinf>
-                <LogoSise source={logFont} />
-              </ImgMinf>
-              <Icon
-                solid={true}
-                name="comment-dots"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => navigation.navigate('Henry Admin')}
-              />
-              <Icon
-                solid={true}
-                name="user"
-                type="font-awesome-5"
-                size={40}
-                onPress={() => navigation.navigate('Henry Admin')}
-              />
-            </IconContent>
-          </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+      <Footer navigation={navigation}/>
 	  </Contenedor>
 	);
 };

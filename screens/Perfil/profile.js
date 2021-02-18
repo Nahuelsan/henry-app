@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert  } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
 import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -17,7 +18,13 @@ import {
   TextButton
 } from './StyledPerfil';
 
+//Redux
+import {useSelector} from 'react-redux';
+import {useDispatch } from 'react-redux';
+import {login} from '../../src/action';
+
 const Profile = (props) => {
+	const dispatch = useDispatch()
 	const { info } = props.route.params;
 	const { navigation } = props;
 	const [
@@ -64,6 +71,7 @@ const Profile = (props) => {
 					{ text: 'Aceptar' }
 				])
 			: await dbRef.set(user);
+			dispatch(login(user))
   };
   
   const eliminar = async () => {
@@ -205,6 +213,8 @@ const Profile = (props) => {
           </View>
         </ContDatos>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
 	);
 };

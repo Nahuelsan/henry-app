@@ -23,10 +23,11 @@ import {
   ImgListUn,
   TextButton
 } from './StyledCohorteList';
+import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
+
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
-
-import firebase from '../../database/database';
 
 const CohorteList = ({ navigation }) => {
 
@@ -96,7 +97,7 @@ const CohorteList = ({ navigation }) => {
                     <BotonLog onPress={() => navigation.navigate("Ver Cohorte", {cohorte: l})}>
                       <TextButton>Ver</TextButton>
                     </BotonLog>
-                    <BotonLog onPress={onPressEdit} >
+                    <BotonLog onPress={() => navigation.navigate("Editar Cohorte", { cohorte: l })} >
                       <TextButton>Editar</TextButton>
                     </BotonLog>
                   </ContBtnOut>
@@ -105,41 +106,9 @@ const CohorteList = ({ navigation }) => {
             </ListItem>
           ))}
         </ContListGen>
-        {/* Menu inferior General */}
-        <ContMinf>
-          <IconContent>
-            <Icon
-              name="home"
-              type="font-awesome"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              name="ghost"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <ImgMinf>
-              <LogoSise source={logFont} />
-            </ImgMinf>
-            <Icon
-              solid={true}
-              name="comment-dots"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-            <Icon
-              solid={true}
-              name="user"
-              type="font-awesome-5"
-              size={40}
-              onPress={() => props.navigation.navigate('Henry Admin')}
-            />
-          </IconContent>
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={navigation}/>
     </Contenedor>
   );
 };

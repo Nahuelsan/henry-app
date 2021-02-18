@@ -21,6 +21,7 @@ import {
   ImgSise,
   LogoSise
 } from './styledNueHenry';
+import Footer from '../Footer/Footer';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg'); 
 
@@ -131,39 +132,9 @@ const NuevoHenry = ({ navigation, route }) => {
 					<TextButton>Enviar email</TextButton>
 				</BotonLog>
       </BodyCont>
-			
+			{/* Menu inferior General */}
+			<Footer navigation={navigation}/>
 			<ContMinf>
-				<IconContent>
-					<Icon
-						name="home"
-						type="font-awesome"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						name="ghost"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => pnavigation.navigate('Henry Admin')}
-					/>
-					<ImgMinf>
-						<LogoSise source={logFont} />
-					</ImgMinf>
-					<Icon
-						solid={true}
-						name="comment-dots"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-					<Icon
-						solid={true}
-						name="user"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => navigation.navigate('Henry Admin')}
-					/>
-				</IconContent>
 			</ContMinf>
     </Contenedor>
   )
