@@ -35,6 +35,7 @@ const Footer = ({ navigation }) => {
                     type="font-awesome"
                     size={40}
                     onPress={() => navigation.navigate('Menu Usuario')}
+                    style = {{ paddingRight: 150 }}
                 />
 
                 <ImgMinf>
@@ -47,6 +48,7 @@ const Footer = ({ navigation }) => {
                     type="font-awesome-5"
                     size={40}
                     onPress={() => Logout()}
+                    style = {{ paddingLeft: 150 }}
                 />
             </IconContent>
         </ContMinf>
