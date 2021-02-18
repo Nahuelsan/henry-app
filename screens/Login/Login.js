@@ -134,11 +134,13 @@ const Login = ({ navigation }) => {
 					console.log(result.user.email)
 					var found = invitedUsers.find((user) => user.email === result.user.email);
 					var found2 = users.find((user) => user.email === result.user.email);
+					dispatch(login(found2))
 					if (!found) {
 
 					throw 'el email no se encuentra en la base de datos de estudiantes invitados :(';
 				}
 				if(!found2){
+
 					navigation.navigate('RegisterUser', { info: found2 });
 				}
 				if (found2) {
