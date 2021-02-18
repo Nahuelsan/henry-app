@@ -486,37 +486,6 @@ function Cohortes() {
         }
       </ContenedorPanel>
 
-<<<<<<< HEAD
-      <ListaEstudiantes>
-        <h2>Lista de Cohortes de Henry</h2>
-        <Table>
-          <Thead>
-            <tr>
-              <th>Cohorte</th>
-              <th>Modalidad</th>
-              <th>Fecha de Inicio</th>
-              <th>Decha de Finalizacion</th>
-              <th>Instructor</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </Thead>
-          <Tbody>
-            {cohortes && cohortes.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <div>
-                    <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
-                    {' '}<strong>{item.nombre}</strong>
-                  </div>
-                </td>
-                <td>{item.modalidad}</td>
-                <td>{item.comienzo}</td>
-                <td>{item.fin}</td>
-                <td>{item.instructor}</td>
-                <td><div onClick={() => { handleEdit(item) }} ><i class="fas fa-edit"></i></div></td>
-                <td><div onClick={() => { handleDelete(item.id) }}><i class="far fa-minus-square"></i></div></td>
-=======
       {alumnosList ?
         <ListaEstudiantes>
           <h2>Lista de estudiantes de Henry</h2>
@@ -526,7 +495,6 @@ function Cohortes() {
                 <th></th>
                 <th>Nombre y Apellido</th>
                 <th>Asignar a Grupo</th>
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
               </tr>
             </Thead>
             <Tbody>

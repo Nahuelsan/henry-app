@@ -252,12 +252,6 @@ const EditarCohorte = (props) => {
             <TextButton onPress={updateNewCohorte}>MODIFICAR</TextButton>
           </BotonLog>
         </ContListGen>
-<<<<<<< HEAD
-=======
-        <ContMinf>
-          <Footer navigation={props.navigation} />
-        </ContMinf>
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
       </ContGeneral>
       {/* Menu inferior General */}
 			<Footer navigation={props.navigation}/>

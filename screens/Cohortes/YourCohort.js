@@ -19,7 +19,6 @@ import {
   Titulo, 
   TituloPm, 
   User,
-<<<<<<< HEAD
   Pm,
   TituloPm,
   Tarjeta,
@@ -30,11 +29,6 @@ import {
 
 import Footer from '../Footer/Footer';
 import { ScrollView } from 'react-native';
-=======
-  ContStudents } from './StyledYourCohort';
-  
-import Footer from '../Footer';
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');

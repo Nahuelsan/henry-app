@@ -33,17 +33,6 @@ const Footer = ({ navigation}) => {
 						name="home"
 						type="font-awesome"
 						size={40}
-<<<<<<< HEAD:screens/Footer/Footer.js
-						onPress={() => props.navigation.navigate('Menu Usuario')}
-					/>					
-					<Icon
-						solid={true}
-						name="user"
-						type="font-awesome-5"
-						size={40}
-						onPress={() => props.navigation.navigate('Henry Admin')}
-					/>
-=======
 						onPress={() => navigation.navigate('Henry Admin')}
 					/>
 				
@@ -51,7 +40,6 @@ const Footer = ({ navigation}) => {
 						<LogoSise source={logFont} />
 					</ImgMinf>
 				
->>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627:screens/Footer.js
 					<Icon
 						solid={true}
 						name="sign-out-alt"
