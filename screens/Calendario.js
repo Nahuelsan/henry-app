@@ -16,6 +16,7 @@ import {
     ImgSise,
 } from './Cohortes/StyledCohorteList'
 import firebase from '../database/database';
+import Footer from './FooterUser';
 
 let card1 = require('../src/assets/img/imgCard1.png');
 
@@ -111,6 +112,7 @@ const Calendario = ({ navigation }) => {
                     </ScrollView>
                 </ContListGen>
             </ContGeneral>
+            <Footer navigation={navigation} /> 
         </Contenedor>
     )
 }

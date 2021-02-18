@@ -18,7 +18,9 @@ import {
     TituloCard,
     ImgSise,
     BotonLog,
-    TextButton
+    TextButton,
+    BackInOut,
+    BackInIn
 } from './Cohortes/StyledCohorteList'
 
 import Footer from './FooterUser';
@@ -113,7 +115,8 @@ const PairPrograming = ({ navigation }) => {
             justifyContent: "center"
         }}>
             <ActivityIndicator size="large" />
-        </View>) : (
+        </View>) 
+        : (
         <Contenedor>
             <Encabezado>
                 <ConTitle onPress={() => navigation.goBack()}>
@@ -153,14 +156,12 @@ const PairPrograming = ({ navigation }) => {
                         )}
                     </ScrollView>
                     
-                </ContListGen>
-                  
-                        <Footer navigation={navigation} />
-                     
+                </ContListGen>  
             </ContGeneral>
               
-            {editFeed.see && <View style={s.feed}>
-                <View style={s.container_feed}>
+            {editFeed.see && 
+            <BackInOut>
+                <BackInIn>
                     <Text style={s.title}>
                         Cuentanos como es {editFeed.user} como compañero
                     </Text>
@@ -175,10 +176,9 @@ const PairPrograming = ({ navigation }) => {
                         <BotonLog onPress={() => setEditFeed({ see: false })}><TextButton>Cancelar</TextButton></BotonLog>
                         <BotonLog onPress={addFeedback}><TextButton>Enviar</TextButton></BotonLog>
                     </View>
-                </View>
-                
-            </View>}
-                
+                </BackInIn>
+            </BackInOut>}
+            <Footer navigation={navigation} /> 
         </Contenedor>
     )
 }
@@ -190,31 +190,11 @@ const s = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18
     },
-    feed: {
-        position: "absolute",
-        backgroundColor: "rgba(0, 0, 0, .2)",
-        width: "100%",
-        height: "100%",
-        flex: 1,
-        justifyContent: "space-evenly",
-        alignContent: "center",
-        zIndex: 1000
-    },
-    container_feed: {
-        width: "85%",
-        maxHeight: "70%",
-        backgroundColor: "white",
-        flex: 1,
-        justifyContent: "center",
-        alignContent: "center",
-        margin: "auto",
-        borderRadius: 8,
-        padding: 50,
-    },
     title: {
         fontWeight: "bold",
         fontSize: 18,
         alignSelf: "center",
+        marginBottom: 20
     },
     input: {
         borderColor: "gray",
@@ -233,7 +213,6 @@ const s = StyleSheet.create({
     },
     btn: {
         backgroundColor: "yellow",
-        fontWeight: "bold",
         borderRadius: 10,
         padding: 10,
     },

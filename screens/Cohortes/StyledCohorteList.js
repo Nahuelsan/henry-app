@@ -134,6 +134,7 @@ export const BotonLog = styled.TouchableOpacity`
   background-color: #FFFF01;
   align-items: center;
   border-radius: 10px;
+  min-height: 35px;
 `
 
 export const TextButton = styled.Text`
@@ -193,6 +194,7 @@ export const BackInOut = styled.View`
 `
 export const BackInIn = styled.View`
   width: 85%;
+  min-height: 40%;
   max-height: 70%;
   background-color: white;
   border-radius: 8px;
