@@ -22,7 +22,11 @@ import firebase from '../database/database';
 //Redux importamos funciones y hooks
 import {useDispatch} from 'react-redux';
 import {logout} from '../src/action';
+<<<<<<< HEAD
 import Footer from './Footer/Footer';
+=======
+import Footer from './FooterUser';
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 
 let logFont = require('../src/assets/img/henry_logo.jpg');
 let pairProgramming = require('../src/assets/img/pairProgramming.png');
@@ -74,7 +78,10 @@ const HenryUser = ({ navigation }) => {
 				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
+	         <ContMinf>
 			<Footer  navigation={navigation}/>
+			 </ContMinf>
+			
 		</Contenedor>
 	)
 }

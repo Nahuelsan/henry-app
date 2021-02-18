@@ -23,7 +23,7 @@ import {
 } from './StyledContents';
 /* Import imagen */
 import ImgEmpty from "../../assets/Img/empty.svg";
-import ImgErr from "../../assets/Img/ErrorImg.jpg";
+import ImgUser from "../../assets/Img/imgUser.png";
 import ImgHenry from "../../assets/Img/henry_logo.jpg";
 
 function Cohortes() {
@@ -40,7 +40,7 @@ function Cohortes() {
         const { comienzo, fin, modalidad, instructor, nombre, id } = doc.data();
         allCohortes.push({
           nombre,
-          id:doc.id,
+          id: doc.id,
           comienzo,
           fin,
           modalidad,
@@ -160,13 +160,6 @@ function Cohortes() {
     }
   };
 
-  //===========SELECCIONA COHORTE===========//
-  const [cohorte, setCohorte] = useState(false)
-  const handleEdit = (item) => {
-    setCohorte(item)
-    console.log('Cohorte', cohorte)
-  }
-
   //===========ELIMINA COHORTE===========//
 
   const eliminarCohorte = async (id) => {
@@ -174,7 +167,7 @@ function Cohortes() {
     let r = window.confirm("Esta seguto de eliminar el Cohorte seleccionado?");
     try {
       if (r) {
-        const algo=await firebase.db.collection('cohorte').doc(id).delete()
+        const algo = await firebase.db.collection('cohorte').doc(id).delete()
         console.log(algo)
         alert('Cohorte Eliminado!')
       } else {
@@ -184,8 +177,140 @@ function Cohortes() {
       alert(err)
     }
   }
+  //===========SELECCIONA COHORTE===========//
+  const [cohorte, setCohorte] = useState(false)
+  const handleEdit = async (item) => {
+    //===========MOSTRAR GRUPOS DENTRO DE COHORTE===========//
+    await firebase.db.collection('cohorte').doc(item.id).collection('grupos').onSnapshot((snap) => {
+      const grupos = [];
+      snap.docs.forEach((doc) => {
+        const { alumnos, numero, pms } = doc.data();
+        grupos.push({
+          alumnos,
+          numero,
+          pms
+        })
+      })
+      setCohorte({ ...item, grupos: grupos })
+    })
+    console.log('Cohorte', cohorte)
+  }
 
+  //===========CREAR GRUPOS DENTRO DE COHORTE===========//
+  const [panelGrupos, setPanelGrupos] = useState(false)
+  const [alumnosList, setAlumnosList] = useState(false)
+  const [dropdown, setDropdown] = useState(false)
+  const [grupos, setGrupos] = useState([])
+  const [PMs, setPMS] = useState([])
+  const [alumnos, setAlumnos] = useState([])
+  const alumnosInsertados = []
+  const numero = cohorte.nombre
 
+  useEffect(() => {
+    firebase.db.collection('cohorte').doc(cohorte.id).collection('grupos').onSnapshot((snap) => {
+      const grupo = [];
+      snap.docs.forEach((doc, i) => {
+        const { alumnos, pms } = doc.data()
+        if (alumnos === undefined && pms === undefined) {
+          setGrupos(grupo)
+        } else {
+          grupo.push({
+            alumnos,
+            pms
+          })
+        }
+      });
+      setGrupos(grupo)
+    });
+    firebase.db.collection('users').where('rol', '==', 'pm').onSnapshot((snap) => {
+      const pms = [];
+      snap.docs.forEach((doc) => {
+        const { last_name, first_name } = doc.data()
+        pms.push({
+          last_name,
+          first_name,
+          id: doc.id
+        })
+      });
+      setPMS(pms)
+    });
+    firebase.db.collection('users').where('rol', '==', 'student').onSnapshot((snap) => {
+      const students = [];
+      snap.docs.forEach((doc) => {
+        const { last_name, first_name, cohorte, grupo } = doc.data()
+        if (cohorte === numero && grupo === undefined) {
+          students.push({
+            last_name,
+            first_name,
+            idAlumn: doc.id
+          })
+        }
+
+      });
+      setAlumnos(students)
+      console.log('ALUMNOSS', students)
+    });
+  }, [panelGrupos])
+
+  /////////////////////////////////////////////////////////
+  const estadoInicial = {
+    alumnos: [],
+    pms: {},
+  };
+  const [estado, setEstado] = useState(estadoInicial);
+  const handleInsertAlumno = (al) => {
+    alumnosInsertados.push({ al })
+    setEstado({ ...estado, alumnos: alumnosInsertados });
+    console.log('estado', estado)
+  }
+  const handlePMs = (pm) => {
+    setState({
+      ...estado,
+      pms: {
+        last_name: pm.last_name,
+        first_name: pm.first_name,
+        id: pm.id,
+      }
+    })
+    console.log('estado', estado)
+  }
+
+  const crearGrupos = async () => {
+    console.log('Entre')
+    for (var i = 0; estado.length < i; i++) {
+      console.log(estado[i]);
+    }
+    if (estado.alumnos === '') {
+      alert('Ingrese alumnos');
+    }
+    if (estado.pms === '') {
+      alert('Ingrese PMs');
+    }
+    else {
+      try {
+        firebase.db.collection('cohorte').doc(cohorte.id).collection('grupos').add({
+          numero: grupos.length + 1,
+          pms: estado.pms,
+          alumnos: estado.alumnos,
+        })
+        estado.alumnos.forEach((al, i) => {
+          firebase.db.collection('users').doc(al.idAlumn).update({
+            grupo: grupos.length
+          })
+        });
+        alert(`Grupo creado con exito!`);
+      } catch (error) {
+        alert(error);
+      }
+    }
+  };
+
+  ///////////////////////
+  const [grupo, setGrupo] = useState('')
+  const handleGroup = (group) => {
+    console.log(group)
+    setGrupo(group)
+  }
 
   return (
     <div>
@@ -209,103 +334,159 @@ function Cohortes() {
               </ContenedorImagen>
               <h3>Chorte {cohorte.nombre}</h3>
               <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
-              <label><strong>Numero de Grupos:</strong>{cohorte.grupos || 'No asignado'}</label>
               <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
               <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
               <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
+              <label><strong>Grupos:</strong>{cohorte.grupos.length && cohorte.grupos.map((i) => <><br /><button onClick={() => handleGroup(i)}>{i.numero}</button></>)}</label>
+              {grupo && <>
+                <label>Numero de Grupo:<strong>{grupo.numero}</strong></label>
+                <label>PM Asignado:<strong>{grupo.pms.first_name || 'No Asignado'}</strong></label> 
+                <label>Alumnos:<strong>{grupo.alumnos.length}</strong></label>
+                <button onClick={()=>setGrupo('')}>Atras</button>
+              </>}
+              <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>
             </ContCohorteSelect>}
         </DetalleUser>
-        <InvitarUsuario >
-          <h4>Crea una nueva Cohorte</h4>
-          <ContInCard>
-            <div className='info'>
-              <h4>Un nuevo comienzo para futuros Henry's</h4>
-              <p>Crea una Cohorte donde nuevos estudiantes
-              de henry inician un cambio en su vida
-              profesional, ayudando con su formación y aprendizaje.
+        {panelGrupos ?
+          <InvitarUsuario >
+            <h4>Crear Grupos</h4>
+            <ContInCard>
+              <div className='info'>
+                <h4>Un espacio intimo para el aprendizaje</h4>
+                <p>Crea un nuevo Grupo dentro del Cohorte,
+                asigna alumnos  a los mismos para que puedan
+                compartir y despejar dudas que surjan
+                acompañados de sus PMs a lo largo de su carrera
               </p>
-            </div>
+              </div>
+              <div className="cont-form">
+                <InputForm>
+                  <label>Numero de Grupo:</label>
+                  <label>{grupos.length + 1}</label>
+                </InputForm>
 
-            <div className="cont-form">
-              <InputForm >
-                <label>Cohorte N°:</label><br />
-                <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
-                  <option value="01" >01</option>
-                  <option value="02" >02</option>
-                  <option value="03" >03</option>
-                  <option value="04" >04</option>
-                  <option value="05" >05</option>
-                  <option value="07" >07</option>
-                  <option value="08" >08</option>
-                  <option value="09" >09</option>
-                  <option value="10" >10</option>
-                  <option value="11" >11</option>
-                  <option value="12" >12</option>
-                  {state.numero_de_cohorte}
-                </select>
-              </InputForm>
-              <InputForm>
-                <label>Modalidad:</label>
-                <BtnForm>
-                  <button
-                    onClick={() => updateIndex(0)}
-                    style={{ border: index === 0 ? '1px solid black' : 'none' }}>
-                    Full Time
-                    </button>
-                  <button
-                    onClick={() => updateIndex(1)}
-                    style={{ border: index === 1 ? '1px solid black' : 'none' }} >
-                    Part Time
-                    </button>
-                </BtnForm>
-              </InputForm><br />
-              <InputForm>
-                <label>Fecha de inicio:</label><br />
-                <CalendarTimer>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                  />
-                  <i className="calendar-alt"></i>
-                </CalendarTimer>
-              </InputForm>
-            </div>
-            <div className="cont-form">
-              <InputForm>
-                <label>Fecha de finalizacion:</label><br />
-                <CalendarTimer>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={endDate}
-                    onChange={date => setEndtDate(date)}
-                  />
-                  <i className="calendar-alt"></i>
-                </CalendarTimer>
-              </InputForm>
-              <InputForm >
-                <label>Instructor</label><br />
-                <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
-                  <option value="Franco Etcheverry" >Franco Etcheverry</option>
-                  <option value="Toni Tralice" >Toni Tralice</option>
-                  {state.instructor}
-                </select>
-              </InputForm>
-              <CheckBox>
-                <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
-                <label>
-                  Seguro que desea crear un nuevo Cohorte?
-                  </label>
-              </CheckBox>
-              <button className='btn-email' onClick={saveNewCohorte}>
-                CREAR COHORTE
+                <InputForm>
+                  <label>Asignar Alumnos:</label>
+                  <button onClick={() => setAlumnosList(!alumnosList)}>Alumnos</button>
+                </InputForm>
+
+                <InputForm>
+                  <label>Asignar PMs:</label>
+                  <button onClick={() => setDropdown(!dropdown)}>PMs</button>
+                  {dropdown &&
+                    <div style={{ border: '1px solid black', backgroundColor: 'grey', zIndex: '10', width: '200px' }}>
+                      <ul><strong>PMs</strong>
+                        {
+                          PMs.map((pm, i) => (
+                            <li key={i} value={`${pm.last_name} ${pm.first_name}`}>{`${pm.last_name} ${pm.first_name}`}<button onClick={() => handlePMs(pm)}>ADD</button></li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  }
+                </InputForm>
+                <button className='btn-email' onClick={crearGrupos}>
+                  CREAR GRUPO
+                </button><br />
+                <button className='btn-email' onClick={() => setPanelGrupos(false)}>
+                  ATRAS
                 </button>
-            </div>
+              </div>
+            </ContInCard>
+          </InvitarUsuario>
+          :
+          <InvitarUsuario >
+            <h4>Crea una nueva Cohorte</h4>
+            <ContInCard>
+              <div className='info'>
+                <h4>Un nuevo comienzo para futuros Henry's</h4>
+                <p>Crea una Cohorte donde nuevos estudiantes
+                de henry inician un cambio en su vida
+                profesional, ayudando con su formación y aprendizaje.
+              </p>
+              </div>
 
-          </ContInCard>
-        </InvitarUsuario>
+              <div className="cont-form">
+                <InputForm >
+                  <label>Cohorte N°:</label><br />
+                  <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
+                    <option value="01" >01</option>
+                    <option value="02" >02</option>
+                    <option value="03" >03</option>
+                    <option value="04" >04</option>
+                    <option value="05" >05</option>
+                    <option value="07" >07</option>
+                    <option value="08" >08</option>
+                    <option value="09" >09</option>
+                    <option value="10" >10</option>
+                    <option value="11" >11</option>
+                    <option value="12" >12</option>
+                    {state.numero_de_cohorte}
+                  </select>
+                </InputForm>
+                <InputForm>
+                  <label>Modalidad:</label>
+                  <BtnForm>
+                    <button
+                      onClick={() => updateIndex(0)}
+                      style={{ border: index === 0 ? '1px solid black' : 'none' }}>
+                      Full Time
+                    </button>
+                    <button
+                      onClick={() => updateIndex(1)}
+                      style={{ border: index === 1 ? '1px solid black' : 'none' }} >
+                      Part Time
+                    </button>
+                  </BtnForm>
+                </InputForm><br />
+                <InputForm>
+                  <label>Fecha de inicio:</label><br />
+                  <CalendarTimer>
+                    <DatePicker
+                      dateFormat="dd/MM/yyyy"
+                      selected={startDate}
+                      onChange={date => setStartDate(date)}
+                    />
+                    <i className="calendar-alt"></i>
+                  </CalendarTimer>
+                </InputForm>
+              </div>
+              <div className="cont-form">
+                <InputForm>
+                  <label>Fecha de finalizacion:</label><br />
+                  <CalendarTimer>
+                    <DatePicker
+                      dateFormat="dd/MM/yyyy"
+                      selected={endDate}
+                      onChange={date => setEndtDate(date)}
+                    />
+                    <i className="calendar-alt"></i>
+                  </CalendarTimer>
+                </InputForm>
+                <InputForm >
+                  <label>Instructor</label><br />
+                  <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
+                    <option value="Franco Etcheverry" >Franco Etcheverry</option>
+                    <option value="Toni Tralice" >Toni Tralice</option>
+                    {state.instructor}
+                  </select>
+                </InputForm>
+                <CheckBox>
+                  <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
+                  <label>
+                    Seguro que desea crear un nuevo Cohorte?
+                  </label>
+                </CheckBox>
+                <button className='btn-email' onClick={saveNewCohorte}>
+                  CREAR COHORTE
+                </button>
+              </div>
+            </ContInCard>
+          </InvitarUsuario>
+        }
       </ContenedorPanel>
 
+<<<<<<< HEAD
       <ListaEstudiantes>
         <h2>Lista de Cohortes de Henry</h2>
         <Table>
@@ -335,12 +516,68 @@ function Cohortes() {
                 <td>{item.instructor}</td>
                 <td><div onClick={() => { handleEdit(item) }} ><i class="fas fa-edit"></i></div></td>
                 <td><div onClick={() => { handleDelete(item.id) }}><i class="far fa-minus-square"></i></div></td>
+=======
+      {alumnosList ?
+        <ListaEstudiantes>
+          <h2>Lista de estudiantes de Henry</h2>
+          <Table>
+            <Thead>
+              <tr>
+                <th></th>
+                <th>Nombre y Apellido</th>
+                <th>Asignar a Grupo</th>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
               </tr>
-            ))}
-          </Tbody>
-        </Table>
-      </ListaEstudiantes>
-    </div>
+            </Thead>
+            <Tbody>
+              {alumnos && alumnos.map((al, index) => (
+                <tr key={index}>
+                  <td><img src={ImgUser} alt='user-avatar' with='30px' height='30px' /></td>
+                  <td>{al.first_name}{' '}{al.last_name}</td>
+                  <td><button onClick={() => { handleInsertAlumno(al) }} >Asignar</button></td>
+                </tr>
+              ))}
+            </Tbody>
+          </Table>
+        </ListaEstudiantes>
+        :
+        <ListaEstudiantes>
+          <h2>Lista de Cohortes de Henry</h2>
+          <Table>
+            <Thead>
+              <tr>
+                <th>Cohorte</th>
+                <th>Modalidad</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Finalizacion</th>
+                <th>Instructor</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </Thead>
+            <Tbody>
+              {cohortes && cohortes.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <div>
+                      <img src={ImgHenry} alt='item-avatar' with='30px' height='30px' />
+                      {' '}<strong>{item.nombre}</strong>
+                    </div>
+                  </td>
+                  <td>{item.modalidad}</td>
+                  <td>{item.comienzo}</td>
+                  <td>{item.fin}</td>
+                  <td>{item.instructor}</td>
+                  <td><button onClick={() => { handleEdit(item) }} >Ver</button></td>
+                  <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
+                </tr>
+              ))}
+            </Tbody>
+          </Table>
+        </ListaEstudiantes>
+      }
+
+    </div >
   );
 }
 

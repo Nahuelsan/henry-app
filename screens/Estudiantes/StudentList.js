@@ -21,7 +21,12 @@ import {
   ImgSize,
   LogoSise,
 } from './StyledEstudents';
+<<<<<<< HEAD
 import Footer from '../Footer/Footer';
+=======
+import Footer from '../Footer';
+
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 let imgRemplazo = require('../../src/assets/img/imgUser.jpg');
@@ -113,6 +118,12 @@ const StudentList = ({ navigation }) => {
             ))}
           </View>
         </ContListGen>
+<<<<<<< HEAD
+=======
+        <ContMinf>
+          <Footer navigation={navigation} />
+          </ContMinf>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
       </ContGeneral>
 			{/* Menu inferior General */}
 			<Footer navigation={navigation}/>

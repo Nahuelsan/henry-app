@@ -27,6 +27,8 @@ import {
   BotonLog,
   TextButton
 } from './StyledCohorteList';
+import Footer from '../Footer';
+
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
@@ -95,6 +97,14 @@ console.log(props.route.params.cohorte)
 
 
         </ContListGen>
+<<<<<<< HEAD
+=======
+
+        <ContMinf>
+          <Footer navigation={props.navigation} />
+
+        </ContMinf>
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
       </ContGeneral>
       {/* Menu inferior General */}
 			<Footer navigation={props.navigation}/>

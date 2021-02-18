@@ -2,6 +2,11 @@ import styled from 'styled-components/native';
 
 export const Contenedor = styled.View`
   flex: 1;
+<<<<<<< HEAD
+=======
+  padding-bottom: 30px;
+  background-color: white;
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627
  ` 
 
 export const Encabezado = styled.View`
@@ -131,8 +136,9 @@ export const ContMinf = styled.View`
 
 export const IconContent = styled.View`
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-end;
+  margin-bottom: 20;
 `
 
 export const ImgMinf = styled.View`

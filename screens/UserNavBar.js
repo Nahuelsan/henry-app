@@ -34,7 +34,7 @@ const UserNavBar = ({ navigation }) => {
 						reverse
 						name='rocket'
 						type='font-awesome-5'
-					// onPress = {}
+					onPress = {() => navigation.navigate('Job Preps')}
 					/>
 				</OptionCard>
 				<OptionText>Job Preps</OptionText>

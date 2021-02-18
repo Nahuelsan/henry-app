@@ -21,6 +21,8 @@ import {
     TextButton
 } from './Cohortes/StyledCohorteList'
 
+import Footer from './FooterUser';
+
 let card1 = require('../src/assets/img/imgCard1.png');
 
 
@@ -150,8 +152,13 @@ const PairPrograming = ({ navigation }) => {
                             </View>
                         )}
                     </ScrollView>
+                    
                 </ContListGen>
+                  
+                        <Footer navigation={navigation} />
+                     
             </ContGeneral>
+              
             {editFeed.see && <View style={s.feed}>
                 <View style={s.container_feed}>
                     <Text style={s.title}>
@@ -169,7 +176,9 @@ const PairPrograming = ({ navigation }) => {
                         <BotonLog onPress={addFeedback}><TextButton>Enviar</TextButton></BotonLog>
                     </View>
                 </View>
+                
             </View>}
+                
         </Contenedor>
     )
 }

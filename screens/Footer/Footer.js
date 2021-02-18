@@ -15,15 +15,15 @@ import {
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 import firebase from '../../database/database';
   
-const Footer = (props) => {
+const Footer = ({ navigation}) => {
 
   const dispatch = useDispatch();
-  {/* info={info} */}
+
   const Logout =()=> {
 	  dispatch(logout())
 	  firebase.firebase
 		  .auth().signOut().then(()=>console.log('sign out'))
-	  props.navigation.navigate('Iniciar Sesion')
+	  navigation.navigate('Iniciar Sesion')
   }
 
   return (
@@ -33,6 +33,7 @@ const Footer = (props) => {
 						name="home"
 						type="font-awesome"
 						size={40}
+<<<<<<< HEAD:screens/Footer/Footer.js
 						onPress={() => props.navigation.navigate('Menu Usuario')}
 					/>					
 					<Icon
@@ -42,6 +43,15 @@ const Footer = (props) => {
 						size={40}
 						onPress={() => props.navigation.navigate('Henry Admin')}
 					/>
+=======
+						onPress={() => navigation.navigate('Henry Admin')}
+					/>
+				
+					<ImgMinf>
+						<LogoSise source={logFont} />
+					</ImgMinf>
+				
+>>>>>>> 675b0c92735cf792a246c18afe70b52a980f8627:screens/Footer.js
 					<Icon
 						solid={true}
 						name="sign-out-alt"
