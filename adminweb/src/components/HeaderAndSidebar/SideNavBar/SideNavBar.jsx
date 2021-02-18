@@ -42,6 +42,7 @@ function SideNavBar({setSelect, setCargando}) {
       setActiveUser('');
       setActiveBook('');
       setActiveHat('active');
+      setSelect('Instructores');
       setCargando(true);
       setTimeout(()=>{
         setCargando(false);
