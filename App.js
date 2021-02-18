@@ -44,6 +44,7 @@ import PairPrograming from './screens/pairPrograming';
 import CrearGrupos from './screens/Cohortes/CrearGrupo';
 import Calendario from './screens/Calendario';
 import ModificarClases from './screens/Cohortes/Clases';
+import JobPreps from './screens/JobPreps';
 
 
 const Stack = createStackNavigator();
@@ -119,6 +120,7 @@ export default function App() {
 				<Stack.Screen name='Modificar Clases' component={ModificarClases} />
 				<Stack.Screen name='Listado de Alumnos sin Cohorte' component={Studentcohortes} />
 				<Stack.Screen name="Create User" component={CreateUser} options={{ title: 'Create a New User' }} />
+        <Stack.Screen name='Job Preps' component={JobPreps}/>
 			</Stack.Navigator>
 		);
 	}
