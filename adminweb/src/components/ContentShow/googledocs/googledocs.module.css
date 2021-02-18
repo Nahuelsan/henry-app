@@ -41,10 +41,13 @@
     color: gray;
     font-size: 14px;
 }
+.container_btns{
+    display: flex;
+}
 .btn{
     padding: 8px;
     outline: none;
-    width: 50%;
+    width: 30%;
     margin: auto;
     box-shadow: 10px 10px 10px gray;
 }

@@ -28,14 +28,18 @@ const Calendario = ({ navigation }) => {
     const cohorte = useSelector(state => state.cohorte)
     const dbRef = firebase.db.collection('cohorte')
     useEffect(() => {
-        dbRef.onSnapshot(snap => {
-            snap.docs.forEach(doc => {
-                const { nombre } = doc.data()
-                if (cohorte === nombre) traerClases(doc.id)
+        if(!cohorte){
+            setLoading(false)
+        }else{
+            dbRef.onSnapshot(snap => {
+                snap.docs.forEach(doc => {
+                    const { nombre } = doc.data()
+                    if (cohorte === nombre) traerClases(doc.id)
+                })
             })
-        })
+        }
     }, [])
-    console.log(calendar)
+    
     const traerClases = id => {
         dbRef.doc(id).collection('clases').onSnapshot(snap => {
             let clases = []
