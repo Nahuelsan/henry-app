@@ -17,18 +17,11 @@ import {
   TarjetaPm, 
   TarjetaProgreso, 
   Titulo, 
-  TituloPm, 
   User,
-  Pm,
-  TituloPm,
-  Tarjeta,
-  TarjetaPm,
-  Progreso,
-  TarjetaProgreso
+  TituloPm
 } from './StyledYourCohort';
 
 import Footer from '../Footer/Footer';
-import { ScrollView } from 'react-native';
 
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
