@@ -56,18 +56,18 @@ const JobPreps = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   construccion: {
-    width: 400,
-    height: 400,
+    width: 350,
+    height: 350,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    marginTop: 50
+    marginTop: 30
   },
   text: {
     textAlign: 'center',
     fontSize: 23,
-    marginTop: 400,
-    fontWeight: 700
+    marginTop: 350,
+    fontWeight: '700'
   }
 })
 
