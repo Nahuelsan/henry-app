@@ -330,6 +330,7 @@ function Cohortes() {
                 <label>Numero de Grupo:<strong>{grupo.numero}</strong></label>
                 <label>PM Asignado:<strong>{grupo.pms.first_name || 'No Asignado'}</strong></label> 
                 <label>Alumnos:<strong>{grupo.alumnos.length}</strong></label>
+                <button onClick={()=>setGrupo('')}>Atras</button>
               </>}
               <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>
             </ContCohorteSelect>}
