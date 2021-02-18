@@ -82,6 +82,6 @@ export const IconSocialRed = styled.View`
   margin-top:20px;
   width: 25%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `
 

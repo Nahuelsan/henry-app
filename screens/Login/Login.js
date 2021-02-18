@@ -271,11 +271,11 @@ const Login = ({ navigation }) => {
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => loginGithub()}>
 							{/* <FontAwesomeIcon icon={faGithub} size={20} /> */}
-              <Icon 
+              {/* <Icon 
                 name = 'github'
                 type = 'font-awesome-5'
                 size = {20}
-              /> 
+              />  */}
 						</TouchableOpacity>
 					</IconSocialRed>
 				</ContSocialRed>
