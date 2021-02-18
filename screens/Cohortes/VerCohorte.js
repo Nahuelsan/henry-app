@@ -93,8 +93,6 @@ console.log(props.route.params.cohorte)
               <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
             </BotonLog>
           </ContBtnLog>
-
-
         </ContListGen>
       </ContGeneral>
       {/* Menu inferior General */}
