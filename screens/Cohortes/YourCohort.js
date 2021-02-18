@@ -12,7 +12,6 @@ import {
   Img,
   Imagen, 
   Pm, 
-  Progreso, 
   Tarjeta, 
   TarjetaPm, 
   TarjetaProgreso, 

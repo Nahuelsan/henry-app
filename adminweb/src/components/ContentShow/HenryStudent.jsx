@@ -154,6 +154,8 @@ function HenryStudent() {
   //Excel
   const [excel, setExcel] = useState(false)
 
+  const closeExcel = () => setExcel(false)
+
   const sendExcel = async (id) => {
     const ret = await getRows(id)
     ret.map(async obj => {
@@ -164,7 +166,7 @@ function HenryStudent() {
 
   return (
     <div>
-      {excel && <GoogleDocs cb={sendExcel}/>}
+      {excel && <GoogleDocs cb={sendExcel} close={closeExcel}/>}
       <ContenedorPanel className='panel-estudiantes'>
         <h2>Panel Estudiantes Henry</h2>
         <DetalleUser >

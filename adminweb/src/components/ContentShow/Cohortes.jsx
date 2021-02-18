@@ -44,9 +44,7 @@ function Cohortes() {
           comienzo,
           fin,
           modalidad,
-          instructor,
-          nombre,
-          id           : doc.id
+          instructor
         });
       });
       setCohortes(allCohortes);
@@ -154,7 +152,7 @@ function Cohortes() {
           instructor: state.instructor,
         });
         alert(`Cohorte creada con exito!`);
-      } catch (error) {git 
+      } catch (error) { 
         alert('Hubo un error al crear la Cohorte!');
       }
     }
@@ -524,7 +522,7 @@ function Cohortes() {
               </tr>
             </Thead>
             <Tbody>
-              {cohortes && cohortes.map((item, index) => (
+              {cohortes && cohortes.sort((a, b) => a.nombre - b.nombre).map((item, index) => (
                 <tr key={index}>
                   <td>
                     <div>

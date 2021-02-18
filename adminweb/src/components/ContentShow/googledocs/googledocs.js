@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import s from './googledocs.module.css'
 
-const GoogleDocs = ({cb}) => {
+const GoogleDocs = ({cb, close}) => {
     const [link, setLink] = useState('')
 
     const getId = () => {
@@ -27,9 +27,16 @@ const GoogleDocs = ({cb}) => {
                             asegurate que el link sea del estilo "https://docs.google.com/spreadsheets/d/XXXX/edit"
                         </p>
                     </div>
-                    <button
-                    className={s.btn}
-                    onClick={() => getId()}>Send</button>
+                    <div className={s.container_btns}>
+                        <button
+                            className={s.btn}
+                            onClick={() => close()}
+                        >Back</button>
+                        <button
+                            className={s.btn}
+                            onClick={() => getId()}
+                        >Send</button>
+                    </div>
                 </div>
             </div>
         </div>
