@@ -185,7 +185,7 @@ function HenryStudent() {
                       <img src={alumno.photo} alt='avatar' with='50px' height='50px'/>
                   </ContenedorImagen>
                   <h3>{alumno.first_name} {alumno.last_name}</h3>
-                  <label>{alumno.email}</label><br/>
+                  <label>{alumno.email}</label>
                   <h4>CAMBIAR ROL</h4>
                   <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
                   <datalist id="rol">

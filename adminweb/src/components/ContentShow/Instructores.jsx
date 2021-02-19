@@ -78,6 +78,16 @@ function Instructores() {
       })
   }
 
+  //Eliminar usuario
+  const handleDelete = async id =>{
+    if(window.confirm('¿ Esta seguro que desea eliminar este usuario ?')){
+      console.log(id);
+      await firebase.db.collection('users').doc(id).delete();
+      alert('uduario eliminado correctamente ')
+    }
+    
+  }
+
   //Formulario de Mail a nuevo Henry
   const [state, setState] = useState({
     correo: '',
@@ -173,7 +183,7 @@ function Instructores() {
                       <img src={instructor.photo} alt='avatar' with='50px' height='50px'/>
                   </ContenedorImagen>
                   <h3>{instructor.first_name} {instructor.last_name}</h3>
-                  <label>{instructor.email}</label><br/>
+                  <label>{instructor.email}</label>
                   <h4>CAMBIAR ROL</h4>
                   <input type="text" list="rol" name="rol" onChange={handleSelectedRol} />
                   <datalist id="rol">
@@ -268,8 +278,10 @@ function Instructores() {
                 <td>{user.email}</td>
                 <td>{user.nacionalidad}</td>
                 <td>{user.rol}</td>
-                <td><button onClick={() => { handleEdit(user) }} >Edit</button></td>
-                <td><button>Delete</button></td>
+                <td><div onClick={() => { handleEdit(user) }} ><i class="fas fa-edit"></i></div></td>
+                <td><div onClick={() => { handleDelete(user.id) }}><i class="far fa-minus-square"></i></div></td>
+                {/* <td><button onClick={() => { handleEdit(user) }} >Edit</button></td>
+                <td><button>Delete</button></td> */}
               </tr>
             ))}
           </Tbody>
