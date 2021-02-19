@@ -71,6 +71,7 @@ export const ContenedorUser = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
 `
 export const ContenedorSideBar = styled.div`
