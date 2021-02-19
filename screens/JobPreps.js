@@ -46,10 +46,8 @@ const JobPreps = ({ navigation }) => {
           style={styles.construccion}
         />
         <Text style={styles.text}>Seccion en construccion. Pronto estará disponible!!</Text>
-        <ContMinf>
-          <FooterUser navigation={navigation} />
-        </ContMinf>
       </ContGeneral>
+      <FooterUser navigation={navigation} />
     </Contenedor>
   )
 };
