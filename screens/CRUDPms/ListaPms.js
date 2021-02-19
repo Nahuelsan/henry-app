@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, Component } from 'react'; 
 import { StyleSheet, View, Button, Alert } from 'react-native';
 import { Icon, ListItem, Text } from 'react-native-elements';
 import {
@@ -18,6 +18,7 @@ import {
     TextButtonOp2,
     ContPirnTable,
     TextContTable,
+    ImgListUn,
     BotonLog,
     TextButton,
     BodyUnitItem
@@ -29,77 +30,43 @@ import Footer from '../Footer';
 
   
 
-const ListaPms = (props) =>{
-    var bar_pm = []
-
-    useEffect(() => {
-        firebase.db.collection('cohorte').where("nombre", "==", props.route.params.cohorte).onSnapshot((snap) => {
+class ListaPms extends Component{
+    state = {
+        grupo: [],
+        cohorte: '',
+        idCohorte: ''
+    }
+   componentDidMount(){
+        firebase.db.collection('cohorte').where("nombre", "==", this.props.route.params.cohorte).onSnapshot((snap) => {
             let coh = [];
+            let grupos = []
             snap.docs.forEach((doc) => {
-                const {comienzo, fin, instructor, modalidad, nombre} = doc.data()
-                coh.push({
-                    comienzo, 
-                    fin, 
-                    instructor, 
-                    modalidad, 
-                    nombre,
-                    id: doc.id
+                this.setState({
+                    idCohorte : doc.id
                 })
-            });
-            firebase.db.collection('cohorte').doc(coh[0].id).collection('grupos')
+            })
+            firebase.db.collection('cohorte').doc(this.state.idCohorte).collection('grupos')
             .get()
             .then(querySnapshot=>{
                 querySnapshot.forEach(doc => {
-                    const {pms} = doc.data()
-                    const {first_name, id, last_name} = pms
-                    bar_pm.push(
-                        first_name,
-                        last_name,
-                        id
-                    ) 
+                    const {numero, pms} = doc.data()
+                    grupos[numero] = pms
+
                 })
             })
+            this.setState({
+                grupo: grupos
+            })
+            this.render()
+        })
 
-        });
-    }, []);
-    const eliminar = async (pm) =>{
-
-        const dbRef = firebase.db.collection('users').doc(pm.id);
-        if (confirm('Esta seguro de querer eliminar este PMs?')) {
-			await dbRef.set({
-                cohorte: '',
-                grupo: ''
-            });
-			alert('Se quito al PM del Cohorte');
-        }
-		else {
-        }
-        
-        Alert.alert(
-                'Esta Eliminando un Usuario',
-                'Esta seguro de querer eliminar este Usuario',
-                [
-                    {
-                        text    : 'Cancel',
-                        onPress : () => console.log('Cancel Pressed'),
-                        style   : 'cancel'
-                    },
-                    {
-                        text    : 'OK',
-                        onPress : async () => {
-                await dbRef.delete();   
-                navigation.navigate('Henry Admin');         
-                        }
-                    }
-                ],
-                { cancelable: false }
-            ); 
     }
+    render(){
     return (
         <Contenedor >
             <Encabezado >
                 <ConTitle
-                onPress={() => props.navigation.goBack()}
+                onPress={() => this.props.navigation.goBack()}
                 >
                 <Icon
                     solid={true}
@@ -120,18 +87,18 @@ const ListaPms = (props) =>{
             </Options>
             <ContGeneral>
                 <ContListGen>
-                    <View>
-                    {bar_pm[0].last_name}
-                    </View>
-                    <ContBtnOut >
-                        <BotonLog onPress={() => console.log(bar_pm)}>
+                    {
+                        this.state.grupo[1] ? this.state.grupo[0] : 'Nada'
+                    }
+                </ContListGen>
+                <ContBtnOut >
+                        <BotonLog onPress={() => this.render()}>
                             <TextButton>Agregar PM</TextButton>
                         </BotonLog>
                     </ContBtnOut>
-                </ContListGen>
-                <Footer navigation={props.navigation}/>
+                <Footer navigation={this.props.navigation}/>
             </ContGeneral>
         </Contenedor>
-    );
+    );}
 }
 export default ListaPms;
