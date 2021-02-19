@@ -8,16 +8,15 @@ import {
 	Options,
 	BackImg,
 	TituloCard,
-  	ContText,
-  	ImgSise,
-  	LogoSise,
+  ContText,
+  ImgSise,
+  LogoSise,
 	ContMinf,
 	IconContent,
 	ImgMinf
 } from './styledAdmin';
-import Footer from '../Footer';
+import Footer from '../Footer/Footer';
 let card1 = require('../../src/assets/img/imgCard1.png');
-//Redux importamos funciones y hooks
 
 const HenryAdmin = (props) => {
 
@@ -47,9 +46,7 @@ const HenryAdmin = (props) => {
 				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
-			<ContMinf>
-				<Footer navigation={props.navigation} />
-			</ContMinf>
+			<Footer navigation={props.navigation} />
 		</Contenedor>
 	);
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ActivityIndicator, StyleSheet, TextInput } from 'react-native';
-import { Icon } from 'react-native-elements'
-import firebase from '../../database/database'
+import { Icon } from 'react-native-elements';
+import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -31,7 +32,7 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 
 const ModificarClases = (props) => {
-    const { nombre } = props.route.params
+    const { cohorte } = props.route.params
     const [clas, setClas] = useState()
     const [docId, setDocId] = useState()
     const [loading, setLoading] = useState(true)
@@ -39,7 +40,7 @@ const ModificarClases = (props) => {
     const dbRef = firebase.db.collection('cohorte')
 
     useEffect(() => {
-        dbRef.where("nombre", "==", nombre).onSnapshot(snap => {
+        dbRef.where("nombre", "==", cohorte).onSnapshot(snap => {
             snap.docs.forEach(doc => {
                 clases(doc.id)
             })
@@ -119,7 +120,7 @@ const ModificarClases = (props) => {
                 </BackImg>
                 <ContText>
                     <TituloCard>Clases del cohorte</TituloCard>
-                    <Text>Modifica las clases del cohorte {nombre}</Text>
+                    <Text>Modifica las clases del cohorte {cohorte}</Text>
                 </ContText>
             </Options>
             <ContGeneral>
@@ -193,6 +194,7 @@ const ModificarClases = (props) => {
                     </View>
                 </View>
             }
+            <Footer navigation={props.navigation}/>
         </Contenedor>
     )
 }

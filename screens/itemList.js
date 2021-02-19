@@ -36,8 +36,6 @@ const s = StyleSheet.create({
     },
     btn: {
         padding: 10,
-        borderColor: "gray",
-        borderWidth: 1,
         borderRadius: 8,
         backgroundColor: "yellow"
     },

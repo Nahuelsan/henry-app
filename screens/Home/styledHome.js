@@ -15,7 +15,7 @@ export const Img = styled.Image`
 export const Title = styled.Text`
   font-size: 35px;
   font-family: 'redRose-bold';
-  marginLeft: 50px;
+  margin-left: 50px;
 `
 
 export const TitleMin = styled.Text`

@@ -36,15 +36,15 @@ function Cohortes() {
   useEffect(() => {
     firebase.db.collection('cohorte').onSnapshot((snap) => {
       const allCohortes = [];
-      snap.docs.forEach((doc) => {
-        const { comienzo, fin, modalidad, instructor, nombre } = doc.data();
+      snap.forEach((doc) => {
+        const { comienzo, fin, modalidad, instructor, nombre, id } = doc.data();
         allCohortes.push({
           nombre,
           id: doc.id,
           comienzo,
           fin,
           modalidad,
-          instructor,
+          instructor
         });
       });
       setCohortes(allCohortes);
@@ -96,6 +96,16 @@ function Cohortes() {
     handleChangeText(check, 'checkeado')
   }
 
+  //Eliminar usuario
+  const handleDelete = async id =>{
+    if(window.confirm('¿ Esta seguro que desea eliminar esta Cohorte ?')){
+      console.log(id);
+      await firebase.db.collection('cohorte').doc(id).delete();
+      alert('Cohorte eliminada correctamente ')
+    }
+    
+  }
+
   //Estado Inicial de Crear Cohorte 
   const initalState = {
     numero_de_cohorte: '',
@@ -141,8 +151,8 @@ function Cohortes() {
           fin: state.fecha_de_finalizacion,
           instructor: state.instructor,
         });
-        alert(`Cohorte N°: ${state.numero_de_cohorte} creada con exito!`);
-      } catch (error) {
+        alert(`Cohorte creada con exito!`);
+      } catch (error) { 
         alert('Hubo un error al crear la Cohorte!');
       }
     }
@@ -314,24 +324,34 @@ function Cohortes() {
               </div>
             </InfoSelect>
             : <ContCohorteSelect>
-              <ContenedorImagen>
-                <div>
-                  <img src={ImgHenry} alt='avatar' with='50px' height='50px' />
-                </div>
+              <div className='cont-info-loc'>
+                <ContenedorImagen  className='henry-logo'>
+                    <img src={ImgHenry} alt='avatar' with='50px' height='50px' />
+                </ContenedorImagen>
                 <h3>HENRY WORLD</h3>
-              </ContenedorImagen>
-              <h3>Chorte {cohorte.nombre}</h3>
-              <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
-              <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
-              <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
-              <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
-              <label><strong>Grupos:</strong>{cohorte.grupos.length && cohorte.grupos.map((i) => <><br /><button onClick={() => handleGroup(i)}>{i.numero}</button></>)}</label>
-              {grupo && <>
-                <label>Numero de Grupo:<strong>{grupo.numero}</strong></label>
-                <label>PM Asignado:<strong>{grupo.pms.first_name || 'No Asignado'}</strong></label> 
-                <label>Alumnos:<strong>{grupo.alumnos.length}</strong></label>
-              </>}
-              <button onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>
+                <h4>Chorte {cohorte.nombre}</h4>
+                <label><strong>Instructor a cargo:</strong>{cohorte.instructor}</label>
+                <label><strong>Fecha de Inicio:</strong>{cohorte.comienzo}</label>
+                <label><strong>Fecha de Finalizacion:</strong>{cohorte.fin}</label>
+                <label><strong>Modalidad:</strong>{cohorte.modalidad}</label>
+                <label>
+                  <strong>Grupos:</strong> 
+                  <div className='list-grup-inf'>
+                  {cohorte.grupos.length && 
+                    cohorte.grupos.map((i) => 
+                      <>
+                        <button className='btn-email' onClick={() => handleGroup(i)}>{i.numero}</button>
+                      </>)}
+                  </div>
+                </label>
+                {grupo && <>
+                  <label><strong>Numero de Grupo:</strong>{grupo.numero}</label>
+                  <label><strong>PM Asignado:</strong>{grupo.pms.first_name || 'No Asignado'}</label> 
+                  <label><strong>Alumnos:</strong>{grupo.alumnos.length}</label>
+                  <button className='btn-email' onClick={()=>setGrupo('')}>Atras</button>
+                </>}
+                <button className='btn-email' onClick={() => { setPanelGrupos(true) }}>Crear Grupos</button>
+              </div>
             </ContCohorteSelect>}
         </DetalleUser>
         {panelGrupos ?
@@ -346,35 +366,54 @@ function Cohortes() {
                 acompañados de sus PMs a lo largo de su carrera
               </p>
               </div>
-              <div className="cont-form">
+              <div className="cont-form create-grup">
                 <InputForm>
-                  <label>Numero de Grupo:</label>
-                  <label>{grupos.length + 1}</label>
+                  <div>
+                    <label>Numero de Grupo:</label>
+                  </div>
+                  <div>
+                    <p>{grupos.length + 1}</p>
+                  </div>
                 </InputForm>
 
                 <InputForm>
-                  <label>Asignar Alumnos:</label>
-                  <button onClick={() => setAlumnosList(!alumnosList)}>Alumnos</button>
+                  <div>
+                    <label>Asignar Alumnos:</label>
+                  </div>
+                  <div>
+                    <button className='btn-email' onClick={() => setAlumnosList(!alumnosList)}>Alumnos</button>
+                  </div>
                 </InputForm>
 
                 <InputForm>
-                  <label>Asignar PMs:</label>
-                  <button onClick={() => setDropdown(!dropdown)}>PMs</button>
-                  {dropdown &&
-                    <div style={{ border: '1px solid black', backgroundColor: 'grey', zIndex: '10', width: '200px' }}>
-                      <ul><strong>PMs</strong>
-                        {
-                          PMs.map((pm, i) => (
-                            <li key={i} value={`${pm.last_name} ${pm.first_name}`}>{`${pm.last_name} ${pm.first_name}`}<button onClick={() => handlePMs(pm)}>ADD</button></li>
-                          ))
-                        }
-                      </ul>
-                    </div>
-                  }
+                  <div>
+                    <label>Asignar PMs:</label>
+                  </div>
+                  <div>
+                    <button className='btn-email' onClick={() => setDropdown(!dropdown)}>PMs</button>
+
+                  </div>
                 </InputForm>
-                <button className='btn-email' onClick={crearGrupos}>
+                {dropdown &&
+                  <InputForm>
+                  <div>
+                    <label>PMs:</label>
+                  </div>
+                  <div>
+                    <select style={{margin: 'auto'}}>
+                      {
+                        PMs.map((pm, i) => (
+                          <option onClick={() => handlePMs(pm)} key={i} value={`${pm.last_name}`}>{`${pm.last_name} ${pm.first_name}`}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
+                  </InputForm>
+                }
+
+                <button className='btn-email space' onClick={crearGrupos}>
                   CREAR GRUPO
-                </button><br />
+                </button>
                 <button className='btn-email' onClick={() => setPanelGrupos(false)}>
                   ATRAS
                 </button>
@@ -393,26 +432,32 @@ function Cohortes() {
               </p>
               </div>
 
-              <div className="cont-form">
+              <div className="cont-form create-grup">
                 <InputForm >
-                  <label>Cohorte N°:</label><br />
-                  <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
-                    <option value="01" >01</option>
-                    <option value="02" >02</option>
-                    <option value="03" >03</option>
-                    <option value="04" >04</option>
-                    <option value="05" >05</option>
-                    <option value="07" >07</option>
-                    <option value="08" >08</option>
-                    <option value="09" >09</option>
-                    <option value="10" >10</option>
-                    <option value="11" >11</option>
-                    <option value="12" >12</option>
-                    {state.numero_de_cohorte}
-                  </select>
+                  <div>
+                    <label>Cohorte N°:</label>
+                  </div>
+                  <div>
+                    <select value={state.numero_de_cohorte} onChange={(e) => handleChangeText(e.target.value, 'numero_de_cohorte')}>
+                      <option value="01" >01</option>
+                      <option value="02" >02</option>
+                      <option value="03" >03</option>
+                      <option value="04" >04</option>
+                      <option value="05" >05</option>
+                      <option value="07" >07</option>
+                      <option value="08" >08</option>
+                      <option value="09" >09</option>
+                      <option value="10" >10</option>
+                      <option value="11" >11</option>
+                      <option value="12" >12</option>
+                      {state.numero_de_cohorte}
+                    </select>
+                  </div>
                 </InputForm>
                 <InputForm>
-                  <label>Modalidad:</label>
+                  <div>
+                    <label>Modalidad:</label>
+                  </div>
                   <BtnForm>
                     <button
                       onClick={() => updateIndex(0)}
@@ -425,9 +470,11 @@ function Cohortes() {
                       Part Time
                     </button>
                   </BtnForm>
-                </InputForm><br />
+                </InputForm>
                 <InputForm>
-                  <label>Fecha de inicio:</label><br />
+                  <div>
+                    <label>Fecha de inicio:</label>
+                  </div>
                   <CalendarTimer>
                     <DatePicker
                       dateFormat="dd/MM/yyyy"
@@ -437,10 +484,10 @@ function Cohortes() {
                     <i className="calendar-alt"></i>
                   </CalendarTimer>
                 </InputForm>
-              </div>
-              <div className="cont-form">
                 <InputForm>
-                  <label>Fecha de finalizacion:</label><br />
+                  <div>
+                    <label>Fecha de finalizacion:</label>
+                  </div>
                   <CalendarTimer>
                     <DatePicker
                       dateFormat="dd/MM/yyyy"
@@ -451,12 +498,16 @@ function Cohortes() {
                   </CalendarTimer>
                 </InputForm>
                 <InputForm >
-                  <label>Instructor</label><br />
-                  <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
-                    <option value="Franco Etcheverry" >Franco Etcheverry</option>
-                    <option value="Toni Tralice" >Toni Tralice</option>
-                    {state.instructor}
-                  </select>
+                  <div>
+                    <label>Instructor</label>
+                  </div>
+                  <div>
+                    <select value={state.instructor} onChange={(e) => handleChangeText(e.target.value, 'instructor')}>
+                      <option value="Franco Etcheverry" >Franco Etcheverry</option>
+                      <option value="Toni Tralice" >Toni Tralice</option>
+                      {state.instructor}
+                    </select>
+                  </div>
                 </InputForm>
                 <CheckBox>
                   <input name="checkeado" type="checkbox" onClick={handleCheckBox} />
@@ -511,7 +562,7 @@ function Cohortes() {
               </tr>
             </Thead>
             <Tbody>
-              {cohortes && cohortes.map((item, index) => (
+              {cohortes && cohortes.sort((a, b) => a.nombre - b.nombre).map((item, index) => (
                 <tr key={index}>
                   <td>
                     <div>
@@ -523,8 +574,8 @@ function Cohortes() {
                   <td>{item.comienzo}</td>
                   <td>{item.fin}</td>
                   <td>{item.instructor}</td>
-                  <td><button onClick={() => { handleEdit(item) }} >Ver</button></td>
-                  <td><button onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
+                  <td><button className='btn-email' onClick={() => { handleEdit(item) }} >Ver</button></td>
+                  <td><button className='btn-email' onClick={() => { eliminarCohorte(item.id) }}>Delete</button></td>
                 </tr>
               ))}
             </Tbody>

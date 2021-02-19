@@ -32,11 +32,13 @@ export const FormAlumno = styled.form`
   grid-template-columns: 50% 50%;
 `
 export const AlumnoInfo = styled.div`
-  padding: 20px 30px;
+  padding: 10px 20px 10px 0;
+  max-height: 295px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  overflow: hidden;
   & > input[type=submit]{
     width: 85%;
     border: none;
@@ -46,6 +48,7 @@ export const AlumnoInfo = styled.div`
   }
 `
 export const AlumnoInfoExtra = styled.div`
+  max-height: 295px;
   background-color: #FFFF01;
   border-radius: 40px; 
   padding: 20px 30px;
@@ -55,15 +58,58 @@ export const AlumnoInfoExtra = styled.div`
 export const ContCohorteSelect = styled.div`
   width: 100%;
   height: 84%;
-  padding: 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center; 
+  & > .cont-info-loc{
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    overflow: scroll;
+    & > label{
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      margin-bottom: 3px;
+      & > strong{
+        margin: auto 0;
+      }
+      & > .list-grup-inf{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+    & .btn-email{
+        margin-top: 5px;
+        width: 45%;
+        border: none;
+        background-color: #FFFF01;
+        padding: 7px;
+        border-radius: 10px;
+    }
+    & > .henry-logo{
+      max-width: 100px !important;
+      min-width: 100px !important;
+      max-height: 50px !important;
+      min-height: 50px !important;
+    }
+    & > h3{
+      margin: 5px;
+    }
+  }
 `
 export const ContenedorImagen = styled.div`
+  max-width: 120px;
+  min-width: 120px;
+  max-height: 120px;
+  min-height: 120px;
   & > img{
-    width: 130px;
-    height: 130px;
+    width: 100%;
+    height: 100%;
   }
 `
 export const InfoSelect = styled.div`
@@ -162,7 +208,11 @@ export const ContInCard = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    & > .cont-form{
+  }
+  & > .cont-form{
+      padding: 20px;
+      min-width: 15%;
+      width: 48%;
       max-width: 48%;
       text-align: center;
       & > .btn-email{
@@ -171,9 +221,16 @@ export const ContInCard = styled.div`
       background-color: #FFFF01;
       padding: 7px;
       border-radius: 10px;
+      }
+      & > .space{
+        margin-bottom: 10px;
+      }
     }
+    & > .create-grup{
+      overflow: scroll;
+      margin: 20px auto;
+      padding: 0;
     }
-  }
 `
 export const InputCont = styled.div`
   max-width: 380px;
@@ -207,7 +264,7 @@ export const InputCont = styled.div`
   }
 `
 export const InputForm = styled.div`
-  max-width: 380px;
+  max-width: 400px;
   width: 100%;
   height: 55px;
   display: grid;
@@ -215,9 +272,10 @@ export const InputForm = styled.div`
   margin: 10px 0;
   padding: 0 .4rem;
   text-align: start;
-  & > label {
+  & > h3 {
     display: flex;
-    align-items: center;
+    align-items: center;  
+    padding: 0 5px;
   }
   & > .div-cont-in{
     display: flex;
@@ -234,10 +292,38 @@ export const InputForm = styled.div`
     border-bottom: 1px solid black;
     color: #666;
   }
+  & .react-datepicker-wrapper{
+    margin-left: auto;
+    max-width: 90% !important;
+
+  }
+  & input[type=text]{
+    max-width: 90% !important;
+  }
   & > div{
+    display: flex;
+    align-items: center;
+    & select{
+      margin-left: auto;
+      height: 40px;
+    }
+    & > p{
+      margin: 0 auto;
+    }
+  }
+  & .btn-email{
+      margin: 0 auto;
+      width: 85%;
+      border: none;
+      background-color: #FFFF01;
+      padding: 7px;
+      border-radius: 10px;
   }
 `
 export const CalendarTimer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 `
 export const BtnForm = styled.div`
@@ -293,5 +379,19 @@ export const Tbody = styled.tbody`
   background-color: white;
   & > tr > td{
     padding: 10px;
+  }
+  & i{
+    cursor: pointer;
+    font-size: 30px;
+  }
+  & .div-table-img{
+    display: flex;
+  }
+  & .btn-email{
+      width: 85%;
+      border: none;
+      background-color: #FFFF01;
+      padding: 7px;
+      border-radius: 10px;
   }
 `

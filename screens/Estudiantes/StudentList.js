@@ -21,8 +21,7 @@ import {
   ImgSize,
   LogoSise,
 } from './StyledEstudents';
-import Footer from '../Footer';
-
+import Footer from '../Footer/Footer';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 let imgRemplazo = require('../../src/assets/img/imgUser.jpg');
@@ -82,7 +81,6 @@ const StudentList = ({ navigation }) => {
       </Options> 
       <ContGeneral>
         <ContListGen>
-          <View>
             {users.map((student, i) => (
               <ListItem key={i} bottomDivider>
                 {!student.photo ? (
@@ -112,13 +110,10 @@ const StudentList = ({ navigation }) => {
                 </ListItem.Content>
               </ListItem>
             ))}
-          </View>
         </ContListGen>
-        <ContMinf>
-          <Footer navigation={navigation} />
-          </ContMinf>
       </ContGeneral>
-			
+			{/* Menu inferior General */}
+			<Footer navigation={navigation}/>
 		</Contenedor>
 	);
 };

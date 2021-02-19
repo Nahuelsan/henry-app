@@ -5,6 +5,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import firebase from '../../database/database'
 //import DateTimePicker from '@react-native-community/datetimepicker'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -30,7 +31,6 @@ import {
   BotonLog,
   TextButton
 } from './StyledCohorteList';
-import Footer from '../Footer';
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
 
@@ -249,10 +249,9 @@ const CrearCohorte = (props) => {
             <TextButton onPress={saveNewCohorte}>CREAR COHORTE</TextButton>
           </BotonLog>
         </ContListGen>
-        <ContMinf>
-          <Footer navigation={props.navigation} />
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };

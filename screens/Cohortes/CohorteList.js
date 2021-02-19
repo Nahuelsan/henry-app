@@ -23,12 +23,11 @@ import {
   ImgListUn,
   TextButton
 } from './StyledCohorteList';
-import Footer from '../Footer';
+import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
-
-import firebase from '../../database/database';
 
 const CohorteList = ({ navigation }) => {
 
@@ -107,12 +106,9 @@ const CohorteList = ({ navigation }) => {
             </ListItem>
           ))}
         </ContListGen>
-        {/* Menu inferior General */}
-        <ContMinf>
-          <Footer navigation={navigation} />
-
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={navigation}/>
     </Contenedor>
   );
 };

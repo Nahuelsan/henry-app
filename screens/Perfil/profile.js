@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert  } from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
 import { Avatar, Icon } from 'react-native-elements';
 import firebase from '../../database/database';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -14,7 +15,9 @@ import {
   ContAvatarPrin,
   ContDatos,
   BotonLog,
-  TextButton
+  TextButton,
+  TitleAvatar,
+  ContTextAvatar
 } from './StyledPerfil';
 
 //Redux
@@ -157,11 +160,11 @@ const Profile = (props) => {
             }}
             size="large"
           />
-          <View >
-            <Text style={styles.title}>{`${user.first_name} ${user.last_name}`}</Text>
+          <ContTextAvatar >
+            <TitleAvatar>{`${user.first_name} ${user.last_name}`}</TitleAvatar>
             <Text style={styles.subtitle}>{user.email}</Text>
             <Text style={styles.subtitle}>Perfil: {user.rol}</Text>
-          </View>
+          </ContTextAvatar>
         </ContAvatarPrin>
         <ContDatos style={styles.datos}>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Datos</Text>
@@ -212,6 +215,8 @@ const Profile = (props) => {
           </View>
         </ContDatos>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
 	);
 };
@@ -230,9 +235,6 @@ const styles = StyleSheet.create({
 		marginLeft : 15,
 		flex       : 1
 	},
-	title              : {
-		fontSize : 25
-	},
 	subtitle           : {
 		color : 'gray'
 	},
@@ -242,6 +244,7 @@ const styles = StyleSheet.create({
 	datos              : {
 		backgroundColor : 'white',
 		marginTop       : 18,
+    marginBottom    : 25,
 		padding         : 15,
 		shadowColor     : '#000',
 		shadowOffset    : {

@@ -12,16 +12,15 @@ import {
   Img,
   Imagen, 
   Pm, 
-  Progreso, 
   Tarjeta, 
   TarjetaPm, 
   TarjetaProgreso, 
   Titulo, 
-  TituloPm, 
   User,
-  ContStudents } from './StyledYourCohort';
-  
-import Footer from '../Footer';
+  TituloPm
+} from './StyledYourCohort';
+
+import Footer from '../FooterUser';
 
 let card2 = require('../../src/assets/img/imgCard2.png');
 let userImg = require('../../src/assets/img/user.png');
@@ -185,7 +184,7 @@ const YourCohort = ({ navigation }) => {
           </TarjetaProgreso>
         </Progreso>
       </ContGeneral>
-      <Footer navigation = {navigation}/>
+      <Footer navigation={navigation} /> 
     </Contenedor>
   )
 };

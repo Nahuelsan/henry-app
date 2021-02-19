@@ -96,12 +96,20 @@ export const ContAvatarPrin = styled.View`
   width: 80%;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+`
+export const ContTextAvatar = styled.View`
+  width: 70%;
 `
 
 export const ContDatos = styled.ScrollView`
   width: 80%;
 `
 
+export const TitleAvatar = styled.Text`
+  font-size: 25px;
+  max-width: 88%;
+`
 
 /* Boddy Listas */
 

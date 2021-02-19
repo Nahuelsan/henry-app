@@ -3,9 +3,7 @@ import styled from 'styled-components/native';
 export const Contenedor = styled.View `
   flex: 1;
   justify-content: space-between;
-  background-color: white;  
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
+  background-color: white;
 `
 
 export const Encabezado = styled.View `
@@ -76,7 +74,6 @@ export const ContGeneral = styled.View `
   top: 10%;
   width: 100%;
   height: 100%;
-  z-index: 2;
   align-items: center;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;

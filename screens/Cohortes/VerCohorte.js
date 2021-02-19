@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 
 /* Estilos */
 import {
@@ -19,14 +20,13 @@ import {
   IconContent,
   ImgMinf,
   ImgSise,
-  TextButtonOp2,
+  ContBtnLog,
   ContPirnTable,
   TextContTable,
   LogoSise,
   BotonLog,
   TextButton
 } from './StyledCohorteList';
-import Footer from '../Footer';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
 let logFont = require('../../src/assets/img/henry_logo.jpg');
@@ -72,35 +72,31 @@ console.log(props.route.params.cohorte)
             </View>
           </ContPirnTable>
 
-          <BotonLog onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
-          </BotonLog>
+          <ContBtnLog>
+            <BotonLog onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate('Alumno Cohorte', {nombre: nombre})}>Alumnos</TextButton>
+            </BotonLog>
 
-          <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
-          </BotonLog>
+            <BotonLog onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate("Lista PMs", {cohorte: nombre})}>PMs</TextButton>
+            </BotonLog>
 
-          <BotonLog onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>
-            <TextButton onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>Crear Nuevo Grupo</TextButton>
+            <BotonLog onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>
+              <TextButton onPress={() => props.navigation.navigate('Crear Grupos', {cohorte: props.route.params.cohorte})}>Crear Nuevo Grupo</TextButton>
+            </BotonLog>
+            
+            <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
+              <TextButton>Clases</TextButton>
+            </BotonLog>
 
-
-          <BotonLog onPress={() => props.navigation.navigate('Modificar Clases', {cohorte: nombre})}>
-            <TextButton>Clases</TextButton>
-          </BotonLog>
-
-          </BotonLog>
-
-          <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
-            <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
-          </BotonLog>
-
+            <BotonLog onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>
+              <TextButton onPress={() => props.navigation.navigate("Grupos PP", {cohorte: nombre})}>CRUD de PP</TextButton>
+            </BotonLog>
+          </ContBtnLog>
         </ContListGen>
-
-        <ContMinf>
-          <Footer navigation={props.navigation} />
-
-        </ContMinf>
       </ContGeneral>
+      {/* Menu inferior General */}
+			<Footer navigation={props.navigation}/>
     </Contenedor>
   )
 };

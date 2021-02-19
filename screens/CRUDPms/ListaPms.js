@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from 'react'; 
 import { StyleSheet, View, Button, Alert } from 'react-native';
 import { Icon, ListItem, Text } from 'react-native-elements';
+import Footer from '../Footer/Footer';
 import {
     Contenedor,
     Encabezado,
@@ -98,6 +99,15 @@ class ListaPms extends Component{
                     </ContBtnOut>
                 <Footer navigation={this.props.navigation}/>
             </ContGeneral>
+            {
+                pms.length === 0 && <ContBtnOut >
+                <BotonLog onPress={() => console.log(pms)}>
+                  <TextButton>Agregar PM</TextButton>
+                </BotonLog>
+              </ContBtnOut>
+            }
+            {/* Menu inferior General */}
+			      <Footer navigation={props.navigation}/>
         </Contenedor>
     );}
 }

@@ -3,6 +3,7 @@ import Header from './Header/Header';
 import SideNavBar from './SideNavBar/SideNavBar';
 import HenryStudent from '../ContentShow/HenryStudent';
 import Cohortes from '../ContentShow/Cohortes';
+import Instructores from '../ContentShow/Instructores';
 import Spinner from '../Spinner/Spinner'
 /* Estilos */
 import {
@@ -21,7 +22,7 @@ const HeaderSidebar = () => {
 
   const componenteStudent = (cargando ? <Spinner /> : <HenryStudent />);
   const componenteCohorte = (cargando ? <Spinner /> : <Cohortes />);
-  const componenteInstructores = (cargando ? <Spinner /> : <HenryStudent />)
+  const componenteInstructores = (cargando ? <Spinner /> : <Instructores />)
 
   return ( 
     <Contenedor>
@@ -34,6 +35,10 @@ const HeaderSidebar = () => {
       { select === 'Henry-cohortes' ?
       <ContenedirInfoSelect>
           {componenteCohorte}
+      </ContenedirInfoSelect> : null}
+      { select === 'Instructores' ?
+      <ContenedirInfoSelect>
+          {componenteInstructores}
       </ContenedirInfoSelect> : null}
     </Contenedor>
    );

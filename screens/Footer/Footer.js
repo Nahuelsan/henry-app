@@ -3,17 +3,17 @@ import { Icon } from 'react-native-elements';
 
 //Redux importamos funciones y hooks
 import {useDispatch} from 'react-redux';
-import {logout} from '../src/action';
+import {logout} from '../../src/action';
 
 // Style
 import { 
   ContMinf,
   ImgMinf,
   IconContent,
-  LogoSise } from './OptionAdmin/styledAdmin';
+  LogoSise } from './styledFooter';
 
-let logFont = require('../src/assets/img/henry_logo.jpg');
-import firebase from '../database/database';
+let logFont = require('../../src/assets/img/henry_logo.jpg');
+import firebase from '../../database/database';
   
 const Footer = ({ navigation}) => {
 

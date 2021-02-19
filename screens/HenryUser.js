@@ -10,10 +10,6 @@ import {
 	ImgSise,
 	Options,
 	TituloCard,
-	ContMinf,
-	IconContent,
-	ImgMinf,
-	LogoSise
 } from './OptionAdmin/styledAdmin';
 import UserHeader from './UserHeader';
 import UserNavBar from './UserNavBar';
@@ -74,10 +70,7 @@ const HenryUser = ({ navigation }) => {
 				</Options>
 			</ContStudents>
 			{/* Menu inferior General */}
-	         <ContMinf>
 			<Footer  navigation={navigation}/>
-			 </ContMinf>
-			
 		</Contenedor>
 	)
 }

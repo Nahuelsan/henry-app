@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+let userIcon = require('../src/assets/img/imgUser.jpg');
 
 
 const UserHeader = ({navigation}) => {

@@ -16,6 +16,7 @@ import {
     ImgSise,
 } from './Cohortes/StyledCohorteList'
 import firebase from '../database/database';
+import Footer from './FooterUser';
 
 let card1 = require('../src/assets/img/imgCard1.png');
 
@@ -28,14 +29,18 @@ const Calendario = ({ navigation }) => {
     const cohorte = useSelector(state => state.cohorte)
     const dbRef = firebase.db.collection('cohorte')
     useEffect(() => {
-        dbRef.onSnapshot(snap => {
-            snap.docs.forEach(doc => {
-                const { nombre } = doc.data()
-                if (cohorte === nombre) traerClases(doc.id)
+        if(!cohorte){
+            setLoading(false)
+        }else{
+            dbRef.onSnapshot(snap => {
+                snap.docs.forEach(doc => {
+                    const { nombre } = doc.data()
+                    if (cohorte === nombre) traerClases(doc.id)
+                })
             })
-        })
+        }
     }, [])
-    console.log(calendar)
+    
     const traerClases = id => {
         dbRef.doc(id).collection('clases').onSnapshot(snap => {
             let clases = []
@@ -50,6 +55,8 @@ const Calendario = ({ navigation }) => {
         })
     }
 
+    const sorted = React.useMemo(()=> calendar.slice().sort((a,b) => a.clase - b.clase), [calendar]);
+
     const OpenURLButton = ({ url, title, link }) => {
         const handlePress = async () => {
             const supported = await Linking.canOpenURL(url)
@@ -60,7 +67,8 @@ const Calendario = ({ navigation }) => {
             }
         }
         return (<TouchableOpacity onPress={handlePress} style={s.containerLink}>
-            <Text>clase {title}:<Text style={s.link}>{link}</Text></Text>
+            <Text style = {s.titulo}>clase {title}:</Text>            
+            <Text style={s.link}>{link}</Text>
         </TouchableOpacity>)
     }
 
@@ -97,7 +105,7 @@ const Calendario = ({ navigation }) => {
             <ContGeneral>
                 <ContListGen>
                     <ScrollView style={s.container}>
-                        {calendar.length ? calendar.map(clas => (
+                        {sorted.length ? sorted.map(clas => (
                             <View key={clas.clase}>
                                 <OpenURLButton url={clas.link} title={clas.clase} link={clas.tema} />
                             </View>
@@ -111,6 +119,7 @@ const Calendario = ({ navigation }) => {
                     </ScrollView>
                 </ContListGen>
             </ContGeneral>
+            <Footer navigation={navigation} /> 
         </Contenedor>
     )
 }
@@ -124,8 +133,27 @@ const s = StyleSheet.create({
     },
     containerLink: {
         padding: 15,
+        backgroundColor: '#ffff01',
+        marginTop: 5,
+        borderBottomLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderStyle: 'solid',
+        borderColor: '#fff',
+        borderWidth: 5,
+        height: 100,
     },
     link: {
         color: "blue",
+        textAlign: 'center',
+        paddingTop: 5,
+        fontSize: 15
+    },
+    titulo: {
+      fontSize: 17,
+      fontWeight: '700',
+      textTransform: 'capitalize',
+      textAlign: 'center',
+      textDecorationColor: '#fff',
+      textDecorationLine: 'underline',
     }
 })
