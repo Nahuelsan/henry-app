@@ -35,7 +35,6 @@ const CohorteNavBar = () => {
   }, []);
 
   return (
-      <View style={styles.nav}>
         <Options>
           <BackImg>
             <ImgSize source = {card3}/>
@@ -50,7 +49,6 @@ const CohorteNavBar = () => {
             <Text>Conoce quien es tu Instructor, a tus PM´s y a tu grupo de Cohorte...</Text>
           </ContText>
         </Options>
-      </View>
   )
 };
 

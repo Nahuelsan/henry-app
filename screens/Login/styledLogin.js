@@ -76,6 +76,7 @@ export const ContSocialRed = styled.View`
 export const TextButton = styled.Text`
   font-family: 'gadugib';
   font-size: 18px;
+  margin: 0 auto;
 `
 
 export const IconSocialRed = styled.View`

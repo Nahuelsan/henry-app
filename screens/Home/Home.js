@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
 		<BackGround>
 			<Img style={{ height: 100, width: 150 }} source={logoPath} />
 			<Title>HENRY WORLD</Title>
-			<TitleMin>Tu mejor futuro</TitleMin>
+			  <TitleMin>Tu mejor futuro</TitleMin>
       <CardText>
         <InfoBot>
           Ya tienes cuenta?
