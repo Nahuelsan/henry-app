@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, ScrollView, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity, Button } from 'react-native'
-import ItemList from './itemList'
+import ItemList from './itemList';
 import { Icon } from 'react-native-elements';
-import { useSelector } from 'react-redux'
-import firebase from '../database/database'
+import { useSelector } from 'react-redux';
+import firebase from '../database/database';
 
 import {
     Contenedor,

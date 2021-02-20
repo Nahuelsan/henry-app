@@ -3,6 +3,7 @@ import { Text, View, ActivityIndicator, StyleSheet, TextInput } from 'react-nati
 import { Icon } from 'react-native-elements';
 import firebase from '../../database/database';
 import Footer from '../Footer/Footer';
+import { BackGround } from '../Home/styledHome';
 
 /* Estilos */
 import {
@@ -16,17 +17,14 @@ import {
     BackImg,
     ContText,
     TituloCard,
-    ContMinf,
-    ContBtnOut,
-    IconContent,
-    ImgMinf,
     ImgSise,
-    TextButtonOp2,
     ContPirnTable,
     TextContTable,
-    LogoSise,
     BotonLog,
-    TextButton
+    TextButton,
+    GridTable,
+    BackInOut,
+    BackInIn
 } from './StyledCohorteList';
 
 let card1 = require('../../src/assets/img/imgCard1.png');
@@ -124,75 +122,74 @@ const ModificarClases = (props) => {
                 </ContText>
             </Options>
             <ContGeneral>
-                <ContListGen>
-                    <ContPirnTable style={s.container}>
-                        {clas.sort((a, b) => parseInt(a.clase) - parseInt(b.clase)).map(c => (
-                            <View key={c.id} style={s.line}>
-                                <TextContTable style={{padding: 5}}>Clase {c.clase}: {c.tema}</TextContTable>
-                                <BotonLog
-                                    onPress={() => setModify({
-                                        view: true,
-                                        id: c.id,
-                                        clase: c.clase,
-                                        tema: c.tema,
-                                        link: c.link,
-                                        modify: true
-                                    })}
-                                >
-                                    <TextButton>Modificar</TextButton>
-                                </BotonLog>
-                            </View>
-                        ))}
+              <ContListGen>
+                <ContPirnTable >
+                  {clas.sort((a, b) => parseInt(a.clase) - parseInt(b.clase)).map(c => (
+                    <GridTable key={c.id} >
+                        <TextContTable style={{padding: 5}}>Clase {c.clase}: {c.tema}</TextContTable>
                         <BotonLog
-                            style={{padding: 5,}}
-                            onPress={modifyNewClass}
+                            onPress={() => setModify({
+                                view: true,
+                                id: c.id,
+                                clase: c.clase,
+                                tema: c.tema,
+                                link: c.link,
+                                modify: true
+                            })}
                         >
-                            <TextButton>Agregar Clase</TextButton>
-                            </BotonLog>
-                    </ContPirnTable>
-                </ContListGen>
+                            <TextButton>Modificar</TextButton>
+                        </BotonLog>
+                    </GridTable>
+                  ))}
+                  <BotonLog
+                      onPress={modifyNewClass}
+                  >
+                    <TextButton>Agregar Clase</TextButton>
+                  </BotonLog>
+                  </ContPirnTable>
+              </ContListGen>
             </ContGeneral>
             {modify.view &&
-                <View style={s.view}>
-                    <View style={s.container_class}>
-                        <ConTitle onPress={() => setModify({ view: false })} style={s.icon}>
-                            <Icon
-                                solid={true}
-                                name="times"
-                                type="font-awesome-5"
-                            />
-                        </ConTitle>
-                        <Text style={s.title}>Clase {modify.clase}</Text>
-                        <View style={s.container_input}>
-                            <Text>Tema:</Text>
-                            <TextInput
-                                value={modify.tema}
-                                placeholder="Tema de la clase"
-                                onChangeText={text => setModify({
-                                    ...modify,
-                                    tema: text
-                                })}
-                                style={s.input}
-                            />
-                        </View>
-                        <View style={s.container_input}>
-                            <Text>Link: </Text>
-                            <TextInput
-                                value={modify.link}
-                                placeholder="Link de la clase"
-                                onChangeText={text => setModify({
-                                    ...modify,
-                                    link: text
-                                })}
-                                style={s.input}
-                            />
-                        </View>
-                        <View style={s.container_btn}>
-                        {modify.modify && <BotonLog><TextButton>Borrar clase</TextButton></BotonLog>}
-                        <BotonLog onPress={modify.modify ? handleConfirm : addClass}><TextButton>Confirmar cambios</TextButton></BotonLog>
-                        </View>
-                    </View>
-                </View>
+              <BackInOut >
+                <BackInIn >
+                  <ConTitle onPress={() => setModify({ view: false })} style={s.icon}>
+                      <Icon
+                          solid={true}
+                          name="times"
+                          type="font-awesome-5"
+                      />
+                  </ConTitle>
+                  <Text style={s.title}>Clase {modify.clase}</Text>
+                  <View style={s.container_input}>
+                      <Text>Tema:</Text>
+                      <TextInput
+                          value={modify.tema}
+                          placeholder="Tema de la clase"
+                          onChangeText={text => setModify({
+                              ...modify,
+                              tema: text
+                          })}
+                          style={s.input}
+                      />
+                  </View>
+                  <View style={s.container_input}>
+                      <Text>Link: </Text>
+                      <TextInput
+                          value={modify.link}
+                          placeholder="Link de la clase"
+                          onChangeText={text => setModify({
+                              ...modify,
+                              link: text
+                          })}
+                          style={s.input}
+                      />
+                  </View>
+                  <View>
+                    {modify.modify && <BotonLog><TextButton>Borrar clase</TextButton></BotonLog>}
+                    <BotonLog onPress={modify.modify ? handleConfirm : addClass}><TextButton>Confirmar cambios</TextButton></BotonLog>
+                  </View>
+                </BackInIn>
+              </BackInOut>
             }
             <Footer navigation={props.navigation}/>
         </Contenedor>
@@ -202,10 +199,6 @@ const ModificarClases = (props) => {
 export default ModificarClases
 
 const s = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "column",
-    },
     line: {
         flex: 1,
         justifyContent: "space-between",
@@ -213,48 +206,20 @@ const s = StyleSheet.create({
         width: "80%",
         padding: 10,
     },
-    view: {
-        position: "absolute",
-        backgroundColor: "rgba(0, 0, 0, .2)",
-        width: "100%",
-        height: "100%",
-        flex: 1,
-        justifyContent: "space-evenly",
-        alignContent: "center",
-        zIndex: 1000
-    },
-    container_class: {
-        width: "85%",
-        maxHeight: "70%",
-        backgroundColor: "white",
-        flex: 1,
-        justifyContent: "space-around",
-        alignContent: "center",
-        margin: "auto",
-        borderRadius: 8,
-        padding: 50,
-    },
     icon: {
         alignSelf: "flex-end",
     },
     title: {
-        padding: 10,
+      marginBottom: 20,
     },
     container_input: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        marginBottom: 30
     },
     input: {
-        width: "50%",
-        maxHeight: 20,
+        width: "100%",
+        marginTop: 10,
         borderBottomColor: "gray",
         borderBottomWidth: 1
-    },
-    container_btn: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-around",
-        width: "100%",
     },
 })

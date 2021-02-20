@@ -89,6 +89,8 @@ export const ContGeneral = styled.View`
 export const ContListGen = styled.ScrollView`
   width: 80%;
   max-width: 80%;
+  margin: 0;
+  padding: 0;
   margin-top: 25%;
 `
 
@@ -108,18 +110,27 @@ export const TextPrin = styled.Text`
 
 /* Contenido table Cohorte */
 
-export const ContPirnTable = styled.TouchableOpacity`
+export const ContPirnTable = styled.View`
   width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+export const GridTable = styled.View`
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 `
 
 export const TextContTable = styled.Text`
   font-family: 'gadugib';
   font-size: 14px;
+  width: 50%;
+  max-width: 50%;
 `
+
 
 /* Botones */
 
@@ -135,6 +146,7 @@ export const BotonLog = styled.TouchableOpacity`
   align-items: center;
   border-radius: 10px;
   min-height: 35px;
+  max-height: 35px;
 `
 
 export const TextButton = styled.Text`
@@ -194,7 +206,7 @@ export const BackInOut = styled.View`
 `
 export const BackInIn = styled.View`
   width: 85%;
-  min-height: 40%;
+  min-height: 50%;
   max-height: 70%;
   background-color: white;
   border-radius: 8px;

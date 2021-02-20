@@ -69,8 +69,8 @@ export const TituloCard = styled.Text `
 export const ContGeneral = styled.View `
   position: absolute;
   top: 20%;
-  width: 100%;
-  height: 80%;
+  width: 80%;
+  height: 65%;
   z-index: 2;
   background-color: #FFF;
   align-items: center;
