@@ -27,7 +27,6 @@ import {
 let card1 = require('../../src/assets/img/imgCard1.png');
 import firebase from '../../database/database';
 
-import Footer from '../Footer';
 
   
 

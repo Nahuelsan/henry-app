@@ -66,13 +66,8 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 23,
-<<<<<<< HEAD
-    marginTop: 400,
-    fontWeight: 'bold'
-=======
     marginTop: 350,
     fontWeight: '700'
->>>>>>> bebf90c479006561db1a33052435d9cf3c6cc86f
   }
 })
 
