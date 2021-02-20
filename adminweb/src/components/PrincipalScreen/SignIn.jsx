@@ -53,7 +53,7 @@ function SignIn({addUser}) {
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('user'))) {
-      window.location.href = 'http://localhost:3000/vistaprincipal';
+      window.location.href = `${process.env.REACT_APP_API_URL}/vistaprincipal`;
     }
   })
 
@@ -130,7 +130,7 @@ function SignIn({addUser}) {
             localStorage.setItem('user', JSON.stringify(found))
             if (found.rol === 'admin' || found.rol === 'instructor') {
               console.log('admin')
-              window.location.href = 'http://localhost:3000/vistaprincipal';
+              window.location.href = `${process.env.REACT_APP_API_URL}/vistaprincipal`;
             }
             else {
               // alert('Eres estudiante por favor dirijite a la app')
@@ -173,7 +173,7 @@ function SignIn({addUser}) {
            
             localStorage.setItem('user',JSON.stringify(found2))
             console.log('admin ')
-            window.location.href = 'http://localhost:3000/vistaprincipal';
+            window.location.href = `${process.env.REACT_APP_API_URL}/vistaprincipal`;
     			}
     			else {
             // throw 'Eres estudiante por favor dirijite a la app'
@@ -207,7 +207,7 @@ function SignIn({addUser}) {
             
             localStorage.setItem('user', JSON.stringify(found2))
             console.log('admin') 
-            window.location.href = 'http://localhost:3000/vistaprincipal';
+            window.location.href = `${process.env.REACT_APP_API_URL}/vistaprincipal`;
           }
           else {
             // throw 'Eres estudiante por favor dirijite a la app'

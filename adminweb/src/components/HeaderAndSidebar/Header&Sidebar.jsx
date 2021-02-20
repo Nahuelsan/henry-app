@@ -16,7 +16,7 @@ const HeaderSidebar = () => {
   const [ cargando, setCargando ] = useState(false)
   useEffect(() => {
     if(!JSON.parse(localStorage.getItem('user'))){
-      window.location.href = 'http://localhost:3000';
+      window.location.href = `${process.env.REACT_APP_API_URL}`;
     }
   })
 

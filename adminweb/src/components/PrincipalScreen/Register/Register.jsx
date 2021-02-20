@@ -128,7 +128,7 @@ function Register() {
               rol: 'admin',
               photo: 'default',
             });
-            window.location.href = 'http://localhost:3000/';
+            window.location.href = `${process.env.REACT_APP_API_URL}`;
           }else{
             setNoInvited(true)
           }
@@ -168,7 +168,7 @@ function Register() {
             rol: 'admin',
             photo: result.additionalUserInfo.profile.picture,
           });
-           window.location.href = 'http://localhost:3000/';
+           window.location.href = `${process.env.REACT_APP_API_URL}`;
         }
       })
       .catch((error) => {
@@ -202,7 +202,7 @@ function Register() {
             rol: 'admin',
             photo: 'default',
           });
-          window.location.href = 'http://localhost:3000/';
+          window.location.href = `${process.env.REACT_APP_API_URL}`;
         }
       })
  
